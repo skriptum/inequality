@@ -1,0 +1,457 @@
+# 1: Explore the DWA ECB
+
+## Imports
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df_dwa <- read_csv("../data/DWA_ECB.csv")
+```
+## Clean
+
+```{r}
+df_dwa <- df_dwa %>%
+  select(
+    KEY,       # identifier (constructed from the other columns)
+    REF_AREA,  #country
+    INSTR_ASSET, #type of asset
+    DWA_GRP, # either decile, housing status, working, quintile
+    UNIT_MEASURE, #percent, euro, gini, ...
+    TIME_PERIOD, #quartal
+    OBS_VALUE, # the relevant number
+    COMMENT_TS, # time series descriptor
+    TITLE,
+    UNIT_MULT, # [6,3,0] = [10^6, 10^3, 10^0]
+    )
+```
+
+relevant columns:
+- INSTR_ASSET: the asset type to research
+- OBS_VALUE: the value of the asset
+- DWA_ECB: the subgroup of the household (decile etc)
+
+## Explain the Variables
+
+```{r}
+sort( unique(df_dwa$INSTR_ASSET) )
+```
+
+Explanation
+
+```
+ADA 	Adjusted debt to asset ratio
+F_NNA Adjusted total assets/liabilities (financial and net non-financial)
+
+BW 	  Business wealth (NUB + F51M)
+F51M 	Unlisted shares and other equity
+NUB 	Non-financial business wealth
+
+F4B 	Loans for house purchasing
+F4X 	Loans other than for house purchasing
+
+F2M 	Deposits
+F3 	  Debt securities
+F511 	Listed shares
+F52 	Investment fund shares/units
+F62 	Life insurance and annuity entitlements
+NUN 	Housing wealth (net)
+
+NWA 	Adjusted wealth (net)
+```
+
+```{r}
+sort(unique(df_dwa$DWA_GRP))
+```
+
+Explanation
+
+```
+_Z  not applicable
+
+B50 Bottom 50% based on net wealth concept
+D1 	Decile 1 based on net wealth concept
+D10 Decile 10 based on net wealth concept
+D2 	Decile 2 based on net wealth concept
+D3 	Decile 3 based on net wealth concept
+D4 	Decile 4 based on net wealth concept
+D5 	Decile 5 based on net wealth concept
+D6 	Decile 6 based on net wealth concept
+D7 	Decile 7 based on net wealth concept
+D8 	Decile 8 based on net wealth concept
+D9 	Decile 9 based on net wealth concept
+
+HSO Housing status - Owner/partial owner
+HST Housing status - Tenant/Free use
+
+T10 Top 10% based on net wealth concept
+T5 	Top 5% based on net wealth concept
+
+WSE Working status - Employee
+WSR Working status - Retired
+WSS Working status - Self-employed
+WSU Working status - Unemployed
+WSX Working status-Undefined and other
+```
+
+rename the Deciles to have leading zero
+```{r}
+df_dwa <- df_dwa %>%
+  mutate(
+    DWA_GRP = case_when(
+      DWA_GRP == "D1" ~ "D01",
+      DWA_GRP == "D2" ~ "D02",
+      DWA_GRP == "D3" ~ "D03",
+      DWA_GRP == "D4" ~ "D04",
+      DWA_GRP == "D5" ~ "D05",
+      DWA_GRP == "D6" ~ "D06",
+      DWA_GRP == "D7" ~ "D07",
+      DWA_GRP == "D8" ~ "D08",
+      DWA_GRP == "D9" ~ "D09",
+      TRUE ~ DWA_GRP
+    )
+  )
+```
+
+Clean the Date column
+```{r}
+df_dwa$TIME_PERIOD <- zoo::as.yearqtr(df_dwa$TIME_PERIOD, format = "%Y-Q%q")
+```
+
+
+## Explore
+
+
+- German HH
+- Decile 1-10
+- Housing net wealth
+
+```{r}
+df_dwa %>%
+  filter(
+    REF_AREA == "DE",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    INSTR_ASSET == "NUN", # housing net wealth
+    TIME_PERIOD == "2024 Q1",
+    UNIT_MEASURE == "EUR",
+  ) %>%
+  ggplot(aes(x = DWA_GRP, y = OBS_VALUE)) +
+  geom_col() 
+```
+
+
+## Analysis
+
+### Growth of Housing Wealth across Decile
+
+- Growth of Housing Wealth: 2011-Q1 to 2021-Q1
+- Germany
+- Decile 1-10
+
+```{r}
+df_dwa %>%
+  filter(
+    REF_AREA == "DE",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    INSTR_ASSET == "NUN", # housing net wealth
+    TIME_PERIOD %in% c("2011 Q1", "2021 Q1"),
+    UNIT_MEASURE == "EUR",
+  ) %>%
+  # calculate the growth
+  select(DWA_GRP, TIME_PERIOD, OBS_VALUE) %>%
+  pivot_wider(
+    names_from = TIME_PERIOD,
+    values_from = OBS_VALUE
+  ) %>%
+  mutate(
+    GROWTH_REL = `2021 Q1` / `2011 Q1` -1,
+    GROWTH_ABS = `2021 Q1` - `2011 Q1`
+  ) %>%
+  ggplot(aes(x = DWA_GRP, y = GROWTH_ABS)) +
+    geom_col() 
+  
+```
+
+- relatively the middle class (D6,D7) profits the most
+- absolutely the top 10% profits the most
+
+### How much of the wealth growth goes to the different deciles? 
+
+```{r}
+df_dwa %>%
+  filter(
+    REF_AREA == "DE",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    INSTR_ASSET == "NUN", # housing net wealth
+    TIME_PERIOD %in% c("2011 Q1", "2021 Q1"),
+    UNIT_MEASURE == "EUR",
+  ) %>%
+  # calculate the growth
+  select(DWA_GRP, TIME_PERIOD, OBS_VALUE) %>%
+  pivot_wider(
+    names_from = TIME_PERIOD,
+    values_from = OBS_VALUE
+  ) %>%
+  mutate(
+    GROWTH_REL = `2021 Q1` / `2011 Q1` -1,
+    GROWTH_ABS = `2021 Q1` - `2011 Q1`
+  ) %>%
+  group_by(DWA_GRP) %>%
+  summarise(
+    GROWTH_ABS = sum(GROWTH_ABS)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    GROWTH_REL = GROWTH_ABS / sum(GROWTH_ABS)
+  ) %>%
+  #make a stacked bar chart
+  ggplot(aes(x = DWA_GRP, y = GROWTH_REL)) +
+    geom_col() 
+```
+- 53% of the rising house prices -> towards the upper 10%
+
+### Over time: aboslute rise and deciles
+
+- german deciles
+- from 2011 till 2022
+- decompose the wealth growth into the different deciles
+
+```{r}
+df_dwa %>% 
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET == "NUN", # housing net wealth
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+  ) %>%
+  select(DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%
+  ggplot(aes(x = TIME_PERIOD, y = OBS_VALUE, fill = DWA_GRP)) +
+    geom_col() +
+    scale_fill_manual(
+      name = "Decile",
+      labels = c(
+        "B50" = "Bottom 50%",
+        "D06" = "Decile 6",
+        "D07" = "Decile 7",
+        "D08" = "Decile 8",
+        "D09" = "Decile 9",
+        "D10" = "Decile 10"
+       ),
+      values = c(
+        "B50" = "#377EB8",
+        "D06" = "#9fe0b9",
+        "D07" = "#38ad68",
+        "D08" = "#2c8751",
+        "D09" = "#1f603a",
+        "D10" = "#9f464f"
+      )
+    ) +
+    labs(
+      title = "Housing Wealth in Germany",
+      x = "Time Period",
+      y = "Absolute Wealth in EUR",
+    ) 
+  
+```
+now this plot in a relative way
+
+```{r}
+df_dwa %>% 
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET == "NUN", # housing net wealth
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  ) %>%
+  select(DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%
+  group_by(TIME_PERIOD) %>%
+  mutate(
+    OBS_VALUE = OBS_VALUE / sum(OBS_VALUE)
+  ) %>%
+  ggplot(aes(x = TIME_PERIOD, y = OBS_VALUE, fill = DWA_GRP)) +
+    geom_col() 
+```
+- not really conclusive
+- analyse the inherent gini
+
+### Housing Gini over time
+
+```{r}
+df_dwa %>%
+  #typical filter for housing in germany
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET == "NUN", # housing net wealth
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    TIME_PERIOD == "2011-Q1"
+  ) %>%
+  select(DWA_GRP, OBS_VALUE) %>%
+  # add pop shares needed for the calculation
+  mutate(
+    POP_SHARE = case_when(
+      DWA_GRP == "B50" ~ 0.5,
+      DWA_GRP == "D06" ~ 0.1,
+      DWA_GRP == "D07" ~ 0.1,
+      DWA_GRP == "D08" ~ 0.1,
+      DWA_GRP == "D09" ~ 0.1,
+      DWA_GRP == "D10" ~ 0.1
+    )
+  ) %>%
+  # sort because the GRPs dont match otherwise
+  arrange(DWA_GRP) %>%
+  # calculate the shares
+  mutate(
+    WEALTH_SHARE = OBS_VALUE / sum(OBS_VALUE)
+  ) %>%
+  # calculate the cumulative shares
+  mutate(
+    CUM_POP_SHARE = cumsum(POP_SHARE),
+    CUM_WEALTH_SHARE = cumsum(WEALTH_SHARE)
+  ) %>%
+  # calculate the gini
+  mutate(
+    GINI = 1 - sum((CUM_POP_SHARE - lag(CUM_POP_SHARE, default = 0)) * (CUM_WEALTH_SHARE + lag(CUM_WEALTH_SHARE, default = 0)))
+  ) 
+  
+```
+
+ 
+```{r}
+df_dwa %>%
+  #typical filter for housing in germany
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET == "NUN", # housing net wealth
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+  ) %>%
+  select(DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%
+  # add pop shares needed for the calculation
+  mutate(
+    POP_SHARE = case_when(
+      DWA_GRP == "B50" ~ 0.5,
+      DWA_GRP == "D06" ~ 0.1,
+      DWA_GRP == "D07" ~ 0.1,
+      DWA_GRP == "D08" ~ 0.1,
+      DWA_GRP == "D09" ~ 0.1,
+      DWA_GRP == "D10" ~ 0.1
+    )
+  ) %>%
+  group_by(TIME_PERIOD) %>%
+  arrange(TIME_PERIOD, DWA_GRP) %>%
+  mutate(
+    WEALTH_SHARE = OBS_VALUE / sum(OBS_VALUE),
+    CUM_POP_SHARE = cumsum(POP_SHARE),
+    CUM_WEALTH_SHARE = cumsum(WEALTH_SHARE)
+  ) %>%
+  summarise(
+    GINI = 1 - sum((CUM_POP_SHARE - lag(CUM_POP_SHARE, default = 0)) * 
+                   (CUM_WEALTH_SHARE + lag(CUM_WEALTH_SHARE, default = 0))),
+    THEIL = sum(POP_SHARE * log(POP_SHARE / WEALTH_SHARE))
+  ) %>%
+  ggplot(aes(x = TIME_PERIOD, y = GINI)) +
+    geom_point() +
+    geom_line()
+```
+
+- Gini is rising over time
+- rising stops in 2022 (housing price rise stops there too)
+
+### Gini for overall Wealth
+
+```{r}
+df_dwa %>%
+  #typical filter for germany
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET == "NWA", # housing net wealth
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+  ) %>%
+  select(DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%
+  # add pop shares needed for the calculation
+  mutate(
+    POP_SHARE = case_when(
+      DWA_GRP == "B50" ~ 0.5,
+      DWA_GRP == "D06" ~ 0.1,
+      DWA_GRP == "D07" ~ 0.1,
+      DWA_GRP == "D08" ~ 0.1,
+      DWA_GRP == "D09" ~ 0.1,
+      DWA_GRP == "D10" ~ 0.1
+    )
+  ) %>%
+  group_by(TIME_PERIOD) %>%
+  arrange(TIME_PERIOD, DWA_GRP) %>%
+  mutate(
+    WEALTH_SHARE = OBS_VALUE / sum(OBS_VALUE),
+    CUM_POP_SHARE = cumsum(POP_SHARE),
+    CUM_WEALTH_SHARE = cumsum(WEALTH_SHARE)
+  ) %>%
+  summarise(
+    GINI = 1 - sum((CUM_POP_SHARE - lag(CUM_POP_SHARE, default = 0)) * 
+                   (CUM_WEALTH_SHARE + lag(CUM_WEALTH_SHARE, default = 0))),
+    THEIL = sum(POP_SHARE * log(POP_SHARE / WEALTH_SHARE))
+  ) %>%
+  ggplot(aes(x = TIME_PERIOD, y = GINI)) +
+    geom_point() +
+    geom_line()
+
+```
+
+### Decile Asset Composition
+
+```{r}
+included_assets <- c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M")
+
+
+
+
+df_dwa %>%
+  #typical filter for germany
+  filter(
+    REF_AREA == "DE",
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    INSTR_ASSET %in% included_assets
+  ) %>%
+  mutate(INSTR_ASSET = factor(INSTR_ASSET, levels = included_assets)) %>%
+  group_by(TIME_PERIOD, DWA_GRP) %>%
+  mutate(total = sum(OBS_VALUE, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(share = OBS_VALUE / total) %>%
+  ggplot(aes(x = TIME_PERIOD, y = share, fill = INSTR_ASSET)) +
+    geom_area(position = "stack") +
+    facet_wrap(~ DWA_GRP, ncol = 3) +
+    # recolor the legend
+    scale_fill_manual(
+      name = "Asset Type",
+      values = c(
+        "F2M" = "#cdb04b",
+        "NUN" = "#377EB8",
+        "F3" = "#9fe0b9",
+        "F511" = "#38ad68",
+        "F52" = "#2c8751",
+        "F62" = "#1f603a",
+        "NUB" = "#9f464f",
+        "F51M" = "#d8a7ab"
+      ),
+      labels = c(
+        "F2M" = "Deposits",
+        "NUN" = "Housing Wealth (Net)",
+        "F3" = "Debt Securities",
+        "F511" = "Listed Shares",
+        "F52" = "Investment Fund Shares/Units",
+        "F62" = "Life Insurance and Annuity Entitlements",
+        "NUB" = "Non-Financial Business Wealth",
+        "F51M" = "Unlisted Shares and Other Equity"
+      )
+    ) +
+    labs(
+      title = "Asset Composition of Deciles in Germany",
+      x = "Time Period",
+      y = "Share of Total Wealth",
+      caption = "Source: ECB DWA"
+    ) 
+```

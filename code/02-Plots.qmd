@@ -1,0 +1,20 @@
+---
+title: "02-Plots"
+---
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+
+df <- read_csv("../data/DWA_ECB_clean.csv")
+```
+
+### Asset Composition by Decile
+
+### Tenant - Owner Wealth Ratio
+
+### Growth
+
+#### Relative
+
+#### Absolute
