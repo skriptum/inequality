@@ -2,6 +2,7 @@
 title: "Exposé"
 author: "Marten Walk"
 bibliography: "../bachelor.bib"
+link-citations: true
 format: pdf
 ---
 
@@ -29,68 +30,49 @@ who profits from the gains of price increase?
 
 ## Approach
 
-- start with Case Example Germany
-  - biggest european economy
-  - renter country
-  - sharp increase in housing price in last 10 years
-  - analyze the reaction of (housing) wealth inequality to price increases, possible methods:
-    - Local Projections 
-    - Gini Decomposition
+I will approach my topic using a two-step process. First, I will focus on the case example of Germany. As the largest European economy, Germany is a valuable target for analyzing the effects of the sharp increase in housing prices over the last ten years, especially given its higher percentage of renters compared to other European countries.
 
-- move on to European analysis
-  - different distributions of housing wealth among countries
-  - different price trajectories among countries
-    - Spain = flatline
-    - Germany = strong increase
+The methods I will use here depend on the suitability of the data. A possible idea would be Gini Decomposition Techniques to analyze the role of housing as an inequality driver, e.g the method from @shorrocksInequalityDecompositionPopulation1984 or @lermanIncomeInequalityEffects1985. Another possible avenue would be Recentered Influence Functions (see @firpoDecomposingWageDistributions2018). 
 
-  - build a panel regression to estimate differential effects
-    - control with macro data etc.
+Next, I will move on from this specific example to the European context. Across Europe, there are vast differences in homeownership rates, housing wealth distribution, and price trajectories since the financial crisis. For example, Spain has flatlining prices, while the Netherlands and Germany have experienced strong price increases.
 
-  - = show that a uniform price increase = different effects among countries
+To account for these differences, a panel regression that analyzes housing as a driver of wealth inequality, while controlling for various influencing factors is probably the best approach.
 
-- Data
-  - Distributional Wealth Accounts from the ECB @engelDevelopingReconciledQuarterly2022
-  - detailed asset compositions of deciles in all european countries 
-  - quarterly 2011-2024 (post GFC to covid dip)
-  - other: range of macro data from Eurostat (home ownership rates, housing prices)
+The main distributional data for these analyses will be the Distributional Wealth Accounts (DWAs), an experimental dataset created by the ECB in 2022. This dataset provides detailed asset distributions among wealth deciles on a quarterly basis (see the detailed method @engelDevelopingReconciledQuarterly2022). The data range is from 2011 to 2024, essentially covering most of the effects of the post-financial crisis and the Covid shock. Additional macro data for different European countries will come from Eurostat.
 
 
 
 ## Literature
 
-wealth inequality = more relevant topic in the last years
+Over the last decade, a broad range of literature has focused on wealth inequality, sparked by @pikettyCapitalTwentyFirstCentury2014. Resurfacing as a topic in public debate, researchers have attempted to create top wealth series in many countries, including Germany (e.g., @albersDistributionWealthGermany2020).
 
-- piketty 2014, WID.world
-- @albersDistributionWealthGermany2020 for germany
+Different researchers have approached housing as a driver of wealth inequality in Europe. For example, @biewenShapeWealthDistribution2025 focuses on differences among European countries and the role of homeownership. @mathaHouseholdWealthEuro2017 focuses on housing wealth and intergenerational transfers as drivers of inequality, analyzing the role of housing prices.
 
+Specific Country Examples that highlight the role of housing are presented by @martinez-toledanoHousePriceCycles for Spain, who researches the reactions of the upper decile to housing cycles. For Germany, @bartelsBedeutungMieteinkommenUnd2020's work focuses more on the role of rental income, and they subregionalize their data.
 
-
-housing as driver in Europe:
-
-- @biewenShapeWealthDistribution2025: general description of wealth inequality among european countries
-- @mathaHouseholdWealthEuro2017: analyses the role of housing wealth and intergenerational transfers
-
-case examples:
-
-- Spain: @martinez-toledanoHousePriceCycles housing prices and inequality
-- Germany: @bartelsBedeutungMieteinkommenUnd2020 focusing on role of rental income and subregional analysis in germany
+In summary, there is a broad range of literature on my topic, but not the specific analysis I want to create. Additionally, the diverse methods used in these papers allow me to narrow down the most applicable ones during my research process, rather than limiting me beforehand.
 
 
 
 ## Expected Results
 
-countries with rising prices and high ownership, e.g. Netherlands = no contributing effect of housing inequality
+I expect to see different results regarding the role of housing and housing prices in contributing to inequality across Europe. Presumably, countries with rising prices and high ownership, like the Netherlands, show no contribution of housing inequality to wealth inequality. Conversely, countries with rising prices and low ownership, such as Germany, will probably exhibit this effect. These differences depend on policy variations, homeownership rates, migration patterns, and other variables.
 
-countries with rising prices and low ownership, e.g. Germany = contributing effect
+I provide two descriptive graphics created from the dataset, that describe the presented dynamics. @fig-ratio shows the diverging tenant-to-owner wealth ratios in European countries. It is already visible that countries with lower housing price growth post-financial crisis (e.g., Italy and Spain) have flatter curves than countries with increasing prices (e.g., Germany). @fig-assets shows the wealth composition of German households, with the middle classes (deciles 6–8) clearly having housing as their main asset. This differentiates them from the top decile and the bottom 50%. 
 
-countries with stagnating prices and high ownership = no contributing effect of housing, but other assets have stronger effect
 
-differences depending on policy variations, migration, lags, ...
 
-First Graphics:
+::: {#fig-descriptive layout-ncol=2}
 
-- Tenant to Owner Wealth Ratios Europe
-- Relative Returns of Deciles: Germany
+<!--!
+[Tenant-Owner-Wealth Ratio](){#fig-ratio}
+
+![Wealth Composition by Assets (Germany) ](){#fig-assets}
+-->
+
+:::
+
+{{< pagebreak >}}
 
 ## Preliminary Table of Contents
 
@@ -101,10 +83,10 @@ First Graphics:
 3. Data
 4. Case Example: Germany
    - Asset Composition of Deciles
-   - Impulse Response Estimation with LP / RIF / Decomposition
+   - Impulse Response Estimation with LP / RIF / Decomposition Techniques
 5. European Analysis
    - Differential Distributions & Prices
    - Panel Regression
 6. Conclusion
 
-## References
+## Bibliography
