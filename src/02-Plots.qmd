@@ -5,16 +5,172 @@ title: "02-Plots"
 ```{r}
 # Load necessary libraries
 library(tidyverse)
+library(ggthemes)
 
 df <- read_csv("../data/DWA_ECB_clean.csv")
 ```
 
 ### Asset Composition by Decile
 
+```{r}
+included_assets <- c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M")
+
+df_asset <- df %>%
+  #typical filter for germany
+  filter(
+    REF_AREA == "DE",
+    UNIT_MEASURE == "EUR_R_POP",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    INSTR_ASSET %in% included_assets
+  ) %>%
+  mutate(INSTR_ASSET = factor(INSTR_ASSET, levels = included_assets)) %>%
+  group_by(TIME_PERIOD, DWA_GRP) %>%
+  mutate(total = sum(OBS_VALUE, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(share = OBS_VALUE / total) 
+
+p1 <- df_asset %>%
+  ggplot(aes(x = TIME_PERIOD, y = share, fill = INSTR_ASSET)) +
+    geom_area(position = "stack") +
+    facet_wrap(~ DWA_GRP, ncol = 3) +
+    # recolor the legend
+    scale_fill_manual(
+      name = "",
+      values = c(
+        "F2M" = "#cdb04b",
+        "NUN" = "#377EB8",
+        "F3" = "#9fe0b9",
+        "F511" = "#38ad68",
+        "F52" = "#2c8751",
+        "F62" = "#1f603a",
+        "NUB" = "#9f464f",
+        "F51M" = "#d8a7ab"
+      ),
+      labels = c(
+        "F2M" = "Deposits",
+        "NUN" = "Housing Wealth (Net)",
+        "F3" = "Debt Securities",
+        "F511" = "Listed Shares",
+        "F52" = "Investment Fund Shares",
+        "F62" = "Life Insurance",
+        "NUB" = "Non-Financial Business Wealth",
+        "F51M" = "Unlisted Shares"
+      )
+    ) +
+    labs(
+      #title = "Asset Composition of Deciles in Germany",
+      x = "Time Period",
+      y = "Share of Total Wealth",
+      ) +
+    theme(legend.position = "bottom") +
+    theme_tufte() +
+    theme(
+      panel.border = element_rect(fill = NA, color = "black"),
+      legend.title = element_blank(),
+      legend.text = element_text(size = 8)
+    )
+p1
+```
+
+```{r}
+ggsave(p1, filename = "../output/asset_composition_deciles.png", width = 8, height = 4, dpi = 300)
+```
+
+
 ### Tenant - Owner Wealth Ratio
+
+```{r}
+df_ratio <- df %>%
+  filter(
+    INSTR_ASSET == "NWA",
+    DWA_GRP %in% c("HSO", "HST"),
+    UNIT_MEASURE == "EUR_R_POP"
+  ) %>%
+  select(REF_AREA, DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%
+  pivot_wider(
+    names_from = DWA_GRP,
+    values_from = OBS_VALUE
+  ) %>%
+  mutate(
+    ratio = HSO / HST
+  ) 
+
+
+p2 <- df_ratio %>%
+  filter(REF_AREA %in% c("DE", "BE", "IT","NL", "AT", "ES", "FR")) %>%
+  ggplot(aes(x = TIME_PERIOD, y = ratio, color = REF_AREA)) +
+    geom_line(linewidth=0.8) +
+    scale_color_brewer(palette = "Set2")+  
+    labs(
+      #title = "Tenant - Owner Wealth Ratio in Selected Euro Area Countries",
+      x = "Time Period",
+      y = "Ratio",
+      color = "Country"
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.border = element_rect(fill = NA, color = "black"),
+      ) 
+p2
+```
+
+```{r}
+ggsave(p2, filename = "../output/tenant_owner_wealth_ratio.png", width = 6, height = 5, dpi = 300)
+```
 
 ### Growth
 
 #### Relative
 
 #### Absolute
+
+```{r}
+p3 <- df %>% 
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET == "NUN", # housing net wealth
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+  ) %>%
+  select(DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%
+  ggplot(aes(x = TIME_PERIOD, y = OBS_VALUE, fill = DWA_GRP)) +
+    geom_col() +
+    scale_fill_manual(
+      name ="",
+      labels = c(
+        "B50" = "Bottom 50%",
+        "D06" = "Decile 6",
+        "D07" = "Decile 7",
+        "D08" = "Decile 8",
+        "D09" = "Decile 9",
+        "D10" = "Decile 10"
+       ),
+      values = c(
+        "B50" = "#377EB8",
+        "D06" = "#9fe0b9",
+        "D07" = "#38ad68",
+        "D08" = "#2c8751",
+        "D09" = "#1f603a",
+        "D10" = "#9f464f"
+      )
+    ) +
+    labs(
+      #title = "Housing Wealth in Germany",
+      x = "Time Period",
+      y = "Absolute Wealth in EUR",
+    ) +
+    scale_y_continuous(labels = scales::label_number(scale = 1e-6, suffix = "T")) +
+    theme_tufte()+
+    theme(
+      legend.position = "bottom",
+      panel.border = element_rect(fill = NA, color = "black"),
+      legend.title = element_blank()
+    )
+p3
+```
+```{r}
+ggsave(p3, filename = "../output/housing_wealth_absolute.png", width = 6, height = 5, dpi = 300)
+```
+
