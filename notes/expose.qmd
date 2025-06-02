@@ -3,44 +3,30 @@ title: "Exposé"
 author: "Marten Walk"
 bibliography: "../bachelor.bib"
 link-citations: true
-format: pdf
+format: 
+  pdf:
+    papersize: a4
 ---
 
 
 
 Research Question: **Cementing the Divide? Housing and Wealth Inequality across Europe**
 
-
-
 ## Relevance of Topic
 
-- Piketty 2014 - wealth inequality back in debate
-- Missing affordability of housing (especially for first buyers)
-- rising prices across Europe after financial crisis
+In my bachelor's thesis, I plan to explore the potential link between inequality and housing, particularly focusing on gains in housing wealth over the past 15 years. Rising house prices  after the financial crisis brought incertainty for some parts of the population and gains for others.
 
-
-
-who profits from the gains of price increase?
-
-- shifts in the last 10 years
-- Composition of Housing Asset = relevant for the inequality effect
-- countries with broad ownership = react differently than with a lot of tenants
-
-
+I want to find out who profited from this? Is it the middle classes with housing as their main asset or is it the upper parts of the distribution who often own housing as an investment vehicle? And how does inequality change when the prices rise?
 
 ## Approach
 
-I will approach my topic using a two-step process. First, I will focus on the case example of Germany. As the largest European economy, Germany is a valuable target for analyzing the effects of the sharp increase in housing prices over the last ten years, especially given its higher percentage of renters compared to other European countries.
+I want to approach my topic using a two-step process. First, I will focus on the case example of Germany. As the largest European economy, Germany is a valuable target for analyzing the effects of the sharp increase in housing prices over the last ten years. Germany's lower rate of homeownership and more concentrated housing wealth make it a particularly interesting case study.
 
-The methods I will use here depend on the suitability of the data. A possible idea would be Gini Decomposition Techniques to analyze the role of housing as an inequality driver, e.g the method from @shorrocksInequalityDecompositionPopulation1984 or @lermanIncomeInequalityEffects1985. Another possible avenue would be Recentered Influence Functions (see @firpoDecomposingWageDistributions2018). 
+A more in-depth look at the data will reveal the methods I use. A first idea would be Gini Decomposition Techniques to analyze the role of housing as an inequality driver, e.g the method from @shorrocksInequalityDecompositionPopulation1984 or @lermanIncomeInequalityEffects1985. Another avenue would be Recentered Influence Functions (see @firpoDecomposingWageDistributions2018). 
 
-Next, I will move on from this specific example to the European context. Across Europe, there are vast differences in homeownership rates, housing wealth distribution, and price trajectories since the financial crisis. For example, Spain has flatlining prices, while the Netherlands and Germany have experienced strong price increases.
+Next, I will move on from the german example to the European context. Across Europe, there are vast differences in homeownership rates, housing wealth distribution, and price trajectories since the financial crisis. For example, Spain has flatlining prices, while the Netherlands and Germany have experienced strong price increases. To account for these differences I will use a panel regression that analyzes housing as a driver of wealth inequality.
 
-To account for these differences, a panel regression that analyzes housing as a driver of wealth inequality, while controlling for various influencing factors is probably the best approach.
-
-The main distributional data for these analyses will be the Distributional Wealth Accounts (DWAs), an experimental dataset created by the ECB in 2022. This dataset provides detailed asset distributions among wealth deciles on a quarterly basis (see the detailed method @engelDevelopingReconciledQuarterly2022). The data range is from 2011 to 2024, essentially covering most of the effects of the post-financial crisis and the Covid shock. Additional macro data for different European countries will come from Eurostat.
-
-
+The main data for these analyses will be the Distributional Wealth Accounts (DWAs), an experimental dataset created by the ECB in 2022. This dataset provides detailed asset distributions among wealth deciles on a quarterly basis (see the detailed method @engelDevelopingReconciledQuarterly2022). The data range is from 2011 to 2024, essentially covering most of the effects of the post-financial crisis and the Covid shock. Additional macro data for different European countries will come from Eurostat.
 
 ## Literature
 
@@ -48,29 +34,27 @@ Over the last decade, a broad range of literature has focused on wealth inequali
 
 Different researchers have approached housing as a driver of wealth inequality in Europe. For example, @biewenShapeWealthDistribution2025 focuses on differences among European countries and the role of homeownership. @mathaHouseholdWealthEuro2017 focuses on housing wealth and intergenerational transfers as drivers of inequality, analyzing the role of housing prices.
 
-Specific Country Examples that highlight the role of housing are presented by @martinez-toledanoHousePriceCycles for Spain, who researches the reactions of the upper decile to housing cycles. For Germany, @bartelsBedeutungMieteinkommenUnd2020's work focuses more on the role of rental income, and they subregionalize their data.
+Specific Country Examples that highlight the role of housing are presented by @martinez-toledanoHousePriceCycles2022 for Spain, who researches the reactions of the upper decile to housing cycles. For Germany, @bartelsBedeutungMieteinkommenUnd2020's work focuses more on the role of rental income, and they subregionalize their data.
 
 In summary, there is a broad range of literature on my topic, but not the specific analysis I want to create. Additionally, the diverse methods used in these papers allow me to narrow down the most applicable ones during my research process, rather than limiting me beforehand.
 
-
-
 ## Expected Results
 
-I expect to see different results regarding the role of housing and housing prices in contributing to inequality across Europe. Presumably, countries with rising prices and high ownership, like the Netherlands, show no contribution of housing inequality to wealth inequality. Conversely, countries with rising prices and low ownership, such as Germany, will probably exhibit this effect. These differences depend on policy variations, homeownership rates, migration patterns, and other variables.
+I expect to see different results regarding the role of housing and housing prices in contributing to inequality across Europe. Presumably, countries with rising prices and high ownership, like the Netherlands, show no contribution of housing inequality to wealth inequality. Conversely, countries with rising prices and low ownership, such as Germany, will probably exhibit this effect. 
 
-I provide two descriptive graphics created from the dataset, that describe the presented dynamics. @fig-ratio shows the diverging tenant-to-owner wealth ratios in European countries. It is already visible that countries with lower housing price growth post-financial crisis (e.g., Italy and Spain) have flatter curves than countries with increasing prices (e.g., Germany). @fig-assets shows the wealth composition of German households, with the middle classes (deciles 6–8) clearly having housing as their main asset. This differentiates them from the top decile and the bottom 50%. 
+I provide three descriptive graphics created from the dataset. @fig-ratio shows the diverging tenant-to-owner wealth ratios in European countries. It is already visible that countries with lower housing price growth post-financial crisis (e.g., Italy and Spain) have flatter curves than countries with increasing prices, where the Net Wealth of Owners grew much faster than that of Owners.
 
+@fig-development presents the Development of Housing Wealth in Germany, split up by the different deciles, clearly showing the overwhelming majority of it being owned by the upper 10%. @fig-assets decomposes the wealth of German households, with the middle classes (deciles 6–8) clearly having housing as their main asset. This differentiates them from the top decile and the bottom 50%.
 
+::: {layout-ncol=2}
 
-::: {#fig-descriptive layout-ncol=2}
+![Tenant-Owner-Wealth Ratios](../output/tenant_owner_wealth_ratio.png){#fig-ratio}
 
-<!--!
-[Tenant-Owner-Wealth Ratio](){#fig-ratio}
-
-![Wealth Composition by Assets (Germany) ](){#fig-assets}
--->
+![Housing Wealth in Germany](../output/housing_wealth_absolute.png){#fig-development}
 
 :::
+
+![Asset Composition by Deciles (Germany)](../output/asset_composition_deciles.png){#fig-assets}
 
 {{< pagebreak >}}
 
@@ -83,10 +67,10 @@ I provide two descriptive graphics created from the dataset, that describe the p
 3. Data
 4. Case Example: Germany
    - Asset Composition of Deciles
-   - Impulse Response Estimation with LP / RIF / Decomposition Techniques
+   - Housing ~ Inequality Transmission with Decomposition Techniques
 5. European Analysis
    - Differential Distributions & Prices
-   - Panel Regression
+   - Panel Regression Results
 6. Conclusion
 
 ## Bibliography
