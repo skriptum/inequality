@@ -4,3 +4,4 @@
 .DS_Store
 data/DWA_ECB.csv
 data/DWA_ECB_clean.csv
+./docs
