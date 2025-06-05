@@ -1,0 +1,181 @@
+# German Plots
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(ggthemes)
+
+df_de <- read_csv("../data/DWA_DE.csv")
+df <- read_csv("../data/DWA_ECB_clean.csv")
+```
+
+
+### Asset Composition by Decile
+
+```{r}
+included_assets <- c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M")
+
+df_asset <- df_dwa %>%
+  #typical filter for germany
+  filter(
+    REF_AREA == "DE",
+    UNIT_MEASURE == "EUR_R_POP",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    INSTR_ASSET %in% included_assets
+  ) %>%
+  mutate(INSTR_ASSET = factor(INSTR_ASSET, levels = included_assets)) %>%
+  group_by(TIME_PERIOD, DWA_GRP) %>%
+  mutate(total = sum(OBS_VALUE, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(share = OBS_VALUE / total) 
+
+p1 <- df_asset %>%
+  ggplot(aes(x = TIME_PERIOD, y = share, fill = INSTR_ASSET)) +
+    geom_area(position = "stack") +
+    facet_wrap(~ DWA_GRP, ncol = 3)
+p1
+```
+
+Update the Plot Styling and save it
+```{r}
+p1 + +
+    # recolor the legend
+    scale_fill_manual(
+      name = "",
+      values = c(
+        "F2M" = "#cdb04b",
+        "NUN" = "#377EB8",
+        "F3" = "#9fe0b9",
+        "F511" = "#38ad68",
+        "F52" = "#2c8751",
+        "F62" = "#1f603a",
+        "NUB" = "#9f464f",
+        "F51M" = "#d8a7ab"
+      ),
+      labels = c(
+        "F2M" = "Deposits",
+        "NUN" = "Housing Wealth (Net)",
+        "F3" = "Debt Securities",
+        "F511" = "Listed Shares",
+        "F52" = "Investment Fund Shares",
+        "F62" = "Life Insurance",
+        "NUB" = "Non-Financial Business Wealth",
+        "F51M" = "Unlisted Shares"
+      )
+    ) +
+    labs(
+      #title = "Asset Composition of Deciles in Germany",
+      x = "Time Period",
+      y = "Share of Total Wealth",
+      ) +
+    theme(legend.position = "bottom") +
+    theme_tufte() +
+    theme(
+      panel.border = element_rect(fill = NA, color = "black"),
+      legend.title = element_blank(),
+      legend.text = element_text(size = 8)
+    )
+ggsave(p1, filename = "../output/GER_asset_composition_deciles.png", width = 8, height = 4, dpi = 300)
+```
+
+### Housing Wealth Growth absolute by Deciles
+
+```{r}
+p2 <- df_de %>% 
+  select(DWA_GRP, HW, TIME_PERIOD) %>%
+  ggplot(aes(x = TIME_PERIOD, y = HW, fill = DWA_GRP)) +
+    geom_col() 
+p2
+```
+Pretty the Plot up and save it
+```{r}
+p2 <- p2 +
+    scale_fill_manual(
+      name ="",
+      labels = c(
+        "B50" = "Bottom 50%",
+        "D06" = "Decile 6",
+        "D07" = "Decile 7",
+        "D08" = "Decile 8",
+        "D09" = "Decile 9",
+        "D10" = "Decile 10"
+       ),
+      values = c(
+        "B50" = "#377EB8",
+        "D06" = "#9fe0b9",
+        "D07" = "#38ad68",
+        "D08" = "#2c8751",
+        "D09" = "#1f603a",
+        "D10" = "#9f464f"
+      )
+    ) +
+    labs(
+      #title = "Housing Wealth in Germany",
+      x = "Time Period",
+      y = "Absolute Wealth in EUR",
+    ) +
+    scale_y_continuous(labels = scales::label_number(scale = 1e-6, suffix = "T")) +
+    theme_tufte()+
+    theme(
+      legend.position = "bottom",
+      panel.border = element_rect(fill = NA, color = "black"),
+      legend.title = element_blank()
+    )
+ggsave(p2, filename = "../output/GER_housing_wealth_absolute.png", width = 6, height = 5, dpi = 300)
+```
+
+### Housing Wealth Growth Relative by Decile
+
+```{r}
+# y-o-y growth rate per decile for housing wealth
+df_growth <- df_de %>%
+  filter(
+    UNIT_MEASURE == "EUR_R_POP", 
+    str_detect(TIME_PERIOD, "01-01"),
+    ) %>%
+  select(DWA_GRP, HW, TIME_PERIOD) %>%
+  #calculate middle class
+  mutate(DWA_GRP = case_when(
+    DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "D06_09",
+    TRUE ~ DWA_GRP
+  )) %>%
+  group_by(DWA_GRP, TIME_PERIOD) %>%
+  summarise(HW = sum(HW, na.rm = TRUE), .groups = "drop") %>%
+  #group and calculate year-on-year growth rate
+  group_by(DWA_GRP) %>%
+  arrange(TIME_PERIOD) %>%
+  mutate(HW_growth = (HW - lag(HW)) / lag(HW)) %>%
+  ungroup()
+
+df_growth %>%
+  ggplot(aes(x = TIME_PERIOD, y = HW_growth)) +
+    geom_line(aes(color = DWA_GRP), linewidth = 0.8)
+```
+- potentially limit to 2012-2022
+
+### Ownership Rate among Deciles
+
+```{r}
+df_owner <- read_csv("../data/ownership.csv")
+```
+data taken from monthly bericht Bundesbank on PHF (2013,2023)
+
+MR = Main Residence = own house
+OR = other residence = own to rent out etc
+```{r}
+df_owner %>%
+  select(Jahr, Quantile, MR_prevalence, OR_prevalence) %>%
+  #plot ownership rate by quantile
+  ggplot(aes(x = Quantile)) +
+    geom_col(aes(y = MR_prevalence, fill = "MR"), position = "dodge") +
+    geom_col(aes(y = OR_prevalence, fill = "OR"), position = "dodge") 
+
+df_owner %>%
+  select(Jahr, Quantile, MR_prevalence, OR_prevalence) %>%
+  pivot_longer(cols = c(MR_prevalence, OR_prevalence),
+               names_to = "type", values_to = "prevalence") %>%
+  ggplot(aes(x = Quantile, y = prevalence, group = interaction(Jahr, type), color = Jahr, linetype = type)) +
+    geom_line(size = 1) +
+    labs(y = "Ownership rate (%)", color = "Jahr", linetype = "Typ") 
+```
+

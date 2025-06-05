@@ -6,26 +6,34 @@ library(tidyverse)
 
 df <- read_csv("../data/DWA_ECB_clean.csv")
 df_gini <- read_csv("../data/gini_indices.csv")
+df_de <- read_csv("../data/DWA_DE.csv")
 
 # put it into the right order
-df_wide <- df %>%
+# df_wide <- df %>%
+#   filter(
+#     REF_AREA == "DE",
+#     UNIT_MEASURE == "EUR_R_POP",
+#     TIME_PERIOD == "2011-01-01",
+#     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+#     INSTR_ASSET != "F_NNA"
+#     ) %>%
+#   select(
+#     OBS_VALUE, 
+#     INSTR_ASSET, 
+#     TIME_PERIOD,
+#     DWA_GRP,
+#   ) %>% 
+#   pivot_wider(
+#     names_from = INSTR_ASSET,
+#     values_from = OBS_VALUE
+#   ) %>%
+#   arrange(DWA_GRP)
+
+df_wide <-  df_de %>%
   filter(
-    REF_AREA == "DE",
-    UNIT_MEASURE == "EUR",
     TIME_PERIOD == "2011-01-01",
-    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
-    INSTR_ASSET != "F_NNA"
+    UNIT_MEASURE == "EUR_R_POP",
     ) %>%
-  select(
-    OBS_VALUE, 
-    INSTR_ASSET, 
-    TIME_PERIOD,
-    DWA_GRP,
-  ) %>% 
-  pivot_wider(
-    names_from = INSTR_ASSET,
-    values_from = OBS_VALUE
-  ) %>%
   arrange(DWA_GRP)
 
 # F Rank
@@ -39,19 +47,27 @@ df_wide <- df_wide %>%
     DWA_GRP == "D10" ~ 0.95
   ))
 
-# compute asset shares
-df_wide <- df_wide %>%
+# # compute asset shares
+# df_wide <- df_wide %>%
+#   mutate(
+#     share_F2M = F2M / NWA,
+#     share_F3 = F3 / NWA,
+#     share_F4B = F4B / NWA,
+#     share_F4X = F4X / NWA,
+#     share_F511 = F511 / NWA,
+#     share_F51M = F51M / NWA,
+#     share_F52 = F52 / NWA,
+#     share_F62 = F62 / NWA,
+#     share_NUB = NUB / NWA,
+#     share_NUN = NUN / NWA
+#   )
+
+df_wide %>%
   mutate(
-    share_F2M = F2M / NWA,
-    share_F3 = F3 / NWA,
-    share_F4B = F4B / NWA,
-    share_F4X = F4X / NWA,
-    share_F511 = F511 / NWA,
-    share_F51M = F51M / NWA,
-    share_F52 = F52 / NWA,
-    share_F62 = F62 / NWA,
-    share_NUB = NUB / NWA,
-    share_NUN = NUN / NWA
+    share_BW = BW / TW,
+    share_FW = FW / TW,
+    share_DEP = DEP / TW,
+    share_HW = HW / TW
   )
 
 # combine with Gini Data 

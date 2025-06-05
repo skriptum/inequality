@@ -3,6 +3,7 @@
 library(tidyverse)
 library(zoo)
 
+setwd("./src")
 df <- read_csv("../data/DWA_ECB.csv")
 
 ## Clean 
@@ -96,3 +97,33 @@ df$TIME_PERIOD <- as.Date(as.yearqtr(df$TIME_PERIOD, format = "%Y-Q%q"), frac = 
 ## Save
 
 write_csv(df, "../data/DWA_ECB_clean.csv")
+
+## Generate a clean german data
+
+df_germany <- df %>%
+  filter(
+    REF_AREA == "DE",
+    INSTR_ASSET %in% c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M", "NWA", "F4X", "F4B"),
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+    ) %>%
+  select(-c(REF_AREA,KEY,TITLE, COMMENT_TS)) %>%
+  pivot_wider(
+    names_from = INSTR_ASSET,
+    values_from = OBS_VALUE
+  ) %>%
+  mutate(
+    BW = NUB + F51M, # business wealth
+    FW = F3 + F511 + F52 + F62, # financial wealth
+    DEP = F2M, # deposits
+    HW = NUN, # housing wealth
+    HW_NET = NUN + F4B, # housing net wealth
+    TW = BW + FW + HW + DEP,
+    DEBT = F4X + F4B, # total debt
+    TW_NET = BW + FW + DEP + HW + DEBT, # total wealth net
+  ) %>%
+  select(
+    TIME_PERIOD, DWA_GRP, UNIT_MEASURE,
+    BW, FW, DEP, HW, HW_NET, TW, DEBT, TW_NET
+  )
+
+write_csv(df_germany, "../data/DWA_DE.csv")
