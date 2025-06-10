@@ -301,4 +301,52 @@ ggsave(p4, filename = "../output/asset_distribution_over_time.png", width = 8, h
 p4
 ```
 
+## Ownership
 
+```{r}
+ownership <- read_csv("../data/ownership.csv")
+```
+```{r}
+#plot Europe Differences between years
+df_owner %>%
+  filter(
+    DWA_GRP != "ALL", # drop the average group
+    REF_AREA %in% c("DE", "BE", "NL", "AT", "ES", "FR", "IT","I9")
+  ) %>%
+  ggplot(aes(x = DWA_GRP, y = OWNER, group=JAHR)) +
+    geom_line(aes(color = as.factor(JAHR)), size = 1) +
+    facet_wrap(~REF_AREA, scales = "free_x", ncol=4)
+```
+
+- relevant = I9 = Euro Area = almost no change
+- different kinks, compare (AT,DE,FR) to (ES,IT,NL)
+
+### House Prices
+
+```{r}
+df_house <- read_csv("../data/House_Prices.csv")
+```
+
+
+```{r}
+#quick plot
+df_house %>%
+  filter(
+    # REF_AREA %in% c("I9", "DE", "ES", "FR", "IT", "NL", "AT", "BE", "EE", "HU"), #selected countries + Euro Area
+    REF_AREA %in% c("AT", "BE", "DE", "FR", "LU", "NL", "FI", "IE"), # northern europe
+    # REF_AREA %in% c("ES", "IT", "PT", "GR", "MT", "CY"), # southern europe
+    # REF_AREA %in% c("EE", "HU", "HR", "LT", "LV", "SI", "SK"), # eastern europe
+    TIME_PERIOD >= "2008-01-01"
+  ) %>%
+  ggplot(aes(x = TIME_PERIOD, y = HP_R_N, color = REF_AREA)) +
+    geom_line() +
+    geom_hline(yintercept = 100, linetype = "dashed", color = "black")  # 2010 = 100
+```
+trajectories: 
+- IT, ES, = lower
+- FR, BE = no change
+- DE, AT, EE = increase (EE completely bonkers)
+- HU, NL = down till 2015, increase after
+- overall Euro ARea = increase 
+
+maybe split up after euroepan areas (south, north, east?)

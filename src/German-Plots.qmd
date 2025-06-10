@@ -156,7 +156,7 @@ df_growth %>%
 ### Ownership Rate among Deciles
 
 ```{r}
-df_owner <- read_csv("../data/ownership.csv")
+df_owner <- read_csv("../data/ownership_DE.csv")
 ```
 data taken from monthly bericht Bundesbank on PHF (2013,2023)
 
