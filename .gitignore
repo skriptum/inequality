@@ -2,7 +2,7 @@
 *.Rproj
 .Rproj.user
 .DS_Store
-data/DWA_ECB.csv
+data/raw/DWA_ECB.csv
 data/DWA_ECB_clean.csv
-/docs
 /expose
+bachelor.bib 
