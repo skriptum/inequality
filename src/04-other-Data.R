@@ -29,7 +29,7 @@ for (country in unique_countries) {
       original_value,
     ) %>%
     filter(
-      original_period >= "2010-01-01",
+      original_period >= "2000-01-01",
     ) %>%
     reframe(
       REF_AREA = REF_AREA,
@@ -50,14 +50,39 @@ df <- df %>%
 # Save the data
 write_csv(df, "../data/House_Prices.csv")
 
-#quick plot
-df %>%
-  filter(
-    REF_AREA %in% c("I9", "DE", "ES", "FR", "IT", "NL", "PT", "BE"), # Euro Area and selected countries
-    TIME_PERIOD >= "2010-01-01"
-  ) %>%
-  ggplot(aes(x = TIME_PERIOD, y = HP_R_N, color = REF_AREA)) +
-  geom_line()
-
 
 ## Ownership Rates 
+df_owner <- readxl::read_excel("../data/raw/ownership.xlsx")
+
+# Clean the data
+df_owner <- df_owner %>%
+  pivot_longer(
+    cols = -c("Decile", "JAHR"),
+    names_to = "REF_AREA",
+    values_to = "OWNER"
+  ) %>%
+  mutate(
+    DWA_GRP = Decile # rename
+  ) %>%
+  select(-Decile) 
+
+# create an average of homeownership across distribution
+df_owner <- df_owner %>%
+  group_by(JAHR, REF_AREA) %>%
+  summarise(
+    OWNER = weighted.mean(OWNER, w = c(0.2,0.2,0.2,0.2,0.1,0.1), na.rm = TRUE), # weighted mean
+    .groups = "drop"
+  ) %>%
+  mutate(
+    DWA_GRP = "ALL", # create a new group for the average
+  ) %>%
+  bind_rows(
+    df_owner %>%
+      group_by(JAHR, REF_AREA, DWA_GRP)
+  )
+  
+
+# save the data
+write_csv(df_owner, "../data/ownership.csv")
+
+    
