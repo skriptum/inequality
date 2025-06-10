@@ -1,6 +1,4 @@
----
-title: "02-Plots"
----
+# Plots
 
 ```{r}
 # Load necessary libraries
@@ -33,19 +31,19 @@ df_ratio <- df %>%
 p2 <- df_ratio %>%
   filter(REF_AREA %in% c("DE", "BE", "IT","NL", "AT", "ES", "FR")) %>%
   ggplot(aes(x = TIME_PERIOD, y = ratio, color = REF_AREA)) +
-    geom_line(linewidth=0.8) 
+    geom_line(linewidth=0.5) +
+    geom_point(shape=5, size= 1) 
 p2
 ```
 
 ```{r}
 p2 <- p2 +
-    scale_color_brewer(palette = "Set2")+  
+    scale_color_brewer(palette = "Dark2")+  
     labs(
-      #title = "Tenant - Owner Wealth Ratio in Selected Euro Area Countries",
       x = "Time Period",
       y = "Ratio",
       color = "Country",
-      subtitle = "Source: ECB DWA, own calculations and visualization"
+      caption = "Source: ECB DWA, own calculations and visualization"
     ) +
     theme_tufte() +
     theme(
@@ -55,9 +53,10 @@ p2 <- p2 +
       ) 
 
 ggsave(p2, filename = "../output/tenant_owner_wealth_ratio.png", width = 8, height = 5, dpi = 500)
+p2
 ```
 
-### Asset Distribution of Classes Across Europe
+### Country: Asset Distribution
 
 ```{r}
 df_filter <- df %>%
@@ -91,11 +90,11 @@ df_filter <- df %>%
 ```{r}
 df_asset <- df_filter %>%
   filter(
-    TIME_PERIOD == "2023-01-01",
-    UNIT_MEASURE == "EUR"
+    TIME_PERIOD == "2023-01-01", #only one data and latest for all countrie s(NL doesnt have 2024)
+    UNIT_MEASURE == "EUR" # aggregate EUR
   ) %>%
-  arrange(desc(DWA_GRP)) %>%
-  #make shares
+  arrange(desc(DWA_GRP)) %>% #sort GRP descending 
+  # shares for all assets
   summarise(
     REF_AREA = REF_AREA,
     DWA_GRP = DWA_GRP,
@@ -104,30 +103,34 @@ df_asset <- df_filter %>%
     share_DEP = DEP / TW,
     share_HW = HW / TW
   ) %>%
+  # long dataframe = easier for ploting
   pivot_longer(
     cols = starts_with("share_"),
     names_to = "asset_class",
     values_to = "share"
   ) 
 p3 <- df_asset %>%
-  filter(REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR")) %>%
-  transform(REF_AREA = factor(REF_AREA, levels = c("DE", "AT","NL", "IT", "ES", "FR"))) %>%
+  filter(REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR")) %>% 
+  transform(REF_AREA = factor( # custom sorting of the countries (low ownership up)
+    REF_AREA, levels = c("DE", "AT","NL", "IT", "ES", "FR")
+    )) %>%
   ggplot(aes(x = DWA_GRP, y = share, fill = asset_class)) +
-    geom_col(position = "stack") +
-    facet_wrap(~ REF_AREA, ncol = 3, scales = "free_x") 
+    geom_col(position = "stack") +  # stack the bars to make 1
+    facet_wrap(~ REF_AREA, ncol = 3, scales = "free_x")  #x axis should appear at every plot
 p3
 ```
 
 ```{r}
 p3 <- p3 +
     scale_fill_manual(
-      name = "Asset Type",
+      # change the colors of the stacks
       values = c(
         "share_BW" = "#cdb04b",
         "share_FW" = "#377EB8",
         "share_DEP" = "#38ad68",
         "share_HW" = "#9f464f"
       ),
+      # change the labels
       labels = c(
         "share_BW" = "Business Wealth",
         "share_FW" = "Financial Wealth",
@@ -136,13 +139,14 @@ p3 <- p3 +
       )
     ) +
     labs(
-      subtitle = "Source: ECB DWA, own calculations and visualization",
       x = "Wealth Decile",
       y = "Share of Total Wealth",
       fill = "Asset Class",
+      # special caption to explain the GRP abbreviations
       caption = "
       B50 = Bottom 50% \ \  D06 = 6th Decile \ \  D07 = 7th Decile
-D08 = 8th Decile \ \ D09 = 9th Decile \ \  D10 = Top 10%"
+D08 = 8th Decile \ \ D09 = 9th Decile \ \  D10 = Top 10%
+Source: ECB DWA, own calculations and visualization" 
     ) +
     theme_tufte() +
     theme(
@@ -152,5 +156,149 @@ D08 = 8th Decile \ \ D09 = 9th Decile \ \  D10 = Top 10%"
     )  
     
 ggsave(p3, filename = "../output/asset_distribution_classes.png", width = 8, height = 5, dpi = 500)
+p3
 ```
+
+
+### Gini / Theil in Europe
+
+```{r}
+df_gini <- read_csv("../data/gini_indices.csv")
+```
+
+```{r}
+df_gini %>%
+  filter(
+    ASSET %in% c("NUN"), #housing asset
+    COUNTRY %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
+    ) %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+    geom_line(aes(y = THEIL, color = COUNTRY)) 
+```
+
+### Time: Asset Distribution
+
+```{r}
+df_growth <- df_filter %>%
+  filter(
+    UNIT_MEASURE == "EUR_R_POP", # only per capita
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10") #drop other groups
+  ) %>%
+  select(TIME_PERIOD, REF_AREA, DWA_GRP, UNIT_MEASURE, DEP, FW, BW, HW, DEBT, TW_NET) %>%
+  pivot_longer(
+    cols = c(DEP, FW, BW, HW, DEBT, TW_NET),
+    names_to = "INSTR_ASSET",
+    values_to = "OBS_VALUE"
+  )
+
+df_growth <- df_growth %>%
+  # # create a mean of all groups as a new GRP = ALL
+  # group_by(TIME_PERIOD, REF_AREA, UNIT_MEASURE, INSTR_ASSET) %>%
+  # summarise(OBS_VALUE = mean(OBS_VALUE, na.rm = TRUE)) %>%
+  # mutate(DWA_GRP = "ALL") %>%
+  # # bind the new group to the original data
+  # bind_rows(
+  #   df_growth %>%
+  #     filter(
+  #       UNIT_MEASURE == "EUR_R_POP",
+  #       DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  #     ) %>%
+  #     group_by(TIME_PERIOD, REF_AREA, DWA_GRP, UNIT_MEASURE, INSTR_ASSET) %>%
+  #     summarise(OBS_VALUE = mean(OBS_VALUE, na.rm = TRUE))
+  # ) %>%
+  # ungroup() %>%
+  # group D06 till D09 to middle class
+  mutate( # create the middle class GRP
+    DWA_GRP = case_when(
+      DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "M40",
+      TRUE ~ DWA_GRP
+    )
+  ) %>%
+  # mean of the values of M40
+  group_by(TIME_PERIOD, REF_AREA, DWA_GRP, UNIT_MEASURE, INSTR_ASSET) %>%
+  summarise(OBS_VALUE = mean(OBS_VALUE, na.rm = TRUE))
+
+df_growth %>%
+  filter(
+    REF_AREA == "DE",
+    TIME_PERIOD == "2011-01-01",
+    INSTR_ASSET == "TW_NET"
+  )
+```
+
+```{r}
+p4 <- df_growth %>%
+  filter(
+    REF_AREA %in% c("I9"),    #Euro 20 Area
+    str_detect(TIME_PERIOD, "01-01|06-01"), # filter for first and third quarter
+    ) %>%
+  transform(DWA_GRP = factor(
+    DWA_GRP, levels = c("B50","M40", "D10"), # order of the GRP for the plot
+    labels = c("Bottom 50%", "Middle 40%", "Top 10%") # name of the GRP for the plot
+    )) %>%
+  ggplot(aes(x = TIME_PERIOD)) + #same x axis for all groups
+  geom_area(
+    data = ~ .x %>% filter(INSTR_ASSET != "TW_NET"), # dont add the Total to the stacks
+    aes(y = OBS_VALUE, fill = INSTR_ASSET),
+    position = "stack" #stack the lines on top of each other
+  ) +
+  # line for total
+  geom_line(
+    data = ~ .x %>% filter(INSTR_ASSET == "TW_NET"),
+    aes(y = OBS_VALUE, group = 1, color = "Net Wealth"), #name of the line
+    size = 1,
+    linetype = "11" # small dots
+  ) +
+  facet_wrap(~ DWA_GRP, ncol = 3, scales = "free_y")  # seperate plot for all GRP, with differnt y axis
+
+p4
+```
+
+```{r}
+p4 <- p4 +
+  geom_hline(
+    yintercept = 0,
+    color = "black",
+    linewidth = 0.5
+  ) +
+  scale_fill_manual(
+    #change the colors of the stacks
+    values = c(   
+        "BW" = "#cdb04b",
+        "FW" = "#377EB8",
+        "DEP" = "#38ad68",
+        "HW" = "#9f464f",
+        "DEBT" = "grey"
+      ),
+    # change the labels
+    labels = c(
+      "BW" = "Business Wealth",
+      "FW" = "Financial Wealth",
+      "DEP" = "Deposits",
+      "HW" = "Housing Wealth",
+      "DEBT" = "Debt"
+    )
+  ) +
+  # adjust the line plot
+  scale_color_manual(
+    values = c("Net Wealth" = "black"),
+    labels = c("Net Wealth" = "Net Wealth") 
+  ) +
+  labs(
+    x = "Time Period",
+    y = "Wealth per Capita (TEUR)",
+    fill = "Asset Class",
+    caption = "Source: ECB DWA, own calculations and visualization"
+  ) +
+  theme_tufte() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    panel.border = element_rect(fill = NA, color = "black"),
+  )
+
+ggsave(p4, filename = "../output/asset_distribution_over_time.png", width = 8, height = 5, dpi = 500)
+p4
+```
+
 

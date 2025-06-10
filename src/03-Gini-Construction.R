@@ -2,6 +2,7 @@
 
 library(tidyverse)
 
+setwd("./src")
 df <- read_csv("../data/DWA_ECB_clean.csv")
 
 # Create a Gini coefficient function
@@ -66,15 +67,6 @@ gini_results <- expand.grid(COUNTRY = countries, ASSET = assets) %>%
 # Save the results to a CSV file
 write_csv(gini_results, "../data/gini_indices.csv")
 
-# Plot the Gini Indices for germany and housing net wealth & overall
-
-gini_results %>%
-  filter(
-    COUNTRY == "DE",
-    ASSET %in% c("NUN", "NWA")
-    ) %>%
-  ggplot(aes(x = TIME_PERIOD)) +
-    geom_line(aes(y = THEIL, color = ASSET)) 
   
 
 

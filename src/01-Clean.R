@@ -4,7 +4,7 @@ library(tidyverse)
 library(zoo)
 
 setwd("./src")
-df <- read_csv("../data/DWA_ECB.csv")
+df <- read_csv("../data/raw/DWA_ECB.csv")
 
 ## Clean 
 
