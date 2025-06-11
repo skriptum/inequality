@@ -4,5 +4,6 @@
 .DS_Store
 data/raw/DWA_ECB.csv
 data/DWA_ECB_clean.csv
+data/DWA_ECB_simplified.csv
 /expose
 bachelor.bib 

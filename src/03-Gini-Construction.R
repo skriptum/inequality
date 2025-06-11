@@ -2,8 +2,9 @@
 
 library(tidyverse)
 
-setwd("./src")
+#setwd("./src")
 df <- read_csv("../data/DWA_ECB_clean.csv")
+df_filter <- read_csv("../data/DWA_ECB_simplified.csv")
 
 # Create a Gini coefficient function
 
@@ -49,24 +50,37 @@ calculate_indices <- function(df, country, asset) {
         WEALTH_SHARE * log(WEALTH_SHARE / POP_SHARE)
       )
     ) %>%
-    mutate(ASSET = asset, COUNTRY = country)
+    mutate(ASSET = asset, REF_AREA = country)
   
   # return the Gini table
   return(df_gini)
 }
 
+## for all asset classes
 # Calculate Gini indices for all countries and assets
 countries <- unique(df$REF_AREA)
 assets <- unique(df$INSTR_ASSET)
 
-gini_results <- expand.grid(COUNTRY = countries, ASSET = assets) %>%
+gini_results <- expand.grid(REF_AREA = countries, ASSET = assets) %>%
   rowwise() %>%
-  do(calculate_indices(df, .$COUNTRY, .$ASSET)) %>%
+  do(calculate_indices(df, .$REF_AREA, .$ASSET)) %>%
   ungroup()
 
 # Save the results to a CSV file
 write_csv(gini_results, "../data/gini_indices.csv")
 
-  
+## for simplified asset classes
+countries <- unique(df_filter$REF_AREA)
+df_filter_wide <- df_filter %>%
+  pivot_longer(
+    cols = c("BW", "FW", "DEP","HW", "HW_NET", "TW", "DEBT", "TW_NET"),
+    names_to = "INSTR_ASSET",
+    values_to = "OBS_VALUE"
+  )
+gini_results_simplified <- expand.grid(REF_AREA = countries, ASSET = unique(df_filter_wide$INSTR_ASSET)) %>%
+  rowwise() %>%
+  do(calculate_indices(df_filter_wide, .$REF_AREA, .$ASSET)) %>%
+  ungroup()
 
-
+# Save the simplified results to a CSV file
+write_csv(gini_results_simplified, "../data/gini_indices_simplified.csv")
