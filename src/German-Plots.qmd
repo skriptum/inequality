@@ -5,7 +5,7 @@
 library(tidyverse)
 library(ggthemes)
 
-df_de <- read_csv("../data/DWA_DE.csv")
+df_filter <- read_csv("../data/DWA_ECB_simplified.csv")
 df <- read_csv("../data/DWA_ECB_clean.csv")
 ```
 
@@ -81,7 +81,8 @@ ggsave(p1, filename = "../output/GER_asset_composition_deciles.png", width = 8, 
 ### Housing Wealth Growth absolute by Deciles
 
 ```{r}
-p2 <- df_de %>% 
+p2 <- df_filter %>%
+  filter(REF_AREA == "DE") %>%
   select(DWA_GRP, HW, TIME_PERIOD) %>%
   ggplot(aes(x = TIME_PERIOD, y = HW, fill = DWA_GRP)) +
     geom_col() 
@@ -128,8 +129,9 @@ ggsave(p2, filename = "../output/GER_housing_wealth_absolute.png", width = 6, he
 
 ```{r}
 # y-o-y growth rate per decile for housing wealth
-df_growth <- df_de %>%
+df_growth <- df_filter %>%
   filter(
+    REF_AREA == "DE",
     UNIT_MEASURE == "EUR_R_POP", 
     str_detect(TIME_PERIOD, "01-01"),
     ) %>%
