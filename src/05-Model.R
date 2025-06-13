@@ -102,7 +102,7 @@ summary(model_lag)
 
 #---------------
 # Panel Regression Model
-plm_model <- plm(
+plm_model <- plm::plm(
   T10_share_change ~ HP_R_Change,
   data = df_comb,
   index = c("REF_AREA", "TIME_PERIOD"),
@@ -113,7 +113,7 @@ summary(plm_model)
 # M40: beta1 = 0.04 ***, R2 = 0.017
 # B50: beta1 = 0.38***, R2 = 0.05 
 
-plm_model2 <- plm(
+plm_model2 <- plm::plm(
   B50_share_change ~ HP_R_Change,
   data = df_comb,
   index = c("REF_AREA", "TIME_PERIOD"),
@@ -143,3 +143,36 @@ df_comb %>%
   }) %>%
   bind_rows() %>%
   print(n=30)
+
+#----------------
+# Add home ownership rates
+df_ownership <- read_csv("../data/ownership.csv") 
+
+df_ownership <- df_ownership %>%
+  filter(
+    JAHR == 2021,
+    DWA_GRP == "ALL" #for this time, only select overall ownership rate
+    ) %>%
+  pivot_wider(
+    names_from = DWA_GRP,
+    values_from = OWNER,
+    names_prefix = "owner_"
+  ) %>%
+  select(REF_AREA, owner_ALL)
+
+# Combine with previous data
+df_comb <- df_comb %>%
+  left_join(df_ownership, by = "REF_AREA")
+
+# Add ownership rate to panel model
+model_ownership <- plm::plm(
+  T10_share_change ~ HP_R_Change * owner_ALL,
+  data = df_comb,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "within"
+)
+summary(model_ownership)
+# = model worsens
+
+
+
