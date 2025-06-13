@@ -1,0 +1,141 @@
+# Explore
+
+```{r}
+library(tidyverse)
+```
+
+
+## Theil Index playing around
+
+```{r}
+df <- read_csv("../data/DWA_ECB_simplified.csv")
+```
+
+```{r}
+gross_Wealth <- df %>%
+  filter(
+    REF_AREA == "I9",
+    TIME_PERIOD == "2011-01-01",
+    UNIT_MEASURE == "EUR_R_POP",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  ) %>%
+  arrange(DWA_GRP)
+```
+
+```{r}
+dineq::theil.wtd(
+  gross_Wealth$TW,
+  weights = c(0.5, 0.1, 0.1, 0.1, 0.1, 0.1)
+  )
+```
+
+compare with my calculations
+
+```{r}
+df_gini <- read_csv("../data/gini_indices_simplified.csv")
+
+df_gini %>%
+  filter(
+    REF_AREA == "I9",
+    TIME_PERIOD == "2011-01-01",
+    ASSET == "TW"
+  ) %>%
+  select(THEIL)
+```
+
+## Gini Index playing around
+
+```{r}
+gross_Wealth <- df %>%
+  filter(
+    REF_AREA == "I9",
+    TIME_PERIOD == "2011-01-01",
+    UNIT_MEASURE == "EUR_R_NH",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  ) %>%
+  arrange(DWA_GRP)
+
+dineq::gini.wtd(
+  gross_Wealth$TW_NET,
+  weights = c(0.5, 0.1, 0.1, 0.1, 0.1, 0.1)
+)
+```
+
+
+```{r}
+df_gini <- read_csv("../data/gini_indices_simplified.csv")
+
+df_gini %>%
+  filter(
+    REF_AREA == "I9",
+    TIME_PERIOD == "2011-01-01",
+    ASSET == "TW"
+  ) %>%
+  select(THEIL)
+```
+
+# Theil it yourself?
+
+from: https://documents1.worldbank.org/curated/en/693101468760506382/pdf/multi_page.pdf p.13
+
+Cov(Y_k,Y) / Var(Y)
+
+```{r}
+df_filter <-df %>%
+  filter(
+    REF_AREA == "I9",
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  )
+```
+
+```{r}
+cov(df_filter$DEP, df_filter$TW_NET) / var(df_filter$TW_NET)
+```
+
+```{r}
+df_filter %>%
+  group_by(TIME_PERIOD) %>%
+  summarise(
+    BW_contrib = cov(BW, TW) / var(TW),
+    FW_contrib = cov(FW, TW) / var(TW),
+    HW_contrib = cov(HW, TW) / var(TW),
+    DEP_contrib = cov(DEP, TW) / var(TW),
+  )
+```
+= not much change over time
+
+is it different from the shares of the wealth classes?
+
+```{r}
+df_filter %>%
+  summarise(
+    BW_share = sum(BW) / sum(TW), #works because it is total wealth, not per Capita!
+    FW_share = sum(FW) / sum(TW),
+    HW_share = sum(HW) / sum(TW),
+    DEP_share = sum(DEP) / sum(TW)
+  )
+```
+= yep its different
+
+whats the contribution of housing in all countries
+
+```{r}
+df_filter <- df %>%
+  filter(
+    TIME_PERIOD == "2023-01-01",
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  )
+
+df_filter %>%
+  group_by(REF_AREA) %>%
+  summarise(
+    BW_contrib = cov(BW, TW) / var(TW),
+    FW_contrib = cov(FW, TW) / var(TW),
+    HW_contrib = cov(HW, TW) / var(TW),
+    DEP_contrib = cov(DEP, TW) / var(TW)
+  ) %>%
+  arrange(desc(HW_contrib))
+```
+= top are countries like Cyprus and Germany
