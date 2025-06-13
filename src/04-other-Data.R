@@ -5,7 +5,8 @@ library(tidyverse)
 library(rdbnomics)
 library(zoo)
 
-## Fetching data from rdbnomics
+#------------------------------------------
+## House Prices
 
 unique_countries <- c(
   "AT", "BE", "CY", "DE", "EE",
@@ -15,7 +16,7 @@ unique_countries <- c(
   "SK", "MX" #MX = Euro Area Code
   )
 
-df <- data.frame(
+df_house <- data.frame(
   REF_AREA = character(),
   TIME_PERIOD = character(),
   HP_R_N = numeric()
@@ -37,20 +38,20 @@ for (country in unique_countries) {
       HP_R_N = as.numeric(original_value) # House Price index, real, Nomralized to 2010=100
     )
   
-  df <- bind_rows(df, df_temp)
+  df_house <- bind_rows(df_house, df_temp)
 }
 
 # rename EURO AREA
-df <- df %>%
+df_house <- df_house %>%
   mutate(
     REF_AREA = ifelse(REF_AREA == "MX", "I9", REF_AREA), # I9 = Euro Area
     TIME_PERIOD = as.Date(as.yearqtr(df$TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
   )
 
 # Save the data
-write_csv(df, "../data/House_Prices.csv")
+write_csv(df_house, "../data/House_Prices.csv")
 
-
+#------------------------------------------
 ## Ownership Rates 
 df_owner <- readxl::read_excel("../data/raw/ownership.xlsx")
 
@@ -85,4 +86,53 @@ df_owner <- df_owner %>%
 # save the data
 write_csv(df_owner, "../data/ownership.csv")
 
-    
+#------------------------------------------
+## Macro Data
+
+#GDP Growth: Eurostat/NAMQ_10_PC/Q.CLV_I10_HAB.NSA.B1GQ.AT
+
+unique_countries <- c(
+  "AT", "BE", "CY", "DE", "EE",
+  "ES", "FI", "FR", "EL", "HR", #note: EL = GR
+  "HU", "IE", "IT", "LT", "LU",
+  "LV", "MT", "NL", "PT", "SI",
+  "SK", "EA20" #MX = Euro Area Code
+)
+
+df_growth <- data.frame(
+  REF_AREA = character(),
+  TIME_PERIOD = character(),
+  GDP_PC = numeric()
+)
+
+for (country in unique_countries) {
+  df_temp <- rdb(ids = paste0("Eurostat/NAMQ_10_PC/Q.CLV_I10_HAB.NSA.B1GQ.", country)) %>%
+    select(
+      geo,
+      original_period,
+      original_value,
+    ) %>%
+    filter(
+      original_period >= "2000-01-01",
+    ) %>%
+    reframe(
+      REF_AREA = geo,
+      TIME_PERIOD = original_period,
+      GDP_PC = as.numeric(original_value) # House Price index, real, Nomralized to 2010=100
+    )
+  
+  df_growth <- bind_rows(df_growth, df_temp)
+}
+# rename EURO AREA and greece
+df_growth <- df_growth %>%
+  mutate(
+    REF_AREA = ifelse(REF_AREA == "EA20", "I9", REF_AREA), # I9 = Euro Area
+    REF_AREA = ifelse(REF_AREA == "EL", "GR", REF_AREA), # EL = Greece
+    TIME_PERIOD = as.Date(as.yearqtr(df_growth$TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
+  )
+
+#save data
+write_csv(df_growth, "../data/GDP_Growth.csv")
+
+
+
