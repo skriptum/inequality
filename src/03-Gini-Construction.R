@@ -15,7 +15,7 @@ calculate_indices <- function(df, country, asset) {
     filter(
       REF_AREA == country,
       INSTR_ASSET == asset, # housing net wealth
-      UNIT_MEASURE == "EUR",
+      UNIT_MEASURE == "EUR_R_POP",
       DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
     ) %>%
     select(DWA_GRP, OBS_VALUE, TIME_PERIOD) %>%

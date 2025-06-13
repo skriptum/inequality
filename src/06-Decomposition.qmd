@@ -1,0 +1,190 @@
+# Decomposition
+
+```{r}
+library(tidyverse)
+library(sf)
+library(eurostat)
+```
+
+```{r}
+#setwd("./src")
+df <- read_csv("../data/DWA_ECB_simplified.csv")
+```
+
+## Decomposition
+
+taken from [here](https://documents1.worldbank.org/curated/en/693101468760506382/pdf/multi_page.pdf) p.13
+follows Shorrocks 1982
+
+$$
+G = \sum_{k=1}^K \frac{cov(Y_k,Y)}{var(Y)} G 
+$$
+- note that the G on RHS has no subscript
+- so the fraction = percentage contribution
+
+## Exploring
+
+```{r}
+df %>%
+  filter(
+    REF_AREA == "I9",
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    TIME_PERIOD == "2011-01-01"
+  ) %>%
+  reframe(
+    cov = cov(HW, TW_NET), #change the type of asset here
+    var = var(TW_NET),
+    contribution = cov / var
+  )
+```
+is it smaller than share of housing?
+
+```{r}
+df %>%
+  filter(
+    REF_AREA == "I9",
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+    TIME_PERIOD == "2011-01-01"
+  ) %>%
+  summarise(
+    share = sum(HW) / sum(TW_NET)
+  )
+```
+Yes it is!
+
+## Contributions over time
+
+```{r}
+df_contrib <- df %>%
+  filter(
+    UNIT_MEASURE == "EUR",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
+  ) %>%
+  group_by(TIME_PERIOD, REF_AREA) %>%
+  summarise(
+    #only positive sources
+    BW_contrib = cov(BW, TW) / var(TW),
+    BW_share = sum(BW) / sum(TW),
+    FW_contrib = cov(FW, TW) / var(TW),
+    FW_share = sum(FW) / sum(TW),
+    HW_contrib = cov(HW, TW) / var(TW),
+    HW_share = sum(HW) / sum(TW),
+    DEP_contrib = cov(DEP, TW) / var(TW),
+    DEP_share = sum(DEP) / sum(TW),
+    # BW_contrib = cov(BW, TW_NET) / var(TW_NET),
+    # FW_contrib = cov(FW, TW_NET) / var(TW_NET),
+    # HW_contrib = cov(HW, TW_NET) / var(TW_NET),
+    # DEP_contrib = cov(DEP, TW_NET) / var(TW_NET),
+    # DEBT_contrib = cov(DEBT, TW_NET) / var(TW_NET),
+    # contrib_sum = BW_contrib + FW_contrib + HW_contrib + DEP_contrib + DEBT_contrib
+  )
+```
+
+## Biggest Contributors
+
+```{r}
+df_contrib %>%
+  filter(
+    TIME_PERIOD == "2023-01-01"
+  ) %>%
+  arrange(desc(HW_contrib))
+```
+CY, DE, MT = winners of this bad game
+
+## Plot Europe
+
+good explanation [here](http://stavrakoudis.econ.uoi.gr/r-eurostat/drawing-maps-of-europe.html)
+
+download the shapefiles for european countries
+```{r}
+europe_shp <- eurostat::get_eurostat_geospatial(
+  resolution = "10",
+  nuts_level = 0,
+  year = 2021
+)
+```
+```{r}
+europe_shp <- europe_shp %>%
+  select(CNTR_CODE, NAME_LATN, geometry) # select relevant columns
+```
+
+```{r}
+europe_shp %>%
+  ggplot() +
+  geom_sf()
+```
+
+### Prettify the Map
+
+Select Relevant Countres
+```{r}
+countries <- unique(df$REF_AREA)
+
+europe_shp <- europe_shp %>%
+  mutate(CNTR_CODE = ifelse(CNTR_CODE == "EL", "GR", CNTR_CODE)) %>% # Greece is EL in the shapefile
+  filter(CNTR_CODE !="TR") %>% # filter out Turkey
+  mutate(
+    missing_data = ifelse(CNTR_CODE %in% countries, F, T)
+  )
+```
+
+```{r}
+europe_shp %>%
+  ggplot() +
+  geom_sf(aes(fill=missing_data)) +
+  scale_x_continuous(limits = c(-10, 35)) +
+  scale_y_continuous(limits = c(35, 65)) +
+  theme_void()
+```
+
+Change the Projection
+
+```{r}
+variable <- "HW_contrib" # change this to the variable you want to plot
+
+#combined dataframe of shapes and values
+europe_shp_comb <- europe_shp %>%
+  left_join(
+    df_contrib %>%
+      filter(TIME_PERIOD == "2023-01-01") %>%
+      reframe(
+        REF_AREA = REF_AREA,
+        value = !!sym(variable)
+        ) %>%
+      select(!TIME_PERIOD),
+    by = c("CNTR_CODE" = "REF_AREA")
+  )
+```
+
+now make a pretty plot
+```{r}
+europe_shp_comb %>%
+  st_transform(crs = 3035) %>% # transform to WGS84
+  ggplot() +
+  geom_sf(
+    aes(color="no data"),
+    fill="white",
+    linewidth=0.1,
+    data = europe_shp_comb %>% filter(missing_data),
+    ) +
+  geom_sf(
+    aes(fill=value),
+    data = europe_shp_comb %>% filter(!missing_data),
+    ) +
+  scale_x_continuous(limits = c(2500000, 6500000)) +
+  scale_y_continuous(limits = c(1500000, 4500000)) +
+  theme_void() +
+  theme(
+    legend.position.inside = c(0.1,0.8),
+    panel.border = element_rect(fill = NA, color = "black"),
+  ) +
+  guides(
+    fill = guide_colourbar(position = "inside", title= element_blank()),
+    colour = guide_legend(position = "inside", title = element_blank())
+  )
+```
+title should be on top of the legend, if not restart R and run all again!
+
+- use ggpattern to add additional information, eg significance levels
