@@ -170,10 +170,10 @@ df_gini <- read_csv("../data/gini_indices.csv")
 df_gini %>%
   filter(
     ASSET %in% c("NUN"), #housing asset
-    COUNTRY %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
+    REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
     ) %>%
   ggplot(aes(x = TIME_PERIOD)) +
-    geom_line(aes(y = THEIL, color = COUNTRY)) 
+    geom_line(aes(y = GINI, color = REF_AREA)) 
 ```
 
 ### Time: Asset Distribution
@@ -350,3 +350,22 @@ trajectories:
 - overall Euro ARea = increase 
 
 maybe split up after euroepan areas (south, north, east?)
+
+## P10 P50 ratios
+
+```{r}
+df_filter %>%
+  filter(
+    REF_AREA %in% c("DE", "BE", "IT", "AT", "ES", "FR"),
+    DWA_GRP %in% c("B50", "D10"),
+    UNIT_MEASURE == "EUR_R_POP"
+  ) %>%
+  select(TIME_PERIOD, REF_AREA, DWA_GRP, TW_NET) %>%
+  group_by(TIME_PERIOD, REF_AREA) %>%
+  summarise(
+    ratio = TW_NET[DWA_GRP == "D10"] / TW_NET[DWA_GRP == "B50"]
+  ) %>%
+  ggplot(aes(x = TIME_PERIOD, y = ratio, color=REF_AREA)) +
+    geom_line()
+```
+

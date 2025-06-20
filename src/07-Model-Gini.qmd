@@ -1,0 +1,122 @@
+# Model Gini
+
+## Loads
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df_comb_regr <- read_csv("../data/regression_COMBINED.csv")
+df_gini <- read_csv("../data/gini_indices_simplified.csv")
+```
+
+
+```{r}
+df_comb <- df_gini %>%
+  filter(ASSET == "TW_NET") %>%
+  group_by(REF_AREA) %>%
+  mutate(
+    GINI_change = (GINI - dplyr::lag(GINI)) / dplyr::lag(GINI)
+  ) %>%
+  select(REF_AREA, TIME_PERIOD, GINI_change) %>%
+  left_join(df_comb_regr, by = c("REF_AREA", "TIME_PERIOD"))
+```
+
+
+## Regression Regression Regression
+
+Simple Regression Model
+```{r}
+gini_model <- lm(
+  GINI_change ~ HP_R_Change,
+  data = df_comb %>% filter(REF_AREA == "I9")
+)
+summary(gini_model)
+```
+
+
+Panel Regression Model
+```{r}
+gini_plm_model <- plm::plm(
+  GINI_change ~ HP_R_Change,
+  data = df_comb,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "within", effect = "individual"
+)
+summary(gini_plm_model)
+```
+
+Seperate Regressions for Each Country
+```{r}
+df_comb %>%
+  group_by(REF_AREA) %>%
+  group_split() %>%
+  map(~ {
+    model <- lm(
+      GINI_change ~ HP_R_Change,
+      data = .
+    )
+    tibble(
+      REF_AREA = unique(.$REF_AREA),
+      beta1 = coef(model)[2],
+      R2 = summary(model)$r.squared,
+      significance = ifelse(summary(model)$coefficients[2, 4] < 0.1, "Significant", "Not Significant")
+    )
+  }) %>%
+  bind_rows() %>%
+  arrange(desc(beta1))
+```
+
+LV, LT: Price increase leads to Gini increase
+Middel Field: DE, AT = price increase leads to modest Gini decrease
+Strong Field: ES, SI, IT = price increase leads to strong Gini decrease (over EU average)
+
+## What about Housing Gini
+
+```{r}
+df_comb2 <- df_gini %>%
+  filter(ASSET == "HW_NET") %>%
+  group_by(REF_AREA) %>%
+  mutate(
+    GINI_change = (GINI - dplyr::lag(GINI)) / dplyr::lag(GINI)
+  ) %>%
+  select(REF_AREA, TIME_PERIOD, GINI_change) %>%
+  left_join(df_comb_regr, by = c("REF_AREA", "TIME_PERIOD"))
+```
+
+```{r}
+housing_gini_model <- lm(
+  GINI_change ~ HP_R_Change,
+  data = df_comb2 %>% filter(REF_AREA == "I9")
+)
+summary(housing_gini_model)
+```
+```{r}
+housing_gini_plm_model <- plm::plm(
+  GINI_change ~ HP_R_Change,
+  data = df_comb2,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "within", effect = "individual"
+)
+summary(housing_gini_plm_model)
+```
+```{r}
+df_comb2 %>%
+  group_by(REF_AREA) %>%
+  group_split() %>%
+  map(~ {
+    model <- lm(
+      GINI_change ~ HP_R_Change,
+      data = .
+    )
+    tibble(
+      REF_AREA = unique(.$REF_AREA),
+      beta1 = coef(model)[2],
+      R2 = summary(model)$r.squared,
+      significance = ifelse(summary(model)$coefficients[2, 4] < 0.1, "Significant", "Not Significant")
+    )
+  }) %>%
+  bind_rows() %>%
+  arrange(desc(beta1))
+```

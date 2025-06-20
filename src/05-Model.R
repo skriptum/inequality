@@ -3,11 +3,13 @@
 #--------------------------------
 ## Load
 library(tidyverse)
+library(fixest)
 
 setwd("./src")
 df <- read_csv("../data/DWA_ECB_simplified.csv")
 df_house <- read_csv("../data/House_Prices.csv")
 df_gini <- read_csv("../data/gini_indices_simplified.csv")
+df_ownership <- read_csv("../data/ownership.csv") 
 
 #--------------------------------
 ## Clean and Calculation
@@ -17,10 +19,10 @@ df_house <- df_house %>%
   group_by(REF_AREA) %>%
   mutate(
     HP_R_Change = ( (HP_R_N - dplyr::lag(HP_R_N)) / dplyr::lag(HP_R_N)),
-    HP_R_Change_L1 = dplyr::lag(HP_R_Change, 1),
-    HP_R_Change_L2 = dplyr::lag(HP_R_Change, 2),
-    HP_R_Change_L3 = dplyr::lag(HP_R_Change, 3),
-    HP_R_Change_L4 = dplyr::lag(HP_R_Change, 4)
+    # HP_R_Change_L1 = dplyr::lag(HP_R_Change, 1),
+    # HP_R_Change_L2 = dplyr::lag(HP_R_Change, 2),
+    # HP_R_Change_L3 = dplyr::lag(HP_R_Change, 3),
+    # HP_R_Change_L4 = dplyr::lag(HP_R_Change, 4)
   )
 
 # share of top 10% of total wealth
@@ -59,10 +61,26 @@ df_filter %>%
   ggplot(aes(x = TIME_PERIOD, y = Share, color = Group)) +
   geom_line()
 
+# ownership data cleaning
+df_ownership <- df_ownership %>%
+  filter(
+    JAHR == 2021,
+    DWA_GRP == "ALL" #for this time, only select overall ownership rate
+  ) %>%
+  pivot_wider(
+    names_from = DWA_GRP,
+    values_from = OWNER,
+    names_prefix = "owner_"
+  ) %>%
+  select(REF_AREA, owner_ALL)
+
+
 # Combine dataframes
 df_comb <- df_filter %>%
-  left_join(df_house, by = c("REF_AREA", "TIME_PERIOD")) 
+  left_join(df_house, by = c("REF_AREA", "TIME_PERIOD")) %>%
+  left_join(df_ownership, by = "REF_AREA")
 
+write_csv(df_comb, "../data/Regression_COMBINED.csv")
 #--------------------------------
 ## Model
 
@@ -93,11 +111,11 @@ summary(model3)
 
 #---------------
 # Simple LM with Lags
-model_lag <- lm(
-  T10_share_change ~ HP_R_Change + HP_R_Change_L1,
-  data = df_comb %>% filter(REF_AREA == "I9")
-)
-summary(model_lag)
+# model_lag <- lm(
+#   T10_share_change ~ HP_R_Change + HP_R_Change_L1,
+#   data = df_comb %>% filter(REF_AREA == "I9")
+# )
+# summary(model_lag)
 # R2 does not change at all, adj R2 = worse, no significance
 
 #---------------
@@ -129,9 +147,9 @@ df_comb %>%
   group_split() %>%
   map(~ {
     model <- lm(
-      T10_share_change ~ HP_R_Change,
+      #T10_share_change ~ HP_R_Change,
       # M40_share_change ~ HP_R_Change,
-      # B50_share_change ~ HP_R_Change,
+      B50_share_change ~ HP_R_Change,
       data = .
     )
     tibble(
@@ -142,27 +160,11 @@ df_comb %>%
     )
   }) %>%
   bind_rows() %>%
+  arrange(desc(beta1)) %>%
   print(n=30)
 
 #----------------
-# Add home ownership rates
-df_ownership <- read_csv("../data/ownership.csv") 
-
-df_ownership <- df_ownership %>%
-  filter(
-    JAHR == 2021,
-    DWA_GRP == "ALL" #for this time, only select overall ownership rate
-    ) %>%
-  pivot_wider(
-    names_from = DWA_GRP,
-    values_from = OWNER,
-    names_prefix = "owner_"
-  ) %>%
-  select(REF_AREA, owner_ALL)
-
-# Combine with previous data
-df_comb <- df_comb %>%
-  left_join(df_ownership, by = "REF_AREA")
+# Ownership Rates
 
 # Add ownership rate to panel model
 model_ownership <- plm::plm(
@@ -173,6 +175,3 @@ model_ownership <- plm::plm(
 )
 summary(model_ownership)
 # = model worsens
-
-
-
