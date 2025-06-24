@@ -9,11 +9,11 @@ library(eurostat)
 ```{r}
 #setwd("./src")
 df <- read_csv("../data/DWA_ECB_simplified.csv")
+df_gini <- read_csv("../data/gini_indices_simplified.csv")
 ```
 
 ## Decomposition
 
-taken from [here](https://documents1.worldbank.org/curated/en/693101468760506382/pdf/multi_page.pdf) p.13
 follows Shorrocks 1982
 
 $$
@@ -92,6 +92,21 @@ df_contrib %>%
   arrange(desc(HW_contrib))
 ```
 CY, DE, MT = winners of this bad game
+
+## Plot over Time
+
+```{r}
+df_contrib %>%
+  filter(
+    TIME_PERIOD>= "2011-01-01",
+    REF_AREA %in% c("I9", "DE", "CY", "BE", "NL")
+    ) %>%
+  ggplot(aes(x=TIME_PERIOD, y=HW_contrib, color=REF_AREA)) +
+  geom_line() 
+  
+```
+
+
 
 ## Plot Europe
 
@@ -183,7 +198,8 @@ europe_shp_comb %>%
   guides(
     fill = guide_colourbar(position = "inside", title= element_blank()),
     colour = guide_legend(position = "inside", title = element_blank())
-  )
+  ) +
+  scale_fill_viridis_c(option="magma", direction = -1) 
 ```
 title should be on top of the legend, if not restart R and run all again!
 
