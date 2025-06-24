@@ -156,10 +156,18 @@ df_comb %>%
       REF_AREA = unique(.$REF_AREA),
       beta1 = coef(model)[2],
       R2 = summary(model)$r.squared,
-      significance = ifelse(summary(model)$coefficients[2, 4] < 0.1, "Significant", "Not Significant")
+      # significance = case_when(
+      #     summary(model)$coefficients[2, 4] < 0.001 ~ "***",
+      #     summary(model)$coefficients[2, 4] < 0.01 ~ "**",
+      #     summary(model)$coefficients[2, 4] < 0.05 ~ "*",
+      #     summary(model)$coefficients[2, 4] < 0.1 ~ ".",
+      #     TRUE ~ ""
+      #   )
+      significance = ifelse(summary(model)$coefficients[2, 4] < 0.05, "True", "F")
     )
   }) %>%
   bind_rows() %>%
+  arrange(desc(significance)) %>%
   arrange(desc(beta1)) %>%
   print(n=30)
 
