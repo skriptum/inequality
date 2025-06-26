@@ -1,0 +1,80 @@
+# Robustness
+
+```{r}
+library(tidyverse)
+library(binsmooth)
+```
+
+
+## Gini Similarity
+
+check for germany
+
+```{r}
+df_gini <- read_csv("../data/gini_indices.csv")
+
+df_gini %>%
+  filter(
+    REF_AREA == "DE",
+    ASSET == "NWA"
+  ) %>%
+  select(TIME_PERIOD, GINI) %>%
+  filter(TIME_PERIOD == "2020-01-01")
+```
+
+
+2020:
+my: 0.7199
+WID: 0.7437
+Eurostat (2020): 0.722 (https://db.nomics.world/Eurostat/ICW_SR_05/A.WLTH_NET.INX.DE?tab=table)
+
+
+
+
+- WID World = depends on Bartels
+- SOEP Based Gini estimate
+
+## Estimating Pareto Gini
+
+```{r}
+df <- readxl::read_excel("../data/raw/DWA_BUBA.xlsx")
+```
+
+```{r}
+unique(df$Demographics)
+```
+
+```{r}
+binedges <- df %>%
+  filter(
+    Type == "Threshold max",
+    Demographics == "Net wealth deciles",
+    Item == "Net Wealth"
+    ) %>%
+  filter(
+    Breakdown %in% c("Decile D5", "Decile D6", "Decile D7", "Decile D8", "Decile D9", "Decile D10")
+  ) %>%
+  select(`2020 Q1`) %>%
+  arrange(`2020 Q1`)
+
+mean <- as.numeric(df %>%
+  filter(
+    Item == "Net Wealth",
+    Demographics == "Total",
+    Level == "Per household",
+    Type == "Instrument"
+  ) %>%
+  select(`2020 Q1`) 
+)
+
+binedges <- c(binedges$`2020 Q1`)
+bincounts <- c(5,1,1,1,1,1)
+```
+
+```{r}
+fit <- splinebins(binedges, bincounts, mean)
+gini(fit)
+```
+
+
+

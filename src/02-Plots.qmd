@@ -6,6 +6,7 @@ library(tidyverse)
 library(ggthemes)
 
 df <- read_csv("../data/DWA_ECB_clean.csv")
+df_simple <- read_csv("../data/DWA_ECB_simplified.csv")
 ```
 
 
@@ -29,7 +30,7 @@ df_ratio <- df %>%
 
 
 p2 <- df_ratio %>%
-  filter(REF_AREA %in% c("DE", "BE", "IT","NL", "AT", "ES", "FR")) %>%
+  filter(REF_AREA %in% c("DE", "FR", "IT", "ES", "NL", "BE", "GR", "HU")) %>%
   ggplot(aes(x = TIME_PERIOD, y = ratio, color = REF_AREA)) +
     geom_line(linewidth=0.5) +
     geom_point(shape=5, size= 1) 
@@ -38,7 +39,7 @@ p2
 
 ```{r}
 p2 <- p2 +
-    scale_color_brewer(palette = "Dark2")+  
+    scale_color_brewer(palette = "Set1")+  
     labs(
       x = "Time Period",
       y = "Ratio",
@@ -159,22 +160,6 @@ ggsave(p3, filename = "../output/asset_distribution_classes.png", width = 8, hei
 p3
 ```
 
-
-### Gini / Theil in Europe
-
-```{r}
-df_gini <- read_csv("../data/gini_indices.csv")
-```
-
-```{r}
-df_gini %>%
-  filter(
-    ASSET %in% c("NUN"), #housing asset
-    REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
-    ) %>%
-  ggplot(aes(x = TIME_PERIOD)) +
-    geom_line(aes(y = GINI, color = REF_AREA)) 
-```
 
 ### Time: Asset Distribution
 
@@ -330,17 +315,19 @@ df_house <- read_csv("../data/House_Prices.csv")
 
 ```{r}
 #quick plot
-df_house %>%
+p5 <- df_house %>%
   filter(
-    # REF_AREA %in% c("I9", "DE", "ES", "FR", "IT", "NL", "AT", "BE", "EE", "HU"), #selected countries + Euro Area
-    REF_AREA %in% c("AT", "BE", "DE", "FR", "LU", "NL", "FI", "IE"), # northern europe
+    REF_AREA %in% c("DE", "FR", "IT", "ES", "NL", "BE", "GR", "HU"), #selected
+    # REF_AREA %in% c("AT", "BE", "DE", "FR", "LU", "NL", "FI", "IE"), # northern
     # REF_AREA %in% c("ES", "IT", "PT", "GR", "MT", "CY"), # southern europe
     # REF_AREA %in% c("EE", "HU", "HR", "LT", "LV", "SI", "SK"), # eastern europe
     TIME_PERIOD >= "2008-01-01"
   ) %>%
   ggplot(aes(x = TIME_PERIOD, y = HP_R_N, color = REF_AREA)) +
-    geom_line() +
+    geom_line(linewidth = 0.5) +
+    geom_point(shape = 5, size = 0.8) +
     geom_hline(yintercept = 100, linetype = "dashed", color = "black")  # 2010 = 100
+p5
 ```
 trajectories: 
 - IT, ES, = lower
@@ -350,6 +337,43 @@ trajectories:
 - overall Euro ARea = increase 
 
 maybe split up after euroepan areas (south, north, east?)
+
+```{r}
+p5 <- p5 +
+    scale_color_brewer(palette = "Set1") +  
+    labs(
+      x = "Time Period",
+      y = "House Price Index (2010 = 100)",
+      color = "Country",
+      caption = "Source: ECB DWA, own calculations and visualization"
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "right",
+      legend.title = element_blank(),
+      panel.border = element_rect(fill = NA, color = "black"),
+    )
+ggsave(p5, filename = "../output/house_prices.png", width = 8, height = 5, dpi = 500)
+p5
+```
+
+# Unused plots
+
+## Gini / Theil in Europe
+
+```{r}
+df_gini <- read_csv("../data/gini_indices.csv")
+```
+
+```{r}
+df_gini %>%
+  filter(
+    ASSET %in% c("NUN"), #housing asset
+    REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
+    ) %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+    geom_line(aes(y = GINI, color = REF_AREA)) 
+```
 
 ## P10 P50 ratios
 
@@ -368,4 +392,43 @@ df_filter %>%
   ggplot(aes(x = TIME_PERIOD, y = ratio, color=REF_AREA)) +
     geom_line()
 ```
+## Covariance per Decile across Europe
 
+```{r}
+df_simple %>%
+  filter(
+    TIME_PERIOD == "2023-01-01",
+    UNIT_MEASURE == "EUR_R_POP",
+    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
+  ) %>%
+  select(REF_AREA, DWA_GRP, TW_NET) %>%
+  # variance in between the countries
+  group_by(DWA_GRP) %>%
+  summarise(
+    minimum = min(TW_NET, na.rm = TRUE),
+    maximum = max(TW_NET, na.rm = TRUE),
+    mean = mean(TW_NET, na.rm = TRUE),
+    median = median(TW_NET, na.rm = TRUE),
+    sd = sd(TW_NET, na.rm = TRUE),
+    cov = sd / mean * 100 # coefficient of variation
+  )
+```
+= not much different!
+
+## Largest Asset Europe
+
+```{r}
+df %>%
+  filter(
+    TIME_PERIOD == "2023-01-01",
+    UNIT_MEASURE == "EUR",
+    DWA_GRP == "_Z",
+    REF_AREA == "I9",
+    INSTR_ASSET %in% c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M")
+  ) %>%
+  select(INSTR_ASSET, OBS_VALUE) %>%
+  arrange(desc(OBS_VALUE)) %>%
+  mutate(
+    asset_share = OBS_VALUE / sum(OBS_VALUE) * 100, # calculate share of total assets
+  )
+```
