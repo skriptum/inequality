@@ -3,9 +3,6 @@
 This repository contains the data, code, and documentation for my Bachelor's thesis project analyzing wealth inequality in Europe.
 
 ---
-## Overview
-
----
 
 ## Project Structure
 
@@ -31,12 +28,12 @@ This repository contains the data, code, and documentation for my Bachelor's the
 
 ## Setup Instructions
 
-Open inequality.Rproj in RStudio.
-Run renv::restore() to install the required packages.
-Execute scripts in src/ in order:
-01_preparation/
-02_analysis/
-03_reporting/
+1. Open inequality.Rproj in RStudio.
+2. Run renv::restore() to install the required packages.
+3. Execute scripts in src/ in order:
+  - 01_preparation/
+  - 02_analysis/
+  - 03_reporting/
 
 ## Dependencies
 
