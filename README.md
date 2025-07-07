@@ -1,4 +1,4 @@
-# Inequality and Wealth Distribution in Germany
+# Inequality and Wealth Distribution
 
 This repository contains the data, code, and documentation for my Bachelor's thesis project analyzing wealth inequality in Europe.
 
