@@ -1,0 +1,259 @@
+# Counterfactual Simulation
+
+How would German Top 10 Share have evolved, if the HW was distributed like in EU?
+
+needs
+- Net HW of each Decile in 2011
+- Overall HW Growth in Germany each quarter
+- Share of HW Growth in EU going to each decile
+
+
+Overall HW Growth EU
+$$
+\Delta HW_{}^t = HW_{}^{t} - HW_{}^{t-1}
+$$
+
+Let Share of HW Growth in EU going to each decile
+$$
+s_{i}^t = \frac{HW_{i}^{t} - HW_{i}^{t-1}}{\Delta HW_{}^{t}}
+$$
+with 
+$$
+\sum_{i=1}^{n} s_i^t = 1
+$$
+
+
+
+Now Decile growth: 
+$$
+\Delta HW_{i}^t = s_{i}^t \times \Delta HW_{}^t
+$$
+leads Decile Level
+$$
+HW_{i}^{t} = HW_{i}^{t-1} + \Delta HW_{i}^t
+$$
+
+
+The Counterfactual Simulation
+
+$$
+\hat{HW}_{DE,i}^{t} =  \hat{HW}_{DE,i}^{t-1} + s_{EU,i}^t \times \Delta HW_{DE}^t 
+$$
+- different from the original growth in Germany (distribution)
+- different from the original growth in EU (Delta Growth)
+
+# Counterfactual Share of Bottom 50% in Germany
+
+Europe
+
+```{r}
+library(tidyverse)
+library(ggthemes)
+```
+
+```{r}
+df <- read_csv("../data/DWA_ECB_simplified.csv")
+```
+
+```{r}
+df_EU <- df %>%
+  # filter for the EU
+  filter(
+    REF_AREA == "I9",
+    UNIT_MEASURE == "EUR",
+    TIME_PERIOD > "2011-01-01",
+  ) %>%
+  select(TIME_PERIOD, DWA_GRP, HW_NET) %>% #filter columns
+  group_by(TIME_PERIOD) %>%
+  mutate(HW_ALL = sum(HW_NET, na.rm = TRUE)) %>% # calculate total HW
+  ungroup() %>%
+  group_by(DWA_GRP) %>%
+  mutate(
+    HW_GROWTH_ALL = HW_ALL - lag(HW_ALL, 1), # calculate overall growth
+    HW_GROWTH_GRP = HW_NET - lag(HW_NET, 1), # calculate growth per decile
+    SHARE_GROWTH = HW_GROWTH_GRP / HW_GROWTH_ALL, # calculate share of growth per decile
+  )
+```
+
+simulating the german counterfactual
+
+```{r}
+df_DE <- df %>%
+  filter(
+    REF_AREA == "DE",
+    UNIT_MEASURE == "EUR",
+    TIME_PERIOD > "2011-01-01",
+  ) %>%
+  select(TIME_PERIOD, DWA_GRP, HW_NET) %>%
+  group_by(TIME_PERIOD) %>%
+  mutate(
+    HW_ALL = sum(HW_NET, na.rm = TRUE), # calculate total HW in Germany
+  ) %>%
+  ungroup() %>%
+  group_by(DWA_GRP) %>%
+  mutate(
+    HW_GROWTH_ALL = HW_ALL - lag(HW_ALL, 1),
+    HW_GROWTH_GRP = HW_NET - lag(HW_NET, 1), # calculate growth per decile
+  ) 
+```
+
+combining both DFs
+
+```{r}
+df_comb <- df_EU %>%
+  select(TIME_PERIOD, DWA_GRP, SHARE_GROWTH) %>%
+  right_join(df_DE, by = c("TIME_PERIOD", "DWA_GRP")) %>%
+  mutate(
+    CTF_HW_GROWTH_GRP = HW_GROWTH_ALL * SHARE_GROWTH, # Counterfactual Growth for each decile
+  )
+```
+
+Plotting to see if it makes sense
+
+```{r}
+df_comb %>%
+  filter(DWA_GRP == "B50") %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = HW_GROWTH_GRP, color = "Actual Growth")) +
+  geom_line(aes(y = CTF_HW_GROWTH_GRP, color = "Counterfactual Growth")) 
+```
+now the levels
+
+```{r}
+df_comb <- df_comb %>%
+  filter(TIME_PERIOD > "2011-04-01") %>% # filter out NA values
+  mutate(
+    CTF_HW_LEVEL = cumsum(CTF_HW_GROWTH_GRP) + first(HW_NET), # Counterfactual Level for each decile
+    HW_LEVEL = cumsum(HW_GROWTH_GRP) + first(HW_NET), # Actual Level for each decile
+  )  
+```
+
+Robustness check: Totals Add up
+```{r}
+df_comb %>%
+  filter(TIME_PERIOD == "2024-01-01") %>%
+  group_by(TIME_PERIOD) %>%
+  summarise(
+    CTF_HW_LEVEL = sum(CTF_HW_LEVEL, na.rm = TRUE),
+    HW_LEVEL = sum(HW_LEVEL, na.rm = TRUE)
+  )
+```
+
+
+```{r}
+df_comb %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = HW_LEVEL, color = "Actual Level")) +
+  geom_line(aes(y = CTF_HW_LEVEL, color = "Counterfactual Level")) +
+  facet_wrap(~DWA_GRP, scales = "free_y") 
+```
+
+## Counterfactual Shares
+
+Create a M40 group
+```{r}
+df_shares <- df_comb %>%
+  mutate(
+    DWA_GRP = case_when(
+      DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "M40",
+      TRUE ~ DWA_GRP
+    )
+  ) %>%
+  group_by(TIME_PERIOD, DWA_GRP) %>%
+  mutate(
+    HW_LEVEL = sum(HW_LEVEL, na.rm = TRUE),
+    CTF_HW_LEVEL = sum(CTF_HW_LEVEL, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  select(TIME_PERIOD, DWA_GRP, HW_LEVEL, CTF_HW_LEVEL) %>%
+  distinct() # remove duplicates
+```
+plot levels again with middle class
+
+```{r}
+df_shares %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = HW_LEVEL, color = "Actual Level")) +
+  geom_line(aes(y = CTF_HW_LEVEL, color = "Counterfactual Level")) +
+  facet_wrap(~DWA_GRP, scales = "free_y") 
+```
+
+
+
+```{r}
+df_shares <- df_shares %>%
+  group_by(TIME_PERIOD) %>%
+  mutate(
+    SUM_HW = sum(HW_LEVEL, na.rm = TRUE), # total HW in Germany
+    SHARE_HW = HW_LEVEL / SUM_HW, # calculate share of actual HW
+    CTF_SHARE_HW = CTF_HW_LEVEL / sum(CTF_HW_LEVEL, na.rm = TRUE) # calculate share of counterfactual HW
+  ) 
+```
+
+- B50: Share from 0.9 -> 3.2 in 2024
+- M40: no change
+- D10: Share from 0.55 -> 0.53
+
+= B50 Share would triple, on cost of the top decile
+
+```{r}
+df_shares %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = SHARE_HW, color = "Actual Share")) +
+  geom_line(aes(y = CTF_SHARE_HW, color = "Counterfactual Share")) +
+  facet_wrap(~DWA_GRP, scales = "free_y")
+```
+
+make a fancy B50 Share Plot
+
+```{r}
+p1 <- df_shares %>%
+  filter(DWA_GRP == "B50") %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = SHARE_HW, color = "Actual Share"), linewidth = 0.5) +
+  geom_point(aes(y = SHARE_HW, color = "Actual Share"), shape = 5) +
+  geom_line(aes(y = CTF_SHARE_HW, color = "Counterfactual Share"), size = 0.5) +
+  geom_point(aes(y = CTF_SHARE_HW, color = "Counterfactual Share"), shape = 6) +
+  labs(
+    #title = "Counterfactual Share of Bottom 50% in Germany",
+    x = "Time Period",
+    y = "Share of Net Housing Wealth",
+    color = ""
+  ) +
+  theme_tufte() +
+  #scale_color_manual(values = c("Actual Share" = "blue", "Counterfactual Share" = "red")) +
+  theme(
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.title = element_blank(),
+    panel.border = element_rect(fill = NA, color = "black")
+  )
+
+#ggsave("../output/Counterfactual_B50_Share.png", p1, width = 8, height = 5, dpi = 300)
+p1
+```
+Share of overall Wealth
+
+```{r}
+df_TW <- df %>%
+  filter(
+    REF_AREA == "DE",
+    UNIT_MEASURE == "EUR",
+    TIME_PERIOD > "2011-01-01",
+  ) %>%
+  left_join(
+    df_comb %>% select(TIME_PERIOD, DWA_GRP, CTF_HW_LEVEL, HW_LEVEL), 
+    by = c("TIME_PERIOD", "DWA_GRP")
+  )
+```
+
+calculte Counterfactual Total Wealth
+
+```{r}
+df_TW %>%
+  group_by(TIME_PERIOD) %>%
+  mutate(
+    CTF_TW_LEVEL = 
+  )
+```
+
