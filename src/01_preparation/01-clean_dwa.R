@@ -3,7 +3,7 @@
 library(tidyverse)
 library(zoo)
 
-setwd("./src")
+#setwd("./src")
 df <- read_csv("../data/raw/DWA_ECB.csv")
 
 ## Clean 
@@ -50,7 +50,7 @@ df$TIME_PERIOD <- as.Date(as.yearqtr(df$TIME_PERIOD, format = "%Y-Q%q"), frac = 
 
 ## Save
 
-write_csv(df, "../data/DWA_ECB_clean.csv")
+write_csv(df, "../data/proc/dwa_full.csv")
 
 ## Generate a df with simplified variables
 
@@ -80,6 +80,4 @@ df_filter <- df %>%
   ) 
 
 # Save the simplified data
-write_csv(df_filter, "../data/DWA_ECB_simplified.csv")
-
-
+write_csv(df_filter, "../data/proc/dwa_simple.csv")

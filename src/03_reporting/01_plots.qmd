@@ -5,8 +5,8 @@
 library(tidyverse)
 library(ggthemes)
 
-df <- read_csv("../data/DWA_ECB_clean.csv")
-df_simple <- read_csv("../data/DWA_ECB_simplified.csv")
+df <- read_csv("../data/proc/dwa_full.csv")
+df_simple <- read_csv("../data/proc/dwa_simple.csv")
 ```
 
 
@@ -289,7 +289,7 @@ p4
 ## Ownership
 
 ```{r}
-ownership <- read_csv("../data/ownership.csv")
+ownership <- read_csv("../data/proc/ownership.csv")
 ```
 ```{r}
 #plot Europe Differences between years
@@ -309,7 +309,7 @@ df_owner %>%
 ### House Prices
 
 ```{r}
-df_house <- read_csv("../data/House_Prices.csv")
+df_house <- read_csv("../data/proc/prices.csv")
 ```
 
 
@@ -362,13 +362,13 @@ p5
 ## Gini / Theil in Europe
 
 ```{r}
-df_gini <- read_csv("../data/gini_indices.csv")
+df_gini <- read_csv("../data/proc/gini_simple.csv")
 ```
 
 ```{r}
 df_gini %>%
   filter(
-    ASSET %in% c("NUN"), #housing asset
+    ASSET %in% c("HW_NET"), #housing asset
     REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
     ) %>%
   ggplot(aes(x = TIME_PERIOD)) +

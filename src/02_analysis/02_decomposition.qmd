@@ -5,11 +5,14 @@ library(tidyverse)
 library(sf)
 library(eurostat)
 ```
+```{r}
+setwd("../")
+```
+
 
 ```{r}
-#setwd("./src")
-df <- read_csv("../data/DWA_ECB_simplified.csv")
-df_gini <- read_csv("../data/gini_indices_simplified.csv")
+df <- read_csv("../../data/proc/dwa_simple.csv")
+df_gini <- read_csv("../../data/proc/gini_simple.csv")
 ```
 
 ## Decomposition
@@ -202,5 +205,3 @@ europe_shp_comb %>%
   scale_fill_viridis_c(option="magma", direction = -1) 
 ```
 title should be on top of the legend, if not restart R and run all again!
-
-- use ggpattern to add additional information, eg significance levels

@@ -10,10 +10,8 @@ library(lmtest)
 library(plm)
 
 #setwd("./src")
-df <- read_csv("../data/DWA_ECB_simplified.csv")
-df_house <- read_csv("../data/House_Prices.csv")
-df_gini <- read_csv("../data/gini_indices_simplified.csv")
-df_ownership <- read_csv("../data/ownership.csv") 
+df <- read_csv("../data/proc/dwa_simple.csv")
+df_house <- read_csv("../data/proc/prices.csv")
 
 #--------------------------------
 ## Clean and Calculation
@@ -67,31 +65,17 @@ df_filter %>%
   ggplot(aes(x = TIME_PERIOD, y = Share, color = Group)) +
   geom_line()
 
-# ownership data cleaning
-df_ownership <- df_ownership %>%
-  filter(
-    JAHR == 2021,
-    DWA_GRP == "ALL" #for this time, only select overall ownership rate
-  ) %>%
-  pivot_wider(
-    names_from = DWA_GRP,
-    values_from = OWNER,
-    names_prefix = "owner_"
-  ) %>%
-  select(REF_AREA, owner_ALL)
+
 
 
 # Combine dataframes
 df_comb <- df_filter %>%
   left_join(df_house, by = c("REF_AREA", "TIME_PERIOD")) %>%
-  left_join(df_ownership, by = "REF_AREA") %>%
   filter(TIME_PERIOD < "2022-01-01") %>% #exclude post 2021
   mutate(
     YEAR=lubridate::year(TIME_PERIOD),
     QUARTER = lubridate::quarter(TIME_PERIOD)
   ) 
-
-write_csv(df_comb, "../data/Regression_COMBINED.csv")
 
 #--------------------------------
 ## Model for I9 simple
@@ -145,13 +129,47 @@ plm_model1 <- plm(
 summary(plm_model1, vcov=vcovSCC)
 
 pmg_model1 <- pmg(
-  T10_share_change ~ HP_R_Change + STOCK_Change | facor(QUARTER) + factor(YEAR),
+  T10_share_change ~ HP_R_Change + STOCK_Change | factor(QUARTER) + factor(YEAR),
   data = df_comb,
   index = c("REF_AREA", "TIME_PERIOD"),
   model = "mg"
 )
 summary(pmg_model1, vcov=vcovSCC)
 
+all_models <- list()
+
+for (dependent in c("B50_share_change", "M40_share_change", "T10_share_change")) {
+  
+  # Build formula dynamically
+  fml_main <- as.formula(paste(dependent, "~ HP_R_Change + STOCK_Change"))
+  fml_w_fe <- as.formula(paste(dependent, "~ HP_R_Change + STOCK_Change | factor(QUARTER) + factor(YEAR)"))
+  
+  # Run models
+  plm_model1 <- plm(fml_main, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
+                    model = "within", effect = "time")
+  
+  plm_model2 <- plm(fml_main, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
+                    model = "within", effect = "individual")
+  
+  plm_model3 <- plm(fml_w_fe, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
+                    model = "within", effect = "individual")
+  
+  pmg_model1 <- pmg(fml_main, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
+                    model = "mg")
+  
+  pmg_model2 <- pmg(fml_w_fe, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
+                    model = "mg")
+  
+  # Store all models for this dependent variable
+  all_models[[dependent]] <- list(
+    plm_time_fe    = plm_model1,
+    plm_unit_fe    = plm_model2,
+    plm_unit_fe_wt = plm_model3,
+    pmg_plain      = pmg_model1,
+    pmg_wt         = pmg_model2
+  )
+}
+saveRDS(all_models, "../data/models/panelmodels.rds")
 #---------------
 # Separate Regression for each country
 result_B50 <- df_comb %>%
@@ -248,6 +266,6 @@ result_T10 <- df_comb %>%
   bind_rows()
 
 #save group results
-write_csv(result_B50, "../data/Regression_B50.csv")
-write_csv(result_M40, "../data/Regression_M40.csv")
-write_csv(result_T10, "../data/Regression_T10.csv")
+write_csv(result_B50, "../data/models/b50_regression.csv")
+write_csv(result_M40, "../data/models/m40_regression.csv")
+write_csv(result_T10, "../data/models/t10_regression.csv")

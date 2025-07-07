@@ -3,8 +3,8 @@
 library(tidyverse)
 
 #setwd("./src")
-df <- read_csv("../data/DWA_ECB_clean.csv")
-df_filter <- read_csv("../data/DWA_ECB_simplified.csv")
+df <- read_csv("../data/proc/dwa_full.csv")
+df_filter <- read_csv("../data/proc/dwa_simple.csv")
 
 # Create a Gini coefficient function
 
@@ -67,7 +67,7 @@ gini_results <- expand.grid(REF_AREA = countries, ASSET = assets) %>%
   ungroup()
 
 # Save the results to a CSV file
-write_csv(gini_results, "../data/gini_indices.csv")
+write_csv(gini_results, "../data/proc/gini_full.csv")
 
 ## for simplified asset classes
 countries <- unique(df_filter$REF_AREA)
@@ -83,4 +83,4 @@ gini_results_simplified <- expand.grid(REF_AREA = countries, ASSET = unique(df_f
   ungroup()
 
 # Save the simplified results to a CSV file
-write_csv(gini_results_simplified, "../data/gini_indices_simplified.csv")
+write_csv(gini_results_simplified, "../data/proc/gini_simple.csv")

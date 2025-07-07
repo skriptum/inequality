@@ -8,7 +8,7 @@ library(tidyverse)
 ## Theil Index playing around
 
 ```{r}
-df <- read_csv("../data/DWA_ECB_simplified.csv")
+df <- read_csv("../data/proc/dwa_simple.csv")
 ```
 
 ```{r}
@@ -32,7 +32,7 @@ dineq::theil.wtd(
 compare with my calculations
 
 ```{r}
-df_gini <- read_csv("../data/gini_indices_simplified.csv")
+df_gini <- read_csv("../data/proc/gini_simple.csv")
 
 df_gini %>%
   filter(
@@ -63,7 +63,7 @@ dineq::gini.wtd(
 
 
 ```{r}
-df_gini <- read_csv("../data/gini_indices_simplified.csv")
+df_gini <- read_csv("../data/proc/gini_simple.csv")
 
 df_gini %>%
   filter(

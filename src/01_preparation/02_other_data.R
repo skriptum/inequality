@@ -1,6 +1,6 @@
 # Fetching other Data
 
-setwd("./src")
+#setwd("./src")
 library(tidyverse)
 library(rdbnomics)
 library(zoo)
@@ -68,7 +68,7 @@ df_prices <- df_house %>%
   left_join(df_stoxx, by = "TIME_PERIOD") 
 
 # Save the data
-write_csv(df_prices, "../data/House_Prices.csv")
+write_csv(df_prices, "../data/proc/prices.csv")
 
 #------------------------------------------
 ## Ownership Rates 
@@ -103,7 +103,7 @@ df_owner <- df_owner %>%
   
 
 # save the data
-write_csv(df_owner, "../data/ownership.csv")
+write_csv(df_owner, "../data/proc/ownership.csv")
 
 #------------------------------------------
 ## Macro Data
@@ -151,7 +151,7 @@ df_growth <- df_growth %>%
   )
 
 #save data
-write_csv(df_growth, "../data/GDP_Growth.csv")
+write_csv(df_growth, "../data/proc/gdp_growth.csv")
 
 
 

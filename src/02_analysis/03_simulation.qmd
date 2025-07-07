@@ -52,7 +52,7 @@ library(ggthemes)
 ```
 
 ```{r}
-df <- read_csv("../data/DWA_ECB_simplified.csv")
+df <- read_csv("../../data/proc/dwa_simple.csv")
 ```
 
 ```{r}
@@ -229,7 +229,7 @@ p1 <- df_shares %>%
     panel.border = element_rect(fill = NA, color = "black")
   )
 
-#ggsave("../output/Counterfactual_B50_Share.png", p1, width = 8, height = 5, dpi = 300)
+#ggsave("../output/counterfactual_B50_share.png", p1, width = 8, height = 5, dpi = 300)
 p1
 ```
 Share of overall Wealth
