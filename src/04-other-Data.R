@@ -6,7 +6,7 @@ library(rdbnomics)
 library(zoo)
 
 #------------------------------------------
-## House Prices
+## House Prices & Stock Prices
 
 unique_countries <- c(
   "AT", "BE", "CY", "DE", "EE",
@@ -45,11 +45,30 @@ for (country in unique_countries) {
 df_house <- df_house %>%
   mutate(
     REF_AREA = ifelse(REF_AREA == "MX", "I9", REF_AREA), # I9 = Euro Area
-    TIME_PERIOD = as.Date(as.yearqtr(df$TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
+    TIME_PERIOD = as.Date(as.yearqtr(TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
   )
 
+# Stoxx Euro 50 Index
+# ECB/FM/Q.U2.EUR.DS.EI.DJES50I.HSTA
+
+df_stoxx <- rdb(ids = "ECB/FM/Q.U2.EUR.DS.EI.DJES50I.HSTA") %>%
+  select(
+    original_period,
+    value,
+  ) %>%
+  filter(
+    original_period >= "2000-01-01",
+  ) %>%
+  reframe(
+    TIME_PERIOD = as.Date(as.yearqtr(original_period, format = "%Y-Q%q"), frac = 0),
+    Stock_Price = as.numeric(value) # Stock Price index, real, Nomralized to 2010=100
+  )
+
+df_prices <- df_house %>%
+  left_join(df_stoxx, by = "TIME_PERIOD") 
+
 # Save the data
-write_csv(df_house, "../data/House_Prices.csv")
+write_csv(df_prices, "../data/House_Prices.csv")
 
 #------------------------------------------
 ## Ownership Rates 
@@ -133,6 +152,8 @@ df_growth <- df_growth %>%
 
 #save data
 write_csv(df_growth, "../data/GDP_Growth.csv")
+
+
 
 
 
