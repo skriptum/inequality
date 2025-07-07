@@ -4,6 +4,12 @@ This repository contains the data, code, and documentation for my Bachelor's the
 
 ---
 
+## Overview
+
+This project investigates the connection between wealth inequality and housing prices in Europe. It focuses on the short run reactions of wealth distribution to changes in housing prices, following a similar approach by Kuhn et al. ([2023](https://www.journals.uchicago.edu/doi/abs/10.1086/708815)) for the US. It uses the novel experimantel Distributional Wealth Accounts (DWA) from the ECB.
+
+---
+
 ## Project Structure
 
 ```text
