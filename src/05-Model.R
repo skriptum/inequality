@@ -4,8 +4,12 @@
 ## Load
 library(tidyverse)
 library(fixest)
+library(dynlm)
+library(sandwich)
+library(lmtest)
+library(plm)
 
-setwd("./src")
+#setwd("./src")
 df <- read_csv("../data/DWA_ECB_simplified.csv")
 df_house <- read_csv("../data/House_Prices.csv")
 df_gini <- read_csv("../data/gini_indices_simplified.csv")
@@ -18,18 +22,17 @@ df_ownership <- read_csv("../data/ownership.csv")
 df_house <- df_house %>%
   group_by(REF_AREA) %>%
   mutate(
-    HP_R_Change = ( (HP_R_N - dplyr::lag(HP_R_N)) / dplyr::lag(HP_R_N)),
-    # HP_R_Change_L1 = dplyr::lag(HP_R_Change, 1),
-    # HP_R_Change_L2 = dplyr::lag(HP_R_Change, 2),
-    # HP_R_Change_L3 = dplyr::lag(HP_R_Change, 3),
-    # HP_R_Change_L4 = dplyr::lag(HP_R_Change, 4)
+    #HP_R_Change = ( (HP_R_N - dplyr::lag(HP_R_N)) / dplyr::lag(HP_R_N)),
+    #STOCK_Change = ( (Stock_Price - dplyr::lag(Stock_Price)) / dplyr::lag(Stock_Price) )
+    HP_R_Change = log(HP_R_N) - log(dplyr::lag(HP_R_N)),
+    STOCK_Change = log(Stock_Price) - log(dplyr::lag(Stock_Price))
   )
 
 # share of top 10% of total wealth
 df_filter <- df %>%
   filter(
    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"), # only compute from deciles
-   UNIT_MEASURE == "EUR_R_POP"   # per capita wealth
+   UNIT_MEASURE == "EUR"   # per capita wealth
   ) %>%
   arrange(DWA_GRP) %>% # sort groups 
   select(REF_AREA, DWA_GRP, TIME_PERIOD, TW_NET) %>% #only select relevant columns
@@ -48,9 +51,12 @@ df_filter <- df %>%
   # changes in shares
   group_by(REF_AREA) %>%
   mutate(
-    B50_share_change = (B50_share - dplyr::lag(B50_share)) / dplyr::lag(B50_share),
-    M40_share_change = (M40_share - dplyr::lag(M40_share)) / dplyr::lag(M40_share),
-    T10_share_change = (T10_share - dplyr::lag(T10_share)) / dplyr::lag(T10_share)
+    # B50_share_change = (B50_share - dplyr::lag(B50_share)) / dplyr::lag(B50_share),
+    # M40_share_change = (M40_share - dplyr::lag(M40_share)) / dplyr::lag(M40_share),
+    # T10_share_change = (T10_share - dplyr::lag(T10_share)) / dplyr::lag(T10_share)
+    B50_share_change = log(B50_share) - log(dplyr::lag(B50_share)),
+    M40_share_change = log(M40_share) - log(dplyr::lag(M40_share)),
+    T10_share_change = log(T10_share) - log(dplyr::lag(T10_share))
   ) 
    
 # plot shares over time
@@ -78,108 +84,170 @@ df_ownership <- df_ownership %>%
 # Combine dataframes
 df_comb <- df_filter %>%
   left_join(df_house, by = c("REF_AREA", "TIME_PERIOD")) %>%
-  left_join(df_ownership, by = "REF_AREA")
+  left_join(df_ownership, by = "REF_AREA") %>%
+  filter(TIME_PERIOD < "2022-01-01") %>% #exclude post 2021
+  mutate(
+    YEAR=lubridate::year(TIME_PERIOD),
+    QUARTER = lubridate::quarter(TIME_PERIOD)
+  ) 
 
 write_csv(df_comb, "../data/Regression_COMBINED.csv")
+
 #--------------------------------
-## Model
+## Model for I9 simple
 
 # Simple Linear regression model for Euro Area
 model1 <- lm(
-  T10_share_change ~ HP_R_Change,
+  T10_share_change ~ HP_R_Change + STOCK_Change,
   data = df_comb %>% filter(REF_AREA == "I9")
 )
-
-summary(model1)
-# beta 1 = -0.08 *, R2 = 0.07
+model1.summ <- summary(model1)
+model1.summ$coefficients <- unclass(coeftest(model1, vcov = NeweyWest))
+model1.summ
 
 # Middle 40 share
 model2 <- lm(
-  M40_share_change ~ HP_R_Change,
+  M40_share_change ~ HP_R_Change + STOCK_Change,
   data = df_comb %>% filter(REF_AREA == "I9")
 )
-
-summary(model2)
-# beta 1 = 0.1 *, R2 = 0.06
+model2.summ <- summary(model2)
+model2.summ$coefficients <- unclass(coeftest(model2, vcov = NeweyWest))
+model2.summ
 
 model3 <- lm(
-  B50_share_change ~ HP_R_Change,
+  B50_share_change ~ HP_R_Change + STOCK_Change,
   data = df_comb %>% filter(REF_AREA == "I9")
 )
-summary(model3)
-# beta1= 0.36 ***, R2 = 0.18
+model3.summ <- summary(model3)
+model3.summ$coefficients <- unclass(coeftest(model3, vcov = NeweyWest))
+model3.summ
 
-#---------------
-# Simple LM with Lags
-# model_lag <- lm(
-#   T10_share_change ~ HP_R_Change + HP_R_Change_L1,
-#   data = df_comb %>% filter(REF_AREA == "I9")
-# )
-# summary(model_lag)
-# R2 does not change at all, adj R2 = worse, no significance
+#----------------
+## dynlm 
 
-#---------------
-# Panel Regression Model
-plm_model <- plm::plm(
-  T10_share_change ~ HP_R_Change,
+model_dyn <- dynlm(
+  d(log(M40_share)) ~ d(log(HP_R_N)) + d(log(Stock_Price)),#+zoo(QUARTER) + zoo(YEAR),
+  data = df_comb %>% filter(REF_AREA == "I9"),
+)
+summary(model_dyn)
+coeftest(model_dyn, vcov = NeweyWest(model_dyn, lag = 4, prewhite = FALSE))
+
+
+#----------------
+## PLM
+
+plm_model1 <- plm(
+  T10_share_change ~ HP_R_Change + STOCK_Change ,# | factor(QUARTER) + factor(YEAR),
   data = df_comb,
   index = c("REF_AREA", "TIME_PERIOD"),
-  model = "within"
+  model = "within", effect = "individual"
 )
-summary(plm_model)
-# T10:  beta1 = -0.052 ***, R2 = 0.02
-# M40: beta1 = 0.04 ***, R2 = 0.017
-# B50: beta1 = 0.38***, R2 = 0.05 
+summary(plm_model1, vcov=vcovSCC)
 
-plm_model2 <- plm::plm(
-  B50_share_change ~ HP_R_Change,
+pmg_model1 <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change | facor(QUARTER) + factor(YEAR),
   data = df_comb,
   index = c("REF_AREA", "TIME_PERIOD"),
-  model = "within", effect = "twoways"
+  model = "mg"
 )
-summary(plm_model2)
-# no change in betas, worse adj R2
+summary(pmg_model1, vcov=vcovSCC)
 
 #---------------
 # Separate Regression for each country
-df_comb %>%
+result_B50 <- df_comb %>%
   group_by(REF_AREA) %>%
   group_split() %>%
   map(~ {
     model <- lm(
-      #T10_share_change ~ HP_R_Change,
-      # M40_share_change ~ HP_R_Change,
-      B50_share_change ~ HP_R_Change,
+      B50_share_change ~ HP_R_Change + STOCK_Change,
       data = .
     )
     tibble(
       REF_AREA = unique(.$REF_AREA),
       beta1 = coef(model)[2],
+      beta2 = coef(model)[3],
       R2 = summary(model)$r.squared,
-      # significance = case_when(
-      #     summary(model)$coefficients[2, 4] < 0.001 ~ "***",
-      #     summary(model)$coefficients[2, 4] < 0.01 ~ "**",
-      #     summary(model)$coefficients[2, 4] < 0.05 ~ "*",
-      #     summary(model)$coefficients[2, 4] < 0.1 ~ ".",
-      #     TRUE ~ ""
-      #   )
-      significance = ifelse(summary(model)$coefficients[2, 4] < 0.05, "True", "F")
+      s1 = case_when(
+        summary(model)$coefficients[2, 4] < 0.001 ~ "***",
+        summary(model)$coefficients[2, 4] < 0.01 ~ "**",
+        summary(model)$coefficients[2, 4] < 0.05 ~ "*",
+        summary(model)$coefficients[2, 4] < 0.1 ~ ".",
+        TRUE ~ ""
+      ),
+      s2 = case_when(
+        summary(model)$coefficients[3, 4] < 0.001 ~ "***",
+        summary(model)$coefficients[3, 4] < 0.01 ~ "**",
+        summary(model)$coefficients[3, 4] < 0.05 ~ "*",
+        summary(model)$coefficients[3, 4] < 0.1 ~ ".",
+        TRUE ~ ""
+      )
     )
   }) %>%
-  bind_rows() %>%
-  arrange(desc(significance)) %>%
-  arrange(desc(beta1)) %>%
-  print(n=30)
+  bind_rows()
 
-#----------------
-# Ownership Rates
+result_M40 <- df_comb %>%
+  group_by(REF_AREA) %>%
+  group_split() %>%
+  map(~ {
+    model <- lm(
+      M40_share_change ~ HP_R_Change + STOCK_Change,
+      data = .
+    )
+    tibble(
+      REF_AREA = unique(.$REF_AREA),
+      beta1 = coef(model)[2],
+      beta2 = coef(model)[3],
+      R2 = summary(model)$r.squared,
+      s1 = case_when(
+        summary(model)$coefficients[2, 4] < 0.001 ~ "***",
+        summary(model)$coefficients[2, 4] < 0.01 ~ "**",
+        summary(model)$coefficients[2, 4] < 0.05 ~ "*",
+        summary(model)$coefficients[2, 4] < 0.1 ~ ".",
+        TRUE ~ ""
+      ),
+      s2 = case_when(
+        summary(model)$coefficients[3, 4] < 0.001 ~ "***",
+        summary(model)$coefficients[3, 4] < 0.01 ~ "**",
+        summary(model)$coefficients[3, 4] < 0.05 ~ "*",
+        summary(model)$coefficients[3, 4] < 0.1 ~ ".",
+        TRUE ~ ""
+      )
+    )
+  }) %>%
+  bind_rows()
 
-# Add ownership rate to panel model
-model_ownership <- plm::plm(
-  T10_share_change ~ HP_R_Change * owner_ALL,
-  data = df_comb,
-  index = c("REF_AREA", "TIME_PERIOD"),
-  model = "within"
-)
-summary(model_ownership)
-# = model worsens
+result_T10 <- df_comb %>%
+  group_by(REF_AREA) %>%
+  group_split() %>%
+  map(~ {
+    model <- lm(
+      T10_share_change ~ HP_R_Change + STOCK_Change,
+      data = .
+    )
+    tibble(
+      REF_AREA = unique(.$REF_AREA),
+      beta1 = coef(model)[2],
+      beta2 = coef(model)[3],
+      R2 = summary(model)$r.squared,
+      s1 = case_when(
+        summary(model)$coefficients[2, 4] < 0.001 ~ "***",
+        summary(model)$coefficients[2, 4] < 0.01 ~ "**",
+        summary(model)$coefficients[2, 4] < 0.05 ~ "*",
+        summary(model)$coefficients[2, 4] < 0.1 ~ ".",
+        TRUE ~ ""
+      ),
+      s2 = case_when(
+        summary(model)$coefficients[3, 4] < 0.001 ~ "***",
+        summary(model)$coefficients[3, 4] < 0.01 ~ "**",
+        summary(model)$coefficients[3, 4] < 0.05 ~ "*",
+        summary(model)$coefficients[3, 4] < 0.1 ~ ".",
+        TRUE ~ ""
+      )
+    )
+  }) %>%
+  bind_rows()
+
+#save group results
+write_csv(result_B50, "../data/Regression_B50.csv")
+write_csv(result_M40, "../data/Regression_M40.csv")
+write_csv(result_T10, "../data/Regression_T10.csv")
