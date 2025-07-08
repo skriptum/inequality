@@ -1,0 +1,155 @@
+# Tables
+
+```{r}
+library(tidyverse)
+library(gt)
+library(modelsummary)
+library(broom)
+library(plm) #loaded fur custom summary of plm objects
+```
+
+```{r}
+all_models <- readRDS("../../data/models/panelmodels.rds")
+```
+
+## Panel Models
+
+- PML Models 1-3
+- PMG Models 1+2
+
+```{r}
+model1 <- all_models$T10_share_change$plm_unit_fe
+
+model1.summ <- summary(model1)
+model1.summ$coefficients <- unclass(lmtest::coeftest(model1, vcov = vcovSCC))
+#model1.summ
+
+model2 <- all_models$T10_share_change$pmg_plain
+model2.summ <- summary(model2)
+model2.coef <- unclass(lmtest::coeftest(model2))
+```
+
+
+### Helper Functions 
+
+```{r}
+tidy.pmg <- function(model,...) {
+  s <- summary(model)
+  coef <- lmtest::coeftest(model)
+  ret <- tibble(
+    term = names(s$coefficients),
+    estimate = s$coefficients,
+    std.error = coef[, "Std. Error"],
+    statistic = coef[, "t value"],
+    p.value = coef[, "Pr(>|t|)"],
+  )
+  ret
+}
+
+glance.pmg <- function(model, ...) {
+  s <- summary(model)
+  tibble(
+    r.squared = s$rsqr,
+    adj.r.squared = s$r.squared,
+    df.residual = s$df.residual,
+    nobs = length(s$residuals),
+  )
+}
+  
+  
+tidy.pmg(model2)
+glance.pmg(model2)
+```
+
+
+## Table Output
+
+- Custom Tibble for the Fixed Effects Rows
+- custom Standard Error for the PLM Models (SCC)
+
+```{r}
+rows_fe <- tibble::tibble(
+  term = c("Unit Fixed Effects", "Time Fixed Effects"),
+  pml_time_fe = c("No", "Yes"),
+  pml_unit_fe = c("Yes", "No"),
+  pml_unit_fe_wt = c("Yes", "Year + Quarter"),
+  pmg_wt = c("-", "Yes"),
+  pmg_plain = c("-", "No"),
+)
+attr(rows_fe, "position") <- "gof_start"
+
+vcov_list <- list(
+  vcovSCC, vcovSCC, vcovSCC,
+  vcov, vcov
+)
+```
+
+
+```{r}
+model_table <- function(models, table_title = "") {
+  tab <- modelsummary(
+    models,
+    coef_omit = "(Intercept)",
+    vcov = vcov_list,
+    stars = c("***" = 0.01, "**" = 0.05, "*" = 0.1),
+    coef_rename = c(
+      "HP_R_Change" = "House Prices",
+      "STOCK_Change" = "Stock Prices"
+    ),
+    gof_omit = "IC|RMSE|Std.Errors",
+    gof_map = list(
+      list("raw" = "nobs", "clean" = "N", "fmt" = 0),
+      list("raw" = "r.squared", "clean" = "R²", "fmt" = 3),
+      list("raw" = "adj.r.squared", "clean" = "Adj. R²", "fmt" = 3)
+    ),
+    title = table_title,
+    add_rows = rows_fe,
+    output = "gt",
+    notes = "OLS Estimators use the SCC Standard Errors by Millo (2017)"
+  )
+  
+  tab <- tab %>%
+    tab_spanner(label = "OLS Estimator", columns = 2:4) %>%
+    tab_spanner(label = "Mean Group Estimator", columns = 5:6) %>%
+    gt::tab_style(
+      style = gt::cell_borders(
+        sides = "bottom",
+        color = "black",
+        weight = px(1)
+      ),
+      locations = gt::cells_body(
+        rows = 6
+      )
+    )
+  
+  tab
+}
+```
+
+Create for each DWA_GRP
+
+```{r}
+models_T10 <- unname(all_models$T10_share_change)
+table_T10 <- model_table(models_T10, "Top 10% Share in Total Wealth")
+gtsave(table_T10, "../../output/paneltables/T10.tex", inline = TRUE)
+gtsave(table_T10, "../../output/paneltables/T10.html")
+#table_T10
+```
+
+```{r}
+models_M40 <- unname(all_models$M40_share_change)
+table_M40 <- model_table(models_M40, "Middle 40% Share in Total Wealth")
+gtsave(table_M40, "../../output/paneltables/M40.tex", inline = TRUE)
+gtsave(table_M40, "../../output/paneltables/M40.html")
+# table_M40
+```
+
+```{r}
+B50_models <- unname(all_models$B50_share_change)
+table_B50 <- model_table(B50_models, "Bottom 50% Share in Total Wealth")
+gtsave(table_B50, "../../output/paneltables/B50.tex", inline = TRUE)
+gtsave(table_B50, "../../output/paneltables/B50.html")
+# table_B50
+```
+
+

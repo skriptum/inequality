@@ -1,0 +1,75 @@
+# Tables for Time Series Models
+
+Basic Layout for the individual Time Series Models
+
+- rows = countries
+- columns:
+  - Coeff with (Std Errors) below and asterisk
+  - R2 and adjust R2
+  - Newey-West Standard Errors
+  - N
+  
+```{r}
+library(tidyverse)
+library(sandwich)
+library(lmtest)
+library(dynlm)
+library(modelsummary)
+library(gt)
+```
+
+```{r}
+models_B50 <- readRDS("../../data/models/B50_ts_models.rds")
+models_M40 <- readRDS("../../data/models/M40_ts_models.rds")
+models_T10 <- readRDS("../../data/models/T10_ts_models.rds")
+```
+
+## Table Creations
+
+```{r}
+ts_table <- function(models, table_title) {
+  modelsummary(
+    models,
+    output = "gt",
+    vcov = NeweyWest,
+    coef_rename = c(
+      "d(log(HP_R_N))" = "House Prices",
+      "d(log(Stock_Price))" = "Stock Prices"
+    ),
+    coef_omit = "(Intercept)",
+    stars = c("***" = 0.01, "**" = 0.05, "*" = 0.1),
+    gof_omit = "IC|RMSE|Log",
+    gof_map = list(
+      list("raw" = "nobs", "clean" = "N", "fmt" = 0),
+      list("raw" = "r.squared", "clean" = "R²", "fmt" = 3),
+      list("raw" = "adj.r.squared", "clean" = "Adj. R²", "fmt" = 3)
+    ),
+    notes = "Standard errors estimated following Newey and West (1987)",
+    #shape = model ~ term ,
+    title = table_title
+  )
+}
+```
+
+```{r}
+ts_table_B50 <- ts_table(models_B50, "Bottom 50% Share of Total Wealth")
+gtsave(ts_table_B50, "../../output/ts_tables/ts_B50.html")
+gtsave(ts_table_B50, "../../output/ts_tables/ts_B50.tex", inline = TRUE)
+#ts_table_B50
+```
+
+
+```{r}
+ts_table_M40 <- ts_table(models_M40, "Middle 40% Share of Total Wealth")
+gtsave(ts_table_M40, "../../output/ts_tables/ts_M40.html")
+gtsave(ts_table_M40, "../../output/ts_tables/ts_M40.tex", inline = TRUE)
+# ts_table_M40
+```
+
+```{r}
+ts_table_T10 <- ts_table(models_T10, "Top 10% Share of Total Wealth")
+gtsave(ts_table_T10, "../../output/ts_tables/ts_T10.html")
+gtsave(ts_table_T10, "../../output/ts_tables/ts_T10.tex", inline = TRUE)
+# ts_table_T10
+```
+
