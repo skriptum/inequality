@@ -3,6 +3,7 @@
 *.Rproj
 .Rproj.user
 .DS_Store
+/renv
 
 data/proc/dwa_full.csv
 data/raw/DWA_ECB.csv
