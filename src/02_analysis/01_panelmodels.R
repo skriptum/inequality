@@ -3,8 +3,6 @@
 #--------------------------------
 ## Load
 library(tidyverse)
-library(fixest)
-library(dynlm)
 library(sandwich)
 library(lmtest)
 library(plm)
@@ -49,9 +47,6 @@ df_filter <- df %>%
   # changes in shares
   group_by(REF_AREA) %>%
   mutate(
-    # B50_share_change = (B50_share - dplyr::lag(B50_share)) / dplyr::lag(B50_share),
-    # M40_share_change = (M40_share - dplyr::lag(M40_share)) / dplyr::lag(M40_share),
-    # T10_share_change = (T10_share - dplyr::lag(T10_share)) / dplyr::lag(T10_share)
     B50_share_change = log(B50_share) - log(dplyr::lag(B50_share)),
     M40_share_change = log(M40_share) - log(dplyr::lag(M40_share)),
     T10_share_change = log(T10_share) - log(dplyr::lag(T10_share))
@@ -67,7 +62,6 @@ df_filter %>%
 
 
 
-
 # Combine dataframes
 df_comb <- df_filter %>%
   left_join(df_house, by = c("REF_AREA", "TIME_PERIOD")) %>%
@@ -77,48 +71,10 @@ df_comb <- df_filter %>%
     QUARTER = lubridate::quarter(TIME_PERIOD)
   ) 
 
-#--------------------------------
-## Model for I9 simple
-
-# Simple Linear regression model for Euro Area
-model1 <- lm(
-  T10_share_change ~ HP_R_Change + STOCK_Change,
-  data = df_comb %>% filter(REF_AREA == "I9")
-)
-model1.summ <- summary(model1)
-model1.summ$coefficients <- unclass(coeftest(model1, vcov = NeweyWest))
-model1.summ
-
-# Middle 40 share
-model2 <- lm(
-  M40_share_change ~ HP_R_Change + STOCK_Change,
-  data = df_comb %>% filter(REF_AREA == "I9")
-)
-model2.summ <- summary(model2)
-model2.summ$coefficients <- unclass(coeftest(model2, vcov = NeweyWest))
-model2.summ
-
-model3 <- lm(
-  B50_share_change ~ HP_R_Change + STOCK_Change,
-  data = df_comb %>% filter(REF_AREA == "I9")
-)
-model3.summ <- summary(model3)
-model3.summ$coefficients <- unclass(coeftest(model3, vcov = NeweyWest))
-model3.summ
+write_csv(df_comb, "../data/proc/panel_data.csv")
 
 #----------------
-## dynlm 
-
-model_dyn <- dynlm(
-  d(log(M40_share)) ~ d(log(HP_R_N)) + d(log(Stock_Price)),#+zoo(QUARTER) + zoo(YEAR),
-  data = df_comb %>% filter(REF_AREA == "I9"),
-)
-summary(model_dyn)
-coeftest(model_dyn, vcov = NeweyWest(model_dyn, lag = 4, prewhite = FALSE))
-
-
-#----------------
-## PLM
+## Panel Models
 
 plm_model1 <- plm(
   T10_share_change ~ HP_R_Change + STOCK_Change ,# | factor(QUARTER) + factor(YEAR),
@@ -135,6 +91,9 @@ pmg_model1 <- pmg(
   model = "mg"
 )
 summary(pmg_model1, vcov=vcovSCC)
+
+#----------------
+## Run all models for each dependent variable
 
 all_models <- list()
 
@@ -155,9 +114,9 @@ for (dependent in c("B50_share_change", "M40_share_change", "T10_share_change"))
                     model = "within", effect = "individual")
   
   pmg_model1 <- pmg(fml_main, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
-                    model = "mg")
+                    model = "dmg")
   
-  pmg_model2 <- pmg(fml_w_fe, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
+  pmg_model2 <- pmg(fml_main, data = df_comb, index = c("REF_AREA", "TIME_PERIOD"),
                     model = "mg")
   
   # Store all models for this dependent variable
@@ -165,107 +124,9 @@ for (dependent in c("B50_share_change", "M40_share_change", "T10_share_change"))
     plm_time_fe    = plm_model1,
     plm_unit_fe    = plm_model2,
     plm_unit_fe_wt = plm_model3,
-    pmg_plain      = pmg_model1,
-    pmg_wt         = pmg_model2
+    pmg_wt         = pmg_model1,
+    pmg_plain      = pmg_model2
   )
 }
 saveRDS(all_models, "../data/models/panelmodels.rds")
-#---------------
-# Separate Regression for each country
-result_B50 <- df_comb %>%
-  group_by(REF_AREA) %>%
-  group_split() %>%
-  map(~ {
-    model <- lm(
-      B50_share_change ~ HP_R_Change + STOCK_Change,
-      data = .
-    )
-    tibble(
-      REF_AREA = unique(.$REF_AREA),
-      beta1 = coef(model)[2],
-      beta2 = coef(model)[3],
-      R2 = summary(model)$r.squared,
-      s1 = case_when(
-        summary(model)$coefficients[2, 4] < 0.001 ~ "***",
-        summary(model)$coefficients[2, 4] < 0.01 ~ "**",
-        summary(model)$coefficients[2, 4] < 0.05 ~ "*",
-        summary(model)$coefficients[2, 4] < 0.1 ~ ".",
-        TRUE ~ ""
-      ),
-      s2 = case_when(
-        summary(model)$coefficients[3, 4] < 0.001 ~ "***",
-        summary(model)$coefficients[3, 4] < 0.01 ~ "**",
-        summary(model)$coefficients[3, 4] < 0.05 ~ "*",
-        summary(model)$coefficients[3, 4] < 0.1 ~ ".",
-        TRUE ~ ""
-      )
-    )
-  }) %>%
-  bind_rows()
 
-result_M40 <- df_comb %>%
-  group_by(REF_AREA) %>%
-  group_split() %>%
-  map(~ {
-    model <- lm(
-      M40_share_change ~ HP_R_Change + STOCK_Change,
-      data = .
-    )
-    tibble(
-      REF_AREA = unique(.$REF_AREA),
-      beta1 = coef(model)[2],
-      beta2 = coef(model)[3],
-      R2 = summary(model)$r.squared,
-      s1 = case_when(
-        summary(model)$coefficients[2, 4] < 0.001 ~ "***",
-        summary(model)$coefficients[2, 4] < 0.01 ~ "**",
-        summary(model)$coefficients[2, 4] < 0.05 ~ "*",
-        summary(model)$coefficients[2, 4] < 0.1 ~ ".",
-        TRUE ~ ""
-      ),
-      s2 = case_when(
-        summary(model)$coefficients[3, 4] < 0.001 ~ "***",
-        summary(model)$coefficients[3, 4] < 0.01 ~ "**",
-        summary(model)$coefficients[3, 4] < 0.05 ~ "*",
-        summary(model)$coefficients[3, 4] < 0.1 ~ ".",
-        TRUE ~ ""
-      )
-    )
-  }) %>%
-  bind_rows()
-
-result_T10 <- df_comb %>%
-  group_by(REF_AREA) %>%
-  group_split() %>%
-  map(~ {
-    model <- lm(
-      T10_share_change ~ HP_R_Change + STOCK_Change,
-      data = .
-    )
-    tibble(
-      REF_AREA = unique(.$REF_AREA),
-      beta1 = coef(model)[2],
-      beta2 = coef(model)[3],
-      R2 = summary(model)$r.squared,
-      s1 = case_when(
-        summary(model)$coefficients[2, 4] < 0.001 ~ "***",
-        summary(model)$coefficients[2, 4] < 0.01 ~ "**",
-        summary(model)$coefficients[2, 4] < 0.05 ~ "*",
-        summary(model)$coefficients[2, 4] < 0.1 ~ ".",
-        TRUE ~ ""
-      ),
-      s2 = case_when(
-        summary(model)$coefficients[3, 4] < 0.001 ~ "***",
-        summary(model)$coefficients[3, 4] < 0.01 ~ "**",
-        summary(model)$coefficients[3, 4] < 0.05 ~ "*",
-        summary(model)$coefficients[3, 4] < 0.1 ~ ".",
-        TRUE ~ ""
-      )
-    )
-  }) %>%
-  bind_rows()
-
-#save group results
-write_csv(result_B50, "../data/models/b50_regression.csv")
-write_csv(result_M40, "../data/models/m40_regression.csv")
-write_csv(result_T10, "../data/models/t10_regression.csv")
