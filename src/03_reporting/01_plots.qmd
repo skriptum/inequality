@@ -2,12 +2,20 @@
 
 ```{r}
 # Load necessary libraries
+library(patchwork)
 library(tidyverse)
 library(ggthemes)
+library(ggrepel)
 
-df <- read_csv("../data/proc/dwa_full.csv")
-df_simple <- read_csv("../data/proc/dwa_simple.csv")
+df <- read_csv("../../data/proc/dwa_full.csv")
+df_simple <- read_csv("../../data/proc/dwa_simple.csv")
 ```
+how to split up the countries?
+```{r}
+before1990 = c("BE", "DE", "ES","FR", "GR", "IE", "IT", "LU", "NL", "PT", "I9")
+post1990 = c("AT", "CY", "EE","FI", "HR", "LT", "LV", "MT", "SI", "SK" , "I9")
+```
+
 
 
 ### Tenant - Owner Wealth Ratio
@@ -30,7 +38,7 @@ df_ratio <- df %>%
 
 
 p2 <- df_ratio %>%
-  filter(REF_AREA %in% c("DE", "FR", "IT", "ES", "NL", "BE", "GR", "HU")) %>%
+  filter(REF_AREA %in% before1990) %>%
   ggplot(aes(x = TIME_PERIOD, y = ratio, color = REF_AREA)) +
     geom_line(linewidth=0.5) +
     geom_point(shape=5, size= 1) 
@@ -249,10 +257,10 @@ p4 <- p4 +
   scale_fill_manual(
     #change the colors of the stacks
     values = c(   
-        "BW" = "#cdb04b",
-        "FW" = "#377EB8",
-        "DEP" = "#38ad68",
-        "HW" = "#9f464f",
+        "BW" = "#FFB14E",
+        "FW" = "#EA5F94",
+        "DEP" = "#9D02D7",
+        "HW" = "#0000FF",
         "DEBT" = "grey"
       ),
     # change the labels
@@ -289,8 +297,9 @@ p4
 ## Ownership
 
 ```{r}
-ownership <- read_csv("../data/proc/ownership.csv")
+df_owner <- read_csv("../../data/proc/ownership.csv")
 ```
+
 ```{r}
 #plot Europe Differences between years
 df_owner %>%
@@ -299,7 +308,7 @@ df_owner %>%
     REF_AREA %in% c("DE", "BE", "NL", "AT", "ES", "FR", "IT","I9")
   ) %>%
   ggplot(aes(x = DWA_GRP, y = OWNER, group=JAHR)) +
-    geom_line(aes(color = as.factor(JAHR)), size = 1) +
+    geom_line(aes(color = as.factor(JAHR)), linewidth = 1) +
     facet_wrap(~REF_AREA, scales = "free_x", ncol=4)
 ```
 
@@ -309,24 +318,23 @@ df_owner %>%
 ### House Prices
 
 ```{r}
-df_house <- read_csv("../data/proc/prices.csv")
+df_house <- read_csv("../../data/proc/prices.csv") 
+
+df_house <- df_house %>%
+  filter(
+    TIME_PERIOD >= "2010-01-01",
+    TIME_PERIOD < "2022-01-01",
+    )
 ```
 
 
 ```{r}
 #quick plot
 p5 <- df_house %>%
-  filter(
-    REF_AREA %in% c("DE", "FR", "IT", "ES", "NL", "BE", "GR", "HU"), #selected
-    # REF_AREA %in% c("AT", "BE", "DE", "FR", "LU", "NL", "FI", "IE"), # northern
-    # REF_AREA %in% c("ES", "IT", "PT", "GR", "MT", "CY"), # southern europe
-    # REF_AREA %in% c("EE", "HU", "HR", "LT", "LV", "SI", "SK"), # eastern europe
-    TIME_PERIOD >= "2008-01-01"
-  ) %>%
+  filter(REF_AREA %in% before1990) %>% #selected countries
   ggplot(aes(x = TIME_PERIOD, y = HP_R_N, color = REF_AREA)) +
     geom_line(linewidth = 0.5) +
-    geom_point(shape = 5, size = 0.8) +
-    geom_hline(yintercept = 100, linetype = "dashed", color = "black")  # 2010 = 100
+    geom_hline(yintercept = 100, linetype = "dashed", color = "black") 
 p5
 ```
 trajectories: 
@@ -349,86 +357,87 @@ p5 <- p5 +
     ) +
     theme_tufte() +
     theme(
-      legend.position = "right",
+      legend.position = c(0.1,0.75),
       legend.title = element_blank(),
       panel.border = element_rect(fill = NA, color = "black"),
-    )
-ggsave(p5, filename = "../output/house_prices.png", width = 8, height = 5, dpi = 500)
+    ) +
+    guides(color = guide_legend(ncol = 2))
+#ggsave(p5, filename = "../../output/house_prices.png", width = 4, height = 5, dpi = 500)
 p5
 ```
 
-# Unused plots
-
-## Gini / Theil in Europe
+## House: Subplots
 
 ```{r}
-df_gini <- read_csv("../data/proc/gini_simple.csv")
+eastern  <- c("EE", "LT", "LV", "SI", "SK", "HR", "HU")
+western  <- c("AT", "BE", "DE", "FR", "IE", "LU", "NL", "FI")
+southern <- c("CY", "ES", "GR", "MT", "PT", "IT")
 ```
 
 ```{r}
-df_gini %>%
-  filter(
-    ASSET %in% c("HW_NET"), #housing asset
-    REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR", "BE", "PT") # selected countries
-    ) %>%
-  ggplot(aes(x = TIME_PERIOD)) +
-    geom_line(aes(y = GINI, color = REF_AREA)) 
+df_east <- df_house %>% filter(REF_AREA %in% eastern)
+df_west <- df_house %>% filter(REF_AREA %in% western)
+df_south <- df_house %>% filter(REF_AREA %in% southern)
+df_I9 <- df_house %>% filter(REF_AREA == "I9") # Euro Area Average
 ```
-
-## P10 P50 ratios
 
 ```{r}
-df_filter %>%
-  filter(
-    REF_AREA %in% c("DE", "BE", "IT", "AT", "ES", "FR"),
-    DWA_GRP %in% c("B50", "D10"),
-    UNIT_MEASURE == "EUR_R_POP"
-  ) %>%
-  select(TIME_PERIOD, REF_AREA, DWA_GRP, TW_NET) %>%
-  group_by(TIME_PERIOD, REF_AREA) %>%
-  summarise(
-    ratio = TW_NET[DWA_GRP == "D10"] / TW_NET[DWA_GRP == "B50"]
-  ) %>%
-  ggplot(aes(x = TIME_PERIOD, y = ratio, color=REF_AREA)) +
-    geom_line()
+set.seed(1) # for reproducibility
+make_price_plot <- function(df, title) {
+  df %>%
+    mutate(label = if_else(TIME_PERIOD == max(TIME_PERIOD), 
+                     as.character(REF_AREA), NA_character_)
+           ) %>%
+    ggplot(aes(x = TIME_PERIOD, y = HP_R_N, color = REF_AREA)) +
+      # lines for the prices
+      geom_line(linewidth = 0.5) +
+      # custom EU Average
+      geom_line(data = df_I9, color = "black", linewidth = 0.5) +
+      # 2010 = 100 Line
+      geom_hline(yintercept = 100, linetype = "dashed", color = "black") +
+      # colored labels at the end of lines
+      geom_label_repel(
+        aes(label = label), size=3, nudge_x=2, 
+        max.time=1, na.rm=T, direction ="y") +
+      # custom label for EU
+      geom_label_repel(
+        data = df_I9 %>% filter(TIME_PERIOD == max(TIME_PERIOD)),
+        label = "EU", color = "black",
+        size=3, nudge_x=1, max.time=1, na.rm=T, direction ="y"
+      ) +
+      # fixed y sclae for all plots
+      scale_y_continuous(limits = c(60, 200)) +
+      labs(
+        x = element_blank(),
+        y = "Real House Price Index",
+        title= title
+      ) +
+      #typical adjustment
+      theme_tufte() +
+      theme(
+        legend.position = "none",
+        panel.border = element_rect(fill = NA, color = "black"),
+      ) 
+}
+p_east <- make_price_plot(df_east, "Eastern Europe")
+p_west <- make_price_plot(df_west, "Western Europe")
+p_south <- make_price_plot(df_south, "Southern Europe")
 ```
-## Covariance per Decile across Europe
+
+
 
 ```{r}
-df_simple %>%
-  filter(
-    TIME_PERIOD == "2023-01-01",
-    UNIT_MEASURE == "EUR_R_POP",
-    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
-  ) %>%
-  select(REF_AREA, DWA_GRP, TW_NET) %>%
-  # variance in between the countries
-  group_by(DWA_GRP) %>%
-  summarise(
-    minimum = min(TW_NET, na.rm = TRUE),
-    maximum = max(TW_NET, na.rm = TRUE),
-    mean = mean(TW_NET, na.rm = TRUE),
-    median = median(TW_NET, na.rm = TRUE),
-    sd = sd(TW_NET, na.rm = TRUE),
-    cov = sd / mean * 100 # coefficient of variation
-  )
+#combine
+price_plot <- patchwork::wrap_plots(
+  p_east, p_west, p_south, 
+  ncol = 3, axis_titles = "collect", axes="collect"
+  ) +
+  plot_annotation(caption = "2010 = 100
+                  Source: BIS, own visualisation", theme = theme_tufte())
+price_plot
 ```
-= not much different!
-
-## Largest Asset Europe
 
 ```{r}
-df %>%
-  filter(
-    TIME_PERIOD == "2023-01-01",
-    UNIT_MEASURE == "EUR",
-    DWA_GRP == "_Z",
-    REF_AREA == "I9",
-    INSTR_ASSET %in% c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M")
-  ) %>%
-  select(INSTR_ASSET, OBS_VALUE) %>%
-  arrange(desc(OBS_VALUE)) %>%
-  mutate(
-    asset_share = OBS_VALUE / sum(OBS_VALUE) * 100, # calculate share of total assets
-  )
+ggsave(price_plot, filename = "../../output/house_prices_europe.png", width = 8, height = 5, dpi = 500)
 ```
+
