@@ -1,0 +1,133 @@
+# Maps
+
+```{r}
+library(tidyverse)
+library(sf)
+library(eurostat)
+```
+
+
+```{r}
+#setwd("../")
+df <- read_csv("../../data/proc/dwa_simple.csv")
+```
+
+## Plot Europe
+
+good explanation [here](http://stavrakoudis.econ.uoi.gr/r-eurostat/drawing-maps-of-europe.html)
+
+download the shapefiles for european countries
+```{r}
+europe_shp <- eurostat::get_eurostat_geospatial(
+  resolution = "10",
+  nuts_level = 0,
+  year = 2021
+)
+```
+
+```{r}
+europe_shp <- europe_shp %>%
+  select(CNTR_CODE, NAME_LATN, geometry) # select relevant columns
+```
+
+```{r}
+europe_shp %>%
+  ggplot() +
+  geom_sf()
+```
+
+### Prettify the Map
+
+Select Relevant Countres
+```{r}
+countries <- unique(df$REF_AREA)
+
+europe_shp <- europe_shp %>%
+  mutate(CNTR_CODE = ifelse(CNTR_CODE == "EL", "GR", CNTR_CODE)) %>% # Greece is EL in the shapefile
+  filter(CNTR_CODE !="TR") %>% # filter out Turkey
+  mutate(
+    missing_data = ifelse(CNTR_CODE %in% countries, F, T)
+  )
+```
+
+```{r}
+europe_shp %>%
+  ggplot() +
+  geom_sf(aes(fill=missing_data)) +
+  scale_x_continuous(limits = c(-10, 35)) +
+  scale_y_continuous(limits = c(35, 65)) +
+  theme_void()
+```
+
+Change the Projection
+
+now make a pretty plot
+```{r}
+plot_map <- function(df) {
+  df %>%
+    st_transform(crs = 3035) %>% # transform to WGS84 (europe projection)
+    ggplot() +
+    # a sf for no data countries (white fill, small lines around)
+    geom_sf(
+      aes(color="no data"),
+      fill="white",
+      linewidth=0.1,
+      data = df %>% filter(missing_data),
+      ) +
+    # the sf for the data
+    geom_sf(
+      aes(fill=value),
+      data = df %>% filter(!missing_data),
+      ) +
+    scale_x_continuous(limits = c(2500000, 6500000)) + # east west
+    scale_y_continuous(limits = c(1500000, 4500000)) + # north south
+    theme_void() + #no lines from geo
+    theme(
+      legend.position.inside = c(0.85,0.8),
+      panel.border = element_rect(fill = NA, color = "black"),
+      panel.background = element_rect(fill = "white", color = "white"), # change this for transparent background
+    ) +
+    guides(
+      #put the legends inside on the map
+      fill = guide_colourbar(position = "inside", title= element_blank()),
+      colour = guide_legend(position = "inside", title = element_blank())
+    ) 
+}
+```
+
+title should be on top of the legend, if not restart R and run all again!
+
+```{r}
+df_filter <- df %>%
+  filter(
+    TIME_PERIOD == "2021-10-01",
+    UNIT_MEASURE == "EUR"
+    ) %>%
+  group_by(REF_AREA) %>%
+  mutate(
+    HW_ALL = sum(HW, na.rm = TRUE),
+    TW_ALL = sum(TW_NET, na.rm = TRUE)
+    ) %>%
+  reframe(value = HW_ALL / TW_ALL) %>%
+  unique() 
+  
+
+#combined dataframe of shapes and values
+europe_shp_comb <- europe_shp %>%
+  left_join(
+    df_filter, 
+    by = c("CNTR_CODE" = "REF_AREA")
+  )
+
+map_plot <- plot_map(europe_shp_comb) +
+  scale_fill_viridis_c(
+    limits = c(0.5,0.85),
+    breaks = seq(.5, 0.8, 0.1)
+  ) 
+map_plot
+# ggsave(
+#   map_plot, filename = "../../output/map.png",
+#   width = 8, height = 6, dpi = 500
+#   )
+```
+
