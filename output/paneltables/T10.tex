@@ -1,0 +1,26 @@
+\begin{table}[t]
+\caption{Top 10\% Share in Total Wealth} 
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccccc}
+\toprule
+ & \multicolumn{3}{c}{OLS Estimator} & \multicolumn{2}{c}{Mean Group Estimator} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-6}
+  & (1) & (2) & (3) & (4) & (5) \\ 
+\midrule\addlinespace[2.5pt]
+House Prices & -0.091*** & -0.077*** & -0.056** & -0.055*** & -0.057*** \\ 
+ & (0.012) & (0.011) & (0.027) & (0.020) & (0.018) \\ 
+Stock Prices &  & 0.017*** & 0.027*** &  & 0.014*** \\ 
+{} & {} & {(0.003)} & {(0.006)} & {} & {(0.004)} \\ 
+Unit Fixed Effects & No & Yes & Yes & - & - \\ 
+{Time Fixed Effects} & {Yes} & {No} & {Year + Quarter} & {Yes} & {No} \\ 
+N & 860 & 860 & 860 & 860 & 860 \\ 
+R² & 0.071 & 0.087 & 0.076 & 0.443 & 0.313 \\ 
+Adj. R² & 0.013 & 0.062 & 0.050 & 0.408 & 0.269 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+* p < 0.1, ** p < 0.05, *** p < 0.01\\
+OLS Estimators use the SCC Standard Errors by Millo (2017)\\
+\end{minipage}
+\end{table}
+
