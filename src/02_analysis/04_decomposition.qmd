@@ -5,9 +5,7 @@ library(tidyverse)
 library(sf)
 library(eurostat)
 ```
-```{r}
-setwd("../")
-```
+
 
 
 ```{r}
@@ -110,98 +108,3 @@ df_contrib %>%
 ```
 
 
-
-## Plot Europe
-
-good explanation [here](http://stavrakoudis.econ.uoi.gr/r-eurostat/drawing-maps-of-europe.html)
-
-download the shapefiles for european countries
-```{r}
-europe_shp <- eurostat::get_eurostat_geospatial(
-  resolution = "10",
-  nuts_level = 0,
-  year = 2021
-)
-```
-```{r}
-europe_shp <- europe_shp %>%
-  select(CNTR_CODE, NAME_LATN, geometry) # select relevant columns
-```
-
-```{r}
-europe_shp %>%
-  ggplot() +
-  geom_sf()
-```
-
-### Prettify the Map
-
-Select Relevant Countres
-```{r}
-countries <- unique(df$REF_AREA)
-
-europe_shp <- europe_shp %>%
-  mutate(CNTR_CODE = ifelse(CNTR_CODE == "EL", "GR", CNTR_CODE)) %>% # Greece is EL in the shapefile
-  filter(CNTR_CODE !="TR") %>% # filter out Turkey
-  mutate(
-    missing_data = ifelse(CNTR_CODE %in% countries, F, T)
-  )
-```
-
-```{r}
-europe_shp %>%
-  ggplot() +
-  geom_sf(aes(fill=missing_data)) +
-  scale_x_continuous(limits = c(-10, 35)) +
-  scale_y_continuous(limits = c(35, 65)) +
-  theme_void()
-```
-
-Change the Projection
-
-```{r}
-variable <- "HW_contrib" # change this to the variable you want to plot
-
-#combined dataframe of shapes and values
-europe_shp_comb <- europe_shp %>%
-  left_join(
-    df_contrib %>%
-      filter(TIME_PERIOD == "2023-01-01") %>%
-      reframe(
-        REF_AREA = REF_AREA,
-        value = !!sym(variable)
-        ) %>%
-      select(!TIME_PERIOD),
-    by = c("CNTR_CODE" = "REF_AREA")
-  )
-```
-
-now make a pretty plot
-```{r}
-europe_shp_comb %>%
-  st_transform(crs = 3035) %>% # transform to WGS84
-  ggplot() +
-  geom_sf(
-    aes(color="no data"),
-    fill="white",
-    linewidth=0.1,
-    data = europe_shp_comb %>% filter(missing_data),
-    ) +
-  geom_sf(
-    aes(fill=value),
-    data = europe_shp_comb %>% filter(!missing_data),
-    ) +
-  scale_x_continuous(limits = c(2500000, 6500000)) +
-  scale_y_continuous(limits = c(1500000, 4500000)) +
-  theme_void() +
-  theme(
-    legend.position.inside = c(0.1,0.8),
-    panel.border = element_rect(fill = NA, color = "black"),
-  ) +
-  guides(
-    fill = guide_colourbar(position = "inside", title= element_blank()),
-    colour = guide_legend(position = "inside", title = element_blank())
-  ) +
-  scale_fill_viridis_c(option="magma", direction = -1) 
-```
-title should be on top of the legend, if not restart R and run all again!
