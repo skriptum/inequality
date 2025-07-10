@@ -71,6 +71,7 @@ df_filter <- df %>%
     UNIT_MEASURE = UNIT_MEASURE,
     BW = NUB + F51M, # business wealth
     FW = F3 + F511 + F52 + F62, # financial wealth
+    FW_NET = FW + F4X, # FW - other debt (assumed to be financial)
     DEP = F2M, # deposits
     HW = NUN, # housing wealth
     HW_NET = NUN + F4B, # housing net wealth
