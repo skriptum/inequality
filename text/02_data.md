@@ -41,20 +41,75 @@ selection of data for analysis
   - exclude extrapolation errors 
 - combination of middle 4 deciles (50-90%) to Middle 40%
   - often done in literature (e.g @pikettyInequalityLongRun2014)
-  - similiar asset composition (APPENDIX)
+  - similiar asset composition (Plot)
   - large BW starts only in top decile 
 - full country data
+  - including Hungary (not Eurozone, but data reported)
+    - more cases = more reliability
   - abbreviated in plots and tables by 2 digit ISO code
   - full table with names and data availability (APPENDIX)
+- simplification of data
+  - Business Wealth:  
+    - Unlisted shares and other equity
+    - Non financial business wealth
+
+  - Financial Wealth: 
+    - debt securities
+    - listed shares
+    - investment fund shares
+    - life insurance and annuity entitlements
+
+  - debt
+    - loans for house purchasing
+    - other loans
+
+  - simplify, similar assets combined, as in literature
+
 
 
 
 descriptive statistics
 
-- Asset composition of wealth groups over Time
+HH Portfolios of wealth groups over Time (Eurozone Average)
+
 - Bottom 50%:
+  - little wealth
+  - highly leveraged
+  - deposits play a large role
+  - flat until 2015, increase afterwards
 - Middle 40%:
+  - housing = main asset
+  - less leveraged than the bottom 50
+  - stronger growth in observed period
 - Top 10%:
+  - non Housing wealth plays a larger role
+  - Business Wealth + Financial Wealth
+  - lowest leverage of all groups
+  - fastest growing
+
+
+
+Share of Assets owned by wealth groups (small) (Eurozone)
+
+- Housing
+- Financial 
+- Business
+- Deposits
+- further in APPENDIX for largest countries
+
+
+
+Asset Composition of Deciles (small) (EUROzone)
+
+- B50, D06,...,D10
+- similarity of middle class
+- further in APPENDIX for largest countries
+
+
+
+large role of housing in net wealth
+
+- Map of Europe
 
 
 
