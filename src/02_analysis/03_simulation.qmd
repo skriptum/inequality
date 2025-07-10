@@ -1,5 +1,7 @@
 # Counterfactual Simulation
 
+## Mathematical
+
 How would German Top 10 Share have evolved, if the HW was distributed like in EU?
 
 needs
@@ -34,7 +36,7 @@ HW_{i}^{t} = HW_{i}^{t-1} + \Delta HW_{i}^t
 $$
 
 
-The Counterfactual Simulation
+The Counterfactual Simulation of Housing Wealth
 
 $$
 \hat{HW}_{DE,i}^{t} =  \hat{HW}_{DE,i}^{t-1} + s_{EU,i}^t \times \Delta HW_{DE}^t 
@@ -42,7 +44,14 @@ $$
 - different from the original growth in Germany (distribution)
 - different from the original growth in EU (Delta Growth)
 
-# Counterfactual Share of Bottom 50% in Germany
+then the counterfactual Total Wealth
+
+$$
+\hat{TW}_{DE,i}^{t} = FW_{DE,i}^{t} + BW_{DE,i}^{t} + DEP_{DE,i}^{t} + \hat{HW}_{DE,i}^{t}
+$$
+
+
+## Code
 
 Europe
 
@@ -54,6 +63,8 @@ library(ggthemes)
 ```{r}
 df <- read_csv("../../data/proc/dwa_simple.csv")
 ```
+
+### EU shares
 
 ```{r}
 df_EU <- df %>%
@@ -75,7 +86,7 @@ df_EU <- df %>%
   )
 ```
 
-simulating the german counterfactual
+### German Baseline
 
 ```{r}
 df_DE <- df %>%
@@ -97,10 +108,12 @@ df_DE <- df %>%
   ) 
 ```
 
+### CTF HW 
+
 combining both DFs
 
 ```{r}
-df_comb <- df_EU %>%
+df_HW <- df_EU %>%
   select(TIME_PERIOD, DWA_GRP, SHARE_GROWTH) %>%
   right_join(df_DE, by = c("TIME_PERIOD", "DWA_GRP")) %>%
   mutate(
@@ -111,7 +124,7 @@ df_comb <- df_EU %>%
 Plotting to see if it makes sense
 
 ```{r}
-df_comb %>%
+df_HW %>%
   filter(DWA_GRP == "B50") %>%
   ggplot(aes(x = TIME_PERIOD)) +
   geom_line(aes(y = HW_GROWTH_GRP, color = "Actual Growth")) +
@@ -120,7 +133,7 @@ df_comb %>%
 now the levels
 
 ```{r}
-df_comb <- df_comb %>%
+df_HW <- df_HW %>%
   filter(TIME_PERIOD > "2011-04-01") %>% # filter out NA values
   mutate(
     CTF_HW_LEVEL = cumsum(CTF_HW_GROWTH_GRP) + first(HW_NET), # Counterfactual Level for each decile
@@ -130,7 +143,7 @@ df_comb <- df_comb %>%
 
 Robustness check: Totals Add up
 ```{r}
-df_comb %>%
+df_HW %>%
   filter(TIME_PERIOD == "2024-01-01") %>%
   group_by(TIME_PERIOD) %>%
   summarise(
@@ -141,18 +154,18 @@ df_comb %>%
 
 
 ```{r}
-df_comb %>%
+df_HW %>%
   ggplot(aes(x = TIME_PERIOD)) +
   geom_line(aes(y = HW_LEVEL, color = "Actual Level")) +
   geom_line(aes(y = CTF_HW_LEVEL, color = "Counterfactual Level")) +
   facet_wrap(~DWA_GRP, scales = "free_y") 
 ```
 
-## Counterfactual Shares
+### CTF HW Shares
 
 Create a M40 group
 ```{r}
-df_shares <- df_comb %>%
+df_HW_shares <- df_HW %>%
   mutate(
     DWA_GRP = case_when(
       DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "M40",
@@ -171,7 +184,7 @@ df_shares <- df_comb %>%
 plot levels again with middle class
 
 ```{r}
-df_shares %>%
+df_HW_shares %>%
   ggplot(aes(x = TIME_PERIOD)) +
   geom_line(aes(y = HW_LEVEL, color = "Actual Level")) +
   geom_line(aes(y = CTF_HW_LEVEL, color = "Counterfactual Level")) +
@@ -181,7 +194,7 @@ df_shares %>%
 
 
 ```{r}
-df_shares <- df_shares %>%
+df_HW_shares <- df_HW_shares %>%
   group_by(TIME_PERIOD) %>%
   mutate(
     SUM_HW = sum(HW_LEVEL, na.rm = TRUE), # total HW in Germany
@@ -197,42 +210,14 @@ df_shares <- df_shares %>%
 = B50 Share would triple, on cost of the top decile
 
 ```{r}
-df_shares %>%
+df_HW_shares %>%
   ggplot(aes(x = TIME_PERIOD)) +
   geom_line(aes(y = SHARE_HW, color = "Actual Share")) +
   geom_line(aes(y = CTF_SHARE_HW, color = "Counterfactual Share")) +
   facet_wrap(~DWA_GRP, scales = "free_y")
 ```
 
-make a fancy B50 Share Plot
-
-```{r}
-p1 <- df_shares %>%
-  filter(DWA_GRP == "B50") %>%
-  ggplot(aes(x = TIME_PERIOD)) +
-  geom_line(aes(y = SHARE_HW, color = "Actual Share"), linewidth = 0.5) +
-  geom_point(aes(y = SHARE_HW, color = "Actual Share"), shape = 5) +
-  geom_line(aes(y = CTF_SHARE_HW, color = "Counterfactual Share"), size = 0.5) +
-  geom_point(aes(y = CTF_SHARE_HW, color = "Counterfactual Share"), shape = 6) +
-  labs(
-    #title = "Counterfactual Share of Bottom 50% in Germany",
-    x = "Time Period",
-    y = "Share of Net Housing Wealth",
-    color = ""
-  ) +
-  theme_tufte() +
-  #scale_color_manual(values = c("Actual Share" = "blue", "Counterfactual Share" = "red")) +
-  theme(
-    legend.position = "bottom",
-    legend.box = "horizontal",
-    legend.title = element_blank(),
-    panel.border = element_rect(fill = NA, color = "black")
-  )
-
-#ggsave("../output/counterfactual_B50_share.png", p1, width = 8, height = 5, dpi = 300)
-p1
-```
-Share of overall Wealth
+### CTF TW
 
 ```{r}
 df_TW <- df %>%
@@ -241,19 +226,138 @@ df_TW <- df %>%
     UNIT_MEASURE == "EUR",
     TIME_PERIOD > "2011-01-01",
   ) %>%
+  # join with calculations of Counterfactuals
   left_join(
-    df_comb %>% select(TIME_PERIOD, DWA_GRP, CTF_HW_LEVEL, HW_LEVEL), 
+    df_HW %>% select(TIME_PERIOD, DWA_GRP, CTF_HW_LEVEL, HW_LEVEL), 
     by = c("TIME_PERIOD", "DWA_GRP")
-  )
+  ) %>%
+  # calculate Total Wealth
+  mutate(
+    CTF_TW_LEVEL = FW_NET + BW+ DEP + CTF_HW_LEVEL, # Counterfactual Total Wealth
+    TW_LEVEL = FW_NET + BW + DEP + HW_LEVEL # Actual Total Wealth
+  ) %>%
+  select(REF_AREA, TIME_PERIOD, DWA_GRP, CTF_TW_LEVEL, TW_LEVEL, HW_LEVEL, CTF_HW_LEVEL)
 ```
 
-calculte Counterfactual Total Wealth
+Plot for DE
 
 ```{r}
-df_TW %>%
+df_TW %>% 
+  filter(
+    REF_AREA == "DE"
+    ) %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = TW_LEVEL, color = "Actual Total Wealth"), size = 0.5) +
+  geom_line(aes(y = CTF_TW_LEVEL, color = "Counterfactual Total Wealth"), size = 0.5) +
+  facet_wrap(~DWA_GRP, scales = "free_y") 
+  
+```
+
+### CTF TW Shares
+
+```{r}
+df_TW <- df_TW %>%
+  mutate(
+    DWA_GRP = case_when(
+      DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "M40",
+      TRUE ~ DWA_GRP
+    )
+  ) %>%
+  group_by(TIME_PERIOD, DWA_GRP) %>%
+  mutate(
+    TW_LEVEL = sum(TW_LEVEL, na.rm = TRUE),
+    CTF_TW_LEVEL = sum(CTF_TW_LEVEL, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  select(TIME_PERIOD, DWA_GRP, TW_LEVEL, CTF_TW_LEVEL) %>%
+  distinct() # remove duplicates
+
+df_TW_Shares <- df_TW %>%
   group_by(TIME_PERIOD) %>%
   mutate(
-    CTF_TW_LEVEL = 
+    SHARE_TW = TW_LEVEL / sum(TW_LEVEL), # calculate share of actual TW
+    CTF_SHARE_TW = CTF_TW_LEVEL / sum(CTF_TW_LEVEL, na.rm = TRUE) # calculate share of counterfactual TW
   )
 ```
 
+```{r}
+df_TW_Shares %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = SHARE_TW, color = "Actual Share"), linewidth = 0.5) +
+  geom_line(aes(y = CTF_SHARE_TW, color = "Counterfactual Share"), linewidth = 0.5) +
+  facet_wrap(~DWA_GRP, scales = "free_y") 
+```
+
+
+## Fancy Plotting
+
+Bottom 50: CTF Housing Wealth (Level)
+
+```{r}
+p1 <- df_HW %>%
+  filter(DWA_GRP == "B50") %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = HW_LEVEL, color = "Actual"), linewidth = 0.5) +
+  geom_point(aes(y = HW_LEVEL, color = "Actual"), shape = 5) +
+  geom_line(aes(y = CTF_HW_LEVEL, color = "Counterfactual"), size = 0.5) +
+  geom_point(aes(y = CTF_HW_LEVEL, color = "Counterfactual"), shape = 6) +
+  scale_y_continuous(
+    labels = scales::label_number(scale = 1e-3),
+  ) +
+  labs(
+    #title = "Simulated Housing Wealth of Bottom 50% in Germany",
+    x = "Time Period",
+    y = "Housing Wealth (Million EUR)",
+    color = ""
+  ) +
+  theme_tufte() +
+  theme(
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.title = element_blank(),
+    panel.border = element_rect(fill = NA, color = "black")
+  ) 
+
+ggsave("../../output/simulation/B50_HW_LEVEL.png", p1, width = 8, height = 5, dpi = 300)
+p1
+```
+
+Share of Total Wealth
+
+```{r}
+p2 <- df_TW_Shares %>%
+  filter(DWA_GRP == "B50") %>%
+  ggplot(aes(x = TIME_PERIOD)) +
+  geom_line(aes(y = SHARE_TW, color = "Actual"), linewidth = 0.5) +
+  geom_point(aes(y = SHARE_TW, color = "Actual"), shape = 5) +
+  geom_line(aes(y = CTF_SHARE_TW, color = "Counterfactual"), size = 0.5) +
+  geom_point(aes(y = CTF_SHARE_TW, color = "Counterfactual"), shape = 6) +
+  labs(
+    #title = "Counterfactual Share of Bottom 50% in Germany",
+    x = "Time Period",
+    y = "Share of Total Wealth",
+    color = ""
+  ) +
+  scale_y_continuous(
+    labels = scales::percent_format(accuracy = 0.01),
+    limits = c(0, 0.04),
+    ) +
+  theme_tufte() +
+  theme(
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.title = element_blank(),
+    panel.border = element_rect(fill = NA, color = "black")
+  )
+ggsave("../../output/simulation/B50_TW_SHARE.png", p2, width = 8, height = 5, dpi = 300)
+p2
+```
+
+Assumptions
+- HW closely follows HP
+- HP endogenous
+- no asset switching in Germany
+
+simple accounting exercise to show
+- if HW would have been distributed like in EU
+- B50 would have profited much more
