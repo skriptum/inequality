@@ -61,7 +61,7 @@ p2 <- p2 +
       panel.border = element_rect(fill = NA, color = "black"),
       ) 
 
-ggsave(p2, filename = "../output/tenant_owner_wealth_ratio.png", width = 8, height = 5, dpi = 500)
+ggsave(p2, filename = "../../output/desc/tenant_owner_wealth_ratio.png", width = 8, height = 5, dpi = 500)
 p2
 ```
 
@@ -164,7 +164,7 @@ Source: ECB DWA, own calculations and visualization"
       panel.border = element_rect(fill = NA, color = "black"),
     )  
     
-ggsave(p3, filename = "../output/asset_distribution_classes.png", width = 8, height = 5, dpi = 500)
+ggsave(p3, filename = "../../output/desc/asset_distribution_classes.png", width = 8, height = 5, dpi = 500)
 p3
 ```
 
@@ -290,7 +290,7 @@ p4 <- p4 +
     panel.border = element_rect(fill = NA, color = "black"),
   )
 
-ggsave(p4, filename = "../output/asset_distribution_over_time.png", width = 8, height = 5, dpi = 500)
+ggsave(p4, filename = "../../output/desc/asset_distribution_over_time.png", width = 8, height = 5, dpi = 500)
 p4
 ```
 
@@ -362,7 +362,7 @@ p5 <- p5 +
       panel.border = element_rect(fill = NA, color = "black"),
     ) +
     guides(color = guide_legend(ncol = 2))
-#ggsave(p5, filename = "../../output/house_prices.png", width = 4, height = 5, dpi = 500)
+ggsave(p5, filename = "../../output/desc/house_prices.png", width = 4, height = 5, dpi = 500)
 p5
 ```
 
@@ -438,6 +438,6 @@ price_plot
 ```
 
 ```{r}
-ggsave(price_plot, filename = "../../output/house_prices_europe.png", width = 8, height = 5, dpi = 500)
+ggsave(price_plot, filename = "../../output/desc/house_prices_europe.png", width = 8, height = 5, dpi = 500)
 ```
 

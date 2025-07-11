@@ -125,9 +125,9 @@ map_plot <- plot_map(europe_shp_comb) +
     breaks = seq(.5, 0.8, 0.1)
   ) 
 map_plot
-# ggsave(
-#   map_plot, filename = "../../output/map.png",
-#   width = 8, height = 6, dpi = 500
-#   )
+ggsave(
+  map_plot, filename = "../../output/desc/map.png",
+  width = 8, height = 6, dpi = 500
+  )
 ```
 
