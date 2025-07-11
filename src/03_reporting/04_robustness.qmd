@@ -4,6 +4,11 @@
 library(tidyverse)
 library(binsmooth)
 library(ggthemes)
+library(modelsummary)
+```
+
+```{r}
+df_gini <- read_csv("../../data/proc/gini_full.csv")
 ```
 
 
@@ -12,8 +17,6 @@ library(ggthemes)
 check for germany
 
 ```{r}
-df_gini <- read_csv("../data/gini_indices.csv")
-
 df_gini %>%
   filter(
     REF_AREA == "DE",
@@ -77,31 +80,32 @@ fit <- splinebins(binedges, bincounts, mean)
 gini(fit)
 ```
 
-## HP levels of Gini
+## HP and Inequality
 
 ```{r}
-df_house <- read_csv("../data/House_Prices.csv")
+df_house <- read_csv("../../data/proc/prices.csv")
 ```
 
 ```{r}
 #housing price growth from 2010 to 2020
 df_hp <- df_house %>%
+  select(REF_AREA, TIME_PERIOD, HP_R_N) %>%
   filter(
-    TIME_PERIOD %in% c("2011-01-01", "2021-01-01")
+    TIME_PERIOD %in% c("2011-10-01", "2021-01-01")
   ) %>%
   pivot_wider(
     names_from = TIME_PERIOD,
     values_from = HP_R_N
   ) %>%
   mutate(
-    growth = `2021-01-01` / `2011-01-01`
+    growth = `2021-01-01` / `2011-10-01`
   )
 ```
 
 ```{r}
 df_hp <- df_gini %>%
   filter(
-    TIME_PERIOD == "2011-01-01",
+    TIME_PERIOD == "2011-10-01",
     ASSET == "NWA",
     REF_AREA != "I9"
   ) %>%
@@ -118,6 +122,31 @@ model_hp <- lm(growth ~ GINI, data = df_hp)
 summary(model_hp)
 ```
 
+```{r}
+table_hp <- modelsummary(
+  model_hp,
+  output = "gt",
+  coef_map = c(
+    "(Intercept)" = "Intercept",
+    "GINI" = "Gini Index (2011)"
+  ),
+  gof_omit = "IC|Log|RMSE|F",
+  gof_map = list(
+      list("raw" = "nobs", "clean" = "N", "fmt" = 0),
+      list("raw" = "r.squared", "clean" = "R²", "fmt" = 3),
+      list("raw" = "adj.r.squared", "clean" = "Adj. R²", "fmt" = 3)
+    ),
+  out = "gt"
+) 
+table_hp
+```
+
+```{r}
+table_hp %>% gtsave("../../output/appendix/table_hp_ineq.html")
+table_hp %>% gtsave("../../output/appendix/table_hp_ineq.tex")
+```
+
+
 
 ```{r}
 p1 <- df_hp %>%
@@ -128,7 +157,8 @@ p1
 ```
 
 ```{r}
-p1 +
+p1 <- p1 +
+  geom_hline(yintercept=1, linetype = "dotted", color = "black", linewidth=0.5) +
   labs(
     x = "Gini Index (2011)",
     y = "Housing Price Growth (2011-2021)",
@@ -138,5 +168,7 @@ p1 +
   theme(
     panel.border = element_rect(fill = NA, color = "black")
   ) 
+p1 
+ggsave("../../output/appendix/hp-ineq.png", p1, width = 6, height = 4, dpi = 300)
 ```
 
