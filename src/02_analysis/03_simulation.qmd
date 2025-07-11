@@ -353,11 +353,3 @@ ggsave("../../output/simulation/B50_TW_SHARE.png", p2, width = 8, height = 5, dp
 p2
 ```
 
-Assumptions
-- HW closely follows HP
-- HP endogenous
-- no asset switching in Germany
-
-simple accounting exercise to show
-- if HW would have been distributed like in EU
-- B50 would have profited much more
