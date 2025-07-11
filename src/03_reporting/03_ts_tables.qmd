@@ -16,6 +16,8 @@ library(lmtest)
 library(dynlm)
 library(modelsummary)
 library(gt)
+library(ggthemes)
+library(patchwork)
 ```
 
 ```{r}
@@ -73,3 +75,135 @@ gtsave(ts_table_T10, "../../output/ts_tables/ts_T10.tex", inline = TRUE)
 # ts_table_T10
 ```
 
+## Coefficient Plot
+
+Function to automatically extract the coefficients from the Model
+
+```{r}
+make_model_df <- function(models) {
+  #generate a df with estimates and std errors of beta 1
+  models_df <- data.frame()
+  
+  for (i in 1:length(models)) {
+    model <- models[[i]]
+    co <- coeftest(model, vcov = NeweyWest)
+    
+    estimate_hp = co[2,1] # Coefficient for House Prices
+    std_error_hp = co[2,2] # Standard Error for House Prices
+    p_value_hp = co[2,4] # p-value for House Prices
+    
+    estimate_sp = co[3,1] 
+    std_error_sp = co[3,2]
+    p_value_sp = co[3,4]
+    
+    models_df <- rbind(models_df, data.frame(
+      country = names(models)[i],
+      co_hp = estimate_hp,
+      se_hp = std_error_hp,
+      sign_hp = ifelse(p_value_hp < 0.1,T,F),
+      co_sp = estimate_sp,
+      se_sp = std_error_sp,
+      sign_sp = ifelse(p_value_sp < 0.1,T,F)
+    ))
+  } 
+  models_df
+}
+```
+
+Function to automatically create the Plots
+- creates the error bars
+- orders by largest coefficients (not fixed country list!)
+
+```{r}
+make_model_plot_hp <- function(models_df) {
+  models_df %>%
+    ggplot(aes(y = reorder(country, co_hp))) +
+    geom_point(aes(x=co_hp, alpha=sign_hp), color="black", size = 2) +
+    geom_errorbar(aes(
+      xmin = co_hp - 1.96 * se_hp, 
+      xmax = co_hp + 1.96 * se_hp, 
+      alpha=sign_hp), width = 0.2) +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.4)) +
+    labs(
+      x = "House Prices Coeff.",
+      y = "Country"
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "none",
+      panel.border = element_rect(fill = NA, color = "black"),
+    )
+    
+}
+
+make_model_plot_sp <- function(models_df) {
+  models_df %>%
+    ggplot(aes(y = reorder(country, co_sp))) +
+    geom_point(aes(x=co_sp, alpha=sign_sp), color="black", size = 2) +
+    geom_errorbar(aes(
+      xmin = co_sp - 1.96 * se_sp, 
+      xmax = co_sp + 1.96 * se_sp, 
+      alpha=sign_sp), width = 0.2) +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.4)) +
+    labs(
+      x = "Stock Prices Coeff.",
+      y = element_blank(),
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "none",
+      panel.border = element_rect(fill = NA, color = "black"),
+    )
+}
+```
+
+
+```{r}
+wrap_coeff_plots <- function(models_df) {
+  # automatically create and wrap the plots for the coeffients
+  
+  p_hp <- make_model_plot_hp(models_df) # housing prices
+  p_sp <- make_model_plot_sp(models_df) # stock prices
+  
+  # wrap the plots together
+  wrap_plots(
+    p_hp, p_sp, ncol = 2
+  ) +
+    plot_annotation(
+      caption = "Black = significant, Grey = not significant.
+      Error bars represent 95% confidence intervals
+      Source: ECB DWA, own calculations"
+    ) 
+}
+```
+
+
+Middle 40% Plot
+```{r}
+models_df <- make_model_df(models_M40)
+coeff_plot_M40 <- wrap_coeff_plots(models_df)
+ggsave("../../output/ts_tables/M40_coeff.png",coeff_plot_M40, width=4, height=5)
+coeff_plot_M40
+```
+
+
+T10 Plot
+```{r}
+models_df <- make_model_df(models_T10)
+coeff_plot_T10 <- wrap_coeff_plots(models_df)
+ggsave("../../output/ts_tables/T10_coeff.png",coeff_plot_T10, width=4, height=5)
+coeff_plot_T10
+```
+
+
+B50 Plot
+```{r}
+models_df <- make_model_df(models_B50)
+#models_df <- models_df %>% filter(!(country %in% c("NL", "IE")))
+
+coeff_plot_B50 <- wrap_coeff_plots(models_df)
+ggsave("../../output/ts_tables/B50_coeff.png",coeff_plot_B50, width=4, height=5)
+coeff_plot_B50
+```
