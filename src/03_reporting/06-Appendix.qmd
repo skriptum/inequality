@@ -1,0 +1,91 @@
+# Appendix
+
+```{r}
+library(tidyverse)
+library(zoo)
+library(gt)
+```
+
+## Descriptive Table
+
+```{r}
+df <- read_csv("../../data/proc/dwa_full.csv")
+```
+
+```{r}
+#iso2 codes to names
+country_names <- c(
+  "AT" = "Austria",
+  "BE" = "Belgium",
+  "CY" = "Cyprus",
+  "DE" = "Germany",
+  "EE" = "Estonia",
+  "GR" = "Greece",
+  "ES" = "Spain",
+  "FI" = "Finland",
+  "FR" = "France",
+  "HR" = "Croatia",
+  "HU" = "Hungary",
+  "IE" = "Ireland",
+  "IT" = "Italy",
+  "LT" = "Lithuania",
+  "LU" = "Luxembourg",
+  "LV" = "Latvia",
+  "MT" = "Malta",
+  "NL" = "Netherlands",
+  "PT" = "Portugal",
+  "SI" = "Slovenia",
+  "SK" = "Slovakia",
+  "I9" = "Eurozone"
+ )
+```
+
+
+```{r}
+table <- df %>%
+  filter(
+    INSTR_ASSET == "NWA",
+    DWA_GRP == "_Z",
+    UNIT_MEASURE %in% c("EUR_R_POP", "EUR_MD"),
+  ) %>%
+  select(REF_AREA, TIME_PERIOD, UNIT_MEASURE, OBS_VALUE) %>%
+  group_by(REF_AREA) %>%
+  pivot_wider(
+    names_from = UNIT_MEASURE,
+    values_from = OBS_VALUE
+  ) %>%
+  mutate(
+    start = as.yearqtr(min(TIME_PERIOD)), # format as 2010 Q4
+    end = as.yearqtr(max(TIME_PERIOD)), 
+    mean = as.integer(last(EUR_R_POP, order_by = TIME_PERIOD) * 1000), # multiply by 1e^3
+    median = as.integer(last(EUR_MD, order_by = TIME_PERIOD)), 
+    name = country_names[REF_AREA]
+  ) %>%
+  ungroup() %>%
+  select(REF_AREA, name, start,end, mean, median) %>% #onyl relevant columns
+  unique()
+
+table
+```
+ now make it pretty with gt
+ 
+```{r}
+table <- table %>%
+  gt() %>%
+  cols_label(
+    REF_AREA = "ISO2",
+    name = "Full Name",
+    start = "Start",
+    end = "End",
+    mean = "Mean",
+    median = "Median"
+  ) %>%
+  tab_spanner(label = "Name", columns = c("REF_AREA", "name")) %>%
+  tab_spanner(label = "Time Period",columns = c("start", "end")) %>%
+  tab_spanner(label = "Net Wealth (EUR p.C)", columns = c("mean", "median"))
+
+
+table %>% gtsave("../../output/appendix/table_descriptive.html") 
+table %>% gtsave("../../output/appendix/table_descriptive.tex")
+```
+ 
