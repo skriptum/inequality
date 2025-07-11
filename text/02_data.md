@@ -47,7 +47,7 @@ selection of data for analysis
   - including Hungary (not Eurozone, but data reported)
     - more cases = more reliability
   - abbreviated in plots and tables by 2 digit ISO code
-  - full table with names and data availability (APPENDIX)
+  - full table with names and data availability (APPENDIX A)
 - simplification of data
   - Business Wealth:  
     - Unlisted shares and other equity
@@ -95,7 +95,7 @@ Share of Assets owned by wealth groups (small) (Eurozone)
 - Financial 
 - Business
 - Deposits
-- further in APPENDIX for largest countries
+- further in APPENDIX B for largest countries
 
 
 
@@ -103,7 +103,7 @@ Asset Composition of Deciles (small) (EUROzone)
 
 - B50, D06,...,D10
 - similarity of middle class
-- further in APPENDIX for largest countries
+- further in APPENDIX B for largest countries
 
 
 
@@ -140,9 +140,6 @@ Stock Prices
 - 50 firms from 11 countries in the Eurozone
   - broad representation
 - 60% of market capitalization captured
-- Stoxx Europe 600 
-  - largest = UK firms
-  - not in Eurozone, not included in DWA
 - benchmark for european stock performance
 - from ECB financial markets data
 
