@@ -113,6 +113,10 @@ short term good for middle + lower class (in most countires), but what about lon
 PLOT: Tenant Wealth Gap
 ```
 
+- rising ratio of owner net wealth - tenant net wealth
+- rising housiing prices = make it even more difficult
+- climb the property ladder = impossible
+
 further research needed (microdata, historical data)
 
 

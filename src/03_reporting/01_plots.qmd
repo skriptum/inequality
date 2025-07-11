@@ -34,9 +34,10 @@ df_ratio <- df %>%
   ) %>%
   mutate(
     ratio = HSO / HST
-  ) 
+  )
+```
 
-
+```{r}
 p2 <- df_ratio %>%
   filter(REF_AREA %in% before1990) %>%
   ggplot(aes(x = TIME_PERIOD, y = ratio, color = REF_AREA)) +
@@ -64,6 +65,72 @@ p2 <- p2 +
 ggsave(p2, filename = "../../output/desc/tenant_owner_wealth_ratio.png", width = 8, height = 5, dpi = 500)
 p2
 ```
+
+### T-O-WR: Subplots
+
+```{r}
+eastern  <- c("EE", "LT", "LV", "SI", "SK", "HR", "HU")
+western  <- c("AT", "BE", "DE", "FR", "IE", "LU", "NL", "FI")
+southern <- c("CY", "ES", "GR", "MT", "PT", "IT")
+
+```
+
+```{r}
+df_east <- df_ratio %>% filter(REF_AREA %in% eastern)
+df_west <- df_ratio %>% filter(REF_AREA %in% western)
+df_south <- df_ratio %>% filter(REF_AREA %in% southern)
+df_I9 <- df_ratio %>% filter(REF_AREA == "I9") # Euro Area Average
+```
+
+```{r}
+set.seed(123)
+make_ratio_plot <- function(df, title) {
+  df %>%
+    mutate(label = if_else(TIME_PERIOD == max(TIME_PERIOD), 
+                     as.character(REF_AREA), NA_character_)
+           ) %>%
+    ggplot(aes(x = TIME_PERIOD, y = ratio, color = REF_AREA)) +
+      geom_line(linewidth=0.5) +
+      # custom EU Average
+      geom_line(data = df_I9, color = "black", linewidth = 0.5) +
+      # labels at the End of the Line
+      geom_label_repel(
+        aes(label = label), size=3, nudge_x=2, 
+        max.time=1, na.rm=T, direction ="y") +
+      # custom label for EU
+      geom_label_repel(
+        data = df_I9 %>% filter(TIME_PERIOD == max(TIME_PERIOD)),
+        label = "EU", color = "black",
+        size=3, nudge_x=1, max.time=1, na.rm=T, direction ="y"
+      ) +
+      labs(
+        x = element_blank(),
+        y = "Owner-Tenant Wealth Ratio",
+        title= title
+      ) +
+      theme_tufte() +
+      theme(
+        legend.position = "none",
+        panel.border = element_rect(fill = NA, color = "black"),
+      ) 
+}
+```
+
+```{r}
+p_east <- make_ratio_plot(df_east, "Eastern Europe")
+p_west <- make_ratio_plot(df_west, "Western Europe")
+p_south <- make_ratio_plot(df_south, "Southern Europe")
+
+ratio_plot <- patchwork::wrap_plots(
+  p_east, p_west, p_south, 
+  ncol = 3, axis_titles = "collect", axes="collect"
+  ) +
+  plot_annotation(caption = "Source: ECB DWA, own calculations and visualisations", theme = theme_tufte())
+ratio_plot
+ggsave(ratio_plot, filename = "../../output/desc/tenant_owner_wealth_ratio_europe.png", width = 8, height = 5, dpi = 500)
+```
+
+
 
 ### Country: Asset Distribution
 
