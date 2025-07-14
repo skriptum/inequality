@@ -135,36 +135,7 @@ ggsave(ratio_plot, filename = "../../output/desc/tenant_owner_wealth_ratio_europ
 ### Country: Asset Distribution
 
 ```{r}
-df_filter <- df %>%
-  filter(
-    #REF_AREA == "DE",
-    INSTR_ASSET %in% c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M", "NWA", "F4X", "F4B"),
-    DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
-    ) %>%
-  select(-c(KEY,TITLE, COMMENT_TS)) %>%
-  pivot_wider(
-    names_from = INSTR_ASSET,
-    values_from = OBS_VALUE
-  ) %>%
-  mutate(
-    BW = NUB + F51M, # business wealth
-    FW = F3 + F511 + F52 + F62, # financial wealth
-    DEP = F2M, # deposits
-    HW = NUN, # housing wealth
-    HW_NET = NUN + F4B, # housing net wealth
-    TW = BW + FW + HW + DEP,
-    DEBT = F4X + F4B, # total debt
-    TW_NET = BW + FW + DEP + HW + DEBT, # total wealth net
-  ) %>%
-  select(
-    TIME_PERIOD, REF_AREA, DWA_GRP, UNIT_MEASURE,
-    BW, FW, DEP, HW, HW_NET, TW, DEBT, TW_NET
-  )
-```
-
-
-```{r}
-df_asset <- df_filter %>%
+df_asset <- df_simple %>%
   filter(
     TIME_PERIOD == "2023-01-01", #only one data and latest for all countrie s(NL doesnt have 2024)
     UNIT_MEASURE == "EUR" # aggregate EUR
@@ -203,7 +174,7 @@ p3 <- p3 +
       values = c(
         "share_BW" = "#cdb04b",
         "share_FW" = "#377EB8",
-        "share_DEP" = "#38ad68",
+        "share_DEP" = "#11ad52",
         "share_HW" = "#9f464f"
       ),
       # change the labels
@@ -231,15 +202,67 @@ Source: ECB DWA, own calculations and visualization"
       panel.border = element_rect(fill = NA, color = "black"),
     )  
     
-ggsave(p3, filename = "../../output/desc/asset_distribution_classes.png", width = 8, height = 5, dpi = 500)
+#ggsave(p3, filename = "../../output/desc/asset_distribution_classes.png", width = 8, height = 5, dpi = 500)
 p3
+```
+### I9 Portfolios
+
+```{r}
+# european focus
+p_europe <- df_asset %>%
+  filter(REF_AREA == "I9") %>%
+  ggplot(aes(x = DWA_GRP, y = share, fill = asset_class)) +
+    geom_col(position = "stack") +
+    scale_fill_manual(
+      # change the colors of the stacks
+      values = c(
+        "share_BW" = "#cdb04b",
+        "share_FW" = "#377EB8",
+        "share_DEP" = "#11ad52",
+        "share_HW" = "#9f464f"
+      ),
+      # change the labels
+      labels = c(
+        "share_BW" = "Business",
+        "share_FW" = "Financial",
+        "share_DEP" = "Deposits",
+        "share_HW" = "Housing"
+      )
+    ) +
+    labs(
+      x = "Wealth Decile",
+      y = "Share of Total Wealth",
+      fill = "Asset Class:",
+      # special caption to explain the GRP abbreviations
+      caption = "Source: ECB DWA, own calculations and visualization" 
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "bottom",
+      panel.border = element_rect(fill = NA, color = "black"),
+    )  +
+  # custom x axis
+  scale_x_discrete(
+    labels = c(
+      "B50" = "1-5",
+      "D06" = "6",
+      "D07" = "7",
+      "D08" = "8",
+      "D09" = "9",
+      "D10" = "10"
+    )
+  ) #+
+  #rotate x asis labels
+  #theme(axis.text.x = element_text(angle = 90, hjust = 1))
+p_europe
+ggsave(p_europe, filename = "../../output/desc/portfolio_europe.png", width = 5, height =5, dpi = 500)
 ```
 
 
 ### Time: Asset Distribution
 
 ```{r}
-df_growth <- df_filter %>%
+df_growth <- df_simple %>%
   filter(
     UNIT_MEASURE == "EUR_R_POP", # only per capita
     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10") #drop other groups
@@ -252,30 +275,14 @@ df_growth <- df_filter %>%
   )
 
 df_growth <- df_growth %>%
-  # # create a mean of all groups as a new GRP = ALL
-  # group_by(TIME_PERIOD, REF_AREA, UNIT_MEASURE, INSTR_ASSET) %>%
-  # summarise(OBS_VALUE = mean(OBS_VALUE, na.rm = TRUE)) %>%
-  # mutate(DWA_GRP = "ALL") %>%
-  # # bind the new group to the original data
-  # bind_rows(
-  #   df_growth %>%
-  #     filter(
-  #       UNIT_MEASURE == "EUR_R_POP",
-  #       DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
-  #     ) %>%
-  #     group_by(TIME_PERIOD, REF_AREA, DWA_GRP, UNIT_MEASURE, INSTR_ASSET) %>%
-  #     summarise(OBS_VALUE = mean(OBS_VALUE, na.rm = TRUE))
-  # ) %>%
-  # ungroup() %>%
-  # group D06 till D09 to middle class
-  mutate( # create the middle class GRP
+  mutate(
     DWA_GRP = case_when(
       DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "M40",
       TRUE ~ DWA_GRP
     )
   ) %>%
   # mean of the values of M40
-  group_by(TIME_PERIOD, REF_AREA, DWA_GRP, UNIT_MEASURE, INSTR_ASSET) %>%
+  group_by(TIME_PERIOD, REF_AREA, DWA_GRP, INSTR_ASSET) %>%
   summarise(OBS_VALUE = mean(OBS_VALUE, na.rm = TRUE))
 
 df_growth %>%
@@ -324,10 +331,10 @@ p4 <- p4 +
   scale_fill_manual(
     #change the colors of the stacks
     values = c(   
-        "BW" = "#FFB14E",
-        "FW" = "#EA5F94",
-        "DEP" = "#9D02D7",
-        "HW" = "#0000FF",
+        "BW" = "#cdb04b",
+        "FW" = "#377EB8",
+        "DEP" = "#11ad52",
+        "HW" = "#9f464f",
         "DEBT" = "grey"
       ),
     # change the labels
@@ -360,6 +367,84 @@ p4 <- p4 +
 ggsave(p4, filename = "../../output/desc/asset_distribution_over_time.png", width = 8, height = 5, dpi = 500)
 p4
 ```
+
+## I9: Asset Distribution
+
+```{r}
+df_shares <- df_simple %>%
+  filter(
+    TIME_PERIOD == "2022-01-01", #only one data
+    UNIT_MEASURE == "EUR", # aggregate EUR
+    REF_AREA == "I9"
+  ) %>%
+  select(DWA_GRP, DEP, FW, BW, HW_NET, TW_NET) %>%
+  reframe(
+    DWA_GRP = DWA_GRP,
+    Share_DEP = DEP / sum(DEP),
+    Share_FW = FW / sum(FW),
+    Share_BW = BW / sum(BW),
+    Share_HW = HW_NET / sum(HW_NET),
+    Share_TW = TW_NET / sum(TW_NET)
+  ) %>%
+  # create the middle class
+  mutate(
+    DWA_GRP = case_when(
+      DWA_GRP %in% c("D06", "D07", "D08", "D09") ~ "M40",
+      TRUE ~ DWA_GRP
+    )
+  ) %>%
+  # reorder the groups, to reverse
+  mutate(DWA_GRP = factor(DWA_GRP, levels = c("D10", "M40", "B50"))) # reorder
+```
+
+```{r}
+p_shares <- df_shares %>%
+  ggplot(aes(fill=DWA_GRP)) +
+  geom_col(aes(x="Total Wealth", y=Share_TW )) +
+  geom_col(aes(x="Housing Wealth", y=Share_HW)) +
+  geom_col(aes(x="Business Wealth", y=Share_BW)) +
+  geom_col(aes(x="Financial Wealth", y=Share_FW)) +
+  coord_flip() 
+p_shares
+```
+
+```{r}
+p_shares <- p_shares +
+    scale_fill_manual(
+      # change the colors of the stacks
+      values = c(
+        "B50" = "#539987",
+        "M40" = "#885A89",
+        "D10" = "#CC978E"
+        ),
+      labels = c(
+        "B50" = "Bottom 50%",
+        "M40" = "Middle 40%",
+        "D10" = "Top 10%"
+      )
+    ) + 
+    labs(
+      x = element_blank(),
+      y = "Share",
+      fill = "Wealth Decile",
+      caption = "Source: ECB DWA, own calculations and visualization"
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.border = element_rect(fill = NA, color = "black"),
+    ) +
+    theme(axis.ticks.y = element_blank()) + #remove ticks 
+    guides(fill = guide_legend(ncol = 3)) # put the legend in one line
+      
+
+ggsave(p_shares, filename = "../../output/desc/asset_distribution_decile.png", width = 5, height = 5, dpi = 500)
+p_shares
+```
+
+
+
 
 ## Ownership
 

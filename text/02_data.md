@@ -97,6 +97,12 @@ Share of Assets owned by wealth groups (small) (Eurozone)
 - Deposits
 - further in APPENDIX B for largest countries
 
+```
+../output/desc/portfolio_europe.png
+```
+
+
+
 
 
 Asset Composition of Deciles (small) (EUROzone)
@@ -104,6 +110,14 @@ Asset Composition of Deciles (small) (EUROzone)
 - B50, D06,...,D10
 - similarity of middle class
 - further in APPENDIX B for largest countries
+
+```
+../output/desc/asset_distribution_decile.png
+```
+
+
+
+
 
 
 
