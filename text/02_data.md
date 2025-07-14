@@ -22,8 +22,8 @@ methodology & Limiations
   - differential underreporting problem (richer HH less)
   - described by @vermeulenEstimatingTopTail2016
 - overcome by using a pareto estimation
-  - wealth distribution follows pareto (e.g @@atkinsonParetoUpperTail2017)
-  - HH from rich lists (forbes or @@nesshoeferRanglisteGroesstenVermoegen2024)
+  - wealth distribution follows pareto (e.g @atkinsonParetoUpperTail2017)
+  - HH from rich lists (forbes or @nesshoeferRanglisteGroesstenVermoegen2024)
   - pareto curved fitted, create synthetic rich unobserved HH
 - linear interpolated between HFCS waves and extrapolated after last HFCS wave (2021)
   - no asset compositon changes afterwards

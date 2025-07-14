@@ -126,6 +126,18 @@ further research needed (microdata, historical data)
 
 
 
+**Policy Implications**
+
+european monetary policy
+
+- 2011-2021 = period with expansive monetary policy
+- some say: drove asset price valuation
+  - housing as well as stocks
+  - @bernankeWhatExplainsStock2005 US Stocks
+  - @vargas-silvaMonetaryPolicyUS2008 US housing
+  - EU ??
+- drives housing price valuations => different distributional effects in countries
+
 
 
 

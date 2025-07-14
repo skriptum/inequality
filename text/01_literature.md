@@ -52,10 +52,20 @@ new distributional accounts
 
 
 
-Europen Lit: explain Wealth Differences
+Europen Lit: explain Wealth Differences cross country
 
-- @mathaHouseholdWealthEuro2017
-  - HO, HP, Inheritances
-- @pfefferWealthInequalityNations2021 
-  - 
+- Explanations (W INeq differ much from I Ineq.)
+
+- @mathaHouseholdWealthEuro2017: HO, HP, Inheritances
+
+- @pfefferWealthInequalityNations2021: central driver of housing equity in wealth ineq. (LIS)
+
+- @kaasWealthInequalityHomeownership2019
+
+  - HO: explains 
+  - between group inequality: renter / tenants
+  - driven by HH in lower half
+
+  
+
 - HFCS Suvey Data
