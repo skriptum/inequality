@@ -160,7 +160,7 @@ Results
   - T10: SP and HP = positive effect
   - M40: HP = negative effect, SP = not significant
   - B50: HP+SP = very negative effect
-  - driven by other factors, or large inequality in housing
+  - dutch housing market = outlier (@boelhouwerHousingMarketNetherlands2020)
 
 = the common direction from Panel Models Confirmed
 

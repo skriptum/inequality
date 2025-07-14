@@ -92,6 +92,10 @@ therefore: main focus: valuation channel
 
 
 
+---
+
+
+
 
 
 **Long Term Effects** 
@@ -104,7 +108,7 @@ short term good for middle + lower class (in most countires), but what about lon
   - @bonnetRisingInequalitiesAccess2019 for France
   - age groups itself not changing share of HO
     - but intra age group inequality rising
-  - higher role of inheritances (very unequal)
+  - higher role of inheritances (very unequal) @engelhardtIntergenerationalTransfersBorrowing1998
 - higher prices = higher rents 
   - no ability to save for tenants, rental income to landlords (often in top10)
   - distinction between have / have nots (Tenant Wealth Gap)
@@ -115,9 +119,14 @@ PLOT: Tenant Wealth Gap
 
 - rising ratio of owner net wealth - tenant net wealth
 - rising housiing prices = make it even more difficult
-- climb the property ladder = impossible
+- climb the property ladder = impossible 
+- between group inequality @kaasWealthInequalityHomeownership2019
 
 further research needed (microdata, historical data)
+
+
+
+
 
 
 
