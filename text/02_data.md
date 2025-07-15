@@ -123,7 +123,11 @@ Asset Composition of Deciles (small) (EUROzone)
 
 large role of housing in net wealth
 
-- Map of Europe
+```
+../output/desc/map.png
+```
+
+
 
 
 
@@ -137,7 +141,11 @@ Housing Prices
 - real terms, quarterly
 - @scatignaResidentialPropertyPrice2014
 
-Plot
+```
+../output/desc/house_prices_europe.png
+```
+
+
 
 - for better visibility, speareted into regions
 - diverging housing price dynamics after 2010

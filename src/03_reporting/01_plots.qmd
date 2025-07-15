@@ -18,7 +18,7 @@ post1990 = c("AT", "CY", "EE","FI", "HR", "LT", "LV", "MT", "SI", "SK" , "I9")
 
 
 
-### Tenant - Owner Wealth Ratio
+### 1a: Tenant - Owner Wealth Ratio
 
 ```{r}
 df_ratio <- df %>%
@@ -66,7 +66,7 @@ ggsave(p2, filename = "../../output/desc/tenant_owner_wealth_ratio.png", width =
 p2
 ```
 
-### T-O-WR: Subplots
+### 1b: T-O-WR: Subplots
 
 ```{r}
 eastern  <- c("EE", "LT", "LV", "SI", "SK", "HR", "HU")
@@ -132,8 +132,7 @@ ggsave(ratio_plot, filename = "../../output/desc/tenant_owner_wealth_ratio_europ
 
 
 
-### Country: Asset Distribution
-
+### 2a: indiv. Portfolios
 ```{r}
 df_asset <- df_simple %>%
   filter(
@@ -157,13 +156,10 @@ df_asset <- df_simple %>%
     values_to = "share"
   ) 
 p3 <- df_asset %>%
-  filter(REF_AREA %in% c("DE", "IT","NL", "AT", "ES", "FR")) %>% 
-  transform(REF_AREA = factor( # custom sorting of the countries (low ownership up)
-    REF_AREA, levels = c("DE", "AT","NL", "IT", "ES", "FR")
-    )) %>%
+  filter(!( REF_AREA %in% c("I9", "HU"))) %>% 
   ggplot(aes(x = DWA_GRP, y = share, fill = asset_class)) +
     geom_col(position = "stack") +  # stack the bars to make 1
-    facet_wrap(~ REF_AREA, ncol = 3, scales = "free_x")  #x axis should appear at every plot
+    facet_wrap(~ REF_AREA, ncol = 4, scales = "free_x")  #x axis should appear at every plot
 p3
 ```
 
@@ -190,22 +186,30 @@ p3 <- p3 +
       y = "Share of Total Wealth",
       fill = "Asset Class",
       # special caption to explain the GRP abbreviations
-      caption = "
-      B50 = Bottom 50% \ \  D06 = 6th Decile \ \  D07 = 7th Decile
-D08 = 8th Decile \ \ D09 = 9th Decile \ \  D10 = Top 10%
-Source: ECB DWA, own calculations and visualization" 
+      caption = "Source: ECB DWA, own calculations and visualization" 
     ) +
     theme_tufte() +
     theme(
-      legend.position = "right",
+      legend.position = "bottom",
       legend.title = element_blank(),
       panel.border = element_rect(fill = NA, color = "black"),
-    )  
+    )  +
+    scale_x_discrete(
+      labels = c(
+        "B50" = "1-5",
+        "D06" = "6",
+        "D07" = "7",
+        "D08" = "8",
+        "D09" = "9",
+        "D10" = "10"
+      )
+  )
     
-#ggsave(p3, filename = "../../output/desc/asset_distribution_classes.png", width = 8, height = 5, dpi = 500)
+ggsave(p3, filename = "../../output/appendix/portfolios.png", width = 8, height = 12, dpi = 500)
 p3
 ```
-### I9 Portfolios
+
+### 2b: I9 Portfolios
 
 ```{r}
 # european focus
@@ -259,7 +263,7 @@ ggsave(p_europe, filename = "../../output/desc/portfolio_europe.png", width = 5,
 ```
 
 
-### Time: Asset Distribution
+### 3: Time: Asset Distribution
 
 ```{r}
 df_growth <- df_simple %>%
@@ -368,16 +372,16 @@ ggsave(p4, filename = "../../output/desc/asset_distribution_over_time.png", widt
 p4
 ```
 
-## I9: Asset Distribution
+## 4a: I9 Asset Distribution
 
 ```{r}
 df_shares <- df_simple %>%
   filter(
     TIME_PERIOD == "2022-01-01", #only one data
-    UNIT_MEASURE == "EUR", # aggregate EUR
-    REF_AREA == "I9"
+    UNIT_MEASURE == "EUR" # aggregate EUR
   ) %>%
-  select(DWA_GRP, DEP, FW, BW, HW_NET, TW_NET) %>%
+  select(REF_AREA, DWA_GRP, DEP, FW, BW, HW_NET, TW_NET) %>%
+  group_by(REF_AREA) %>% # group by country and decile
   reframe(
     DWA_GRP = DWA_GRP,
     Share_DEP = DEP / sum(DEP),
@@ -399,6 +403,7 @@ df_shares <- df_simple %>%
 
 ```{r}
 p_shares <- df_shares %>%
+  filter(REF_AREA == "I9") %>%
   ggplot(aes(fill=DWA_GRP)) +
   geom_col(aes(x="Total Wealth", y=Share_TW )) +
   geom_col(aes(x="Housing Wealth", y=Share_HW)) +
@@ -443,10 +448,96 @@ ggsave(p_shares, filename = "../../output/desc/asset_distribution_decile.png", w
 p_shares
 ```
 
+### 4b: indiv. Asset Distribution
+
+```{r}
+df_shares_indiv <- df_shares %>%
+  select(!Share_DEP) %>%
+  pivot_longer(
+    cols = starts_with("Share_"),
+    names_to = "asset_class",
+    values_to = "Share"
+  ) 
+
+# reordering according to T10 share
+d10_shares_indiv <- df_shares_indiv %>%
+  filter(DWA_GRP == "D10") %>%
+  select(REF_AREA, asset_class, D10_share = Share)
+```
+
+```{r}
+make_share_plot <- function(df) {
+  df %>%
+    left_join(d10_shares_indiv, by = c("REF_AREA", "asset_class")) %>% #join T10 shares
+    mutate(REF_AREA = fct_reorder(REF_AREA, D10_share)) %>% #order according to T10 share
+    ggplot(aes(fill=DWA_GRP)) +
+      geom_col(aes(y=REF_AREA, x=Share)) 
+}
+```
+
+```{r}
+pretty_share_plot <- function(share_plot, title) {
+  share_plot +
+    scale_fill_manual(
+      # change the colors of the stacks
+      values = c(
+        "B50" = "#539987",
+        "M40" = "#885A89",
+        "D10" = "#CC978E"
+      ),
+      labels = c(
+        "B50" = "Bottom 50%",
+        "M40" = "Middle 40%",
+        "D10" = "Top 10%"
+      )
+    ) + 
+    labs(
+      x = "Share of Total Wealth",
+      y = element_blank(),
+      fill = "Wealth Decile",
+      title = title, 
+    ) +
+    theme_tufte() +
+    theme(
+      legend.title = element_blank(),
+      panel.border = element_rect(fill = NA, color = "black"),
+    ) +
+    guides(fill = guide_legend(ncol = 3)) + # put the legend in one line
+    theme(axis.ticks.y = element_blank())  #remove ticks 
+}
+```
+
+```{r}
+p_share_TW <- make_share_plot(df_shares_indiv %>% filter(asset_class == "Share_TW")) 
+p_share_TW <- pretty_share_plot(p_share_TW, "Net Wealth")
+
+p_share_HW <- make_share_plot(df_shares_indiv %>% filter(asset_class == "Share_HW"))
+p_share_HW <- pretty_share_plot(p_share_HW, "Housing Wealth")
+
+p_share_FW <- make_share_plot(df_shares_indiv %>% filter(asset_class == "Share_FW"))
+p_share_FW <- pretty_share_plot(p_share_FW, "Financial Wealth")
+
+p_share_BW <- make_share_plot(df_shares_indiv %>% filter(asset_class == "Share_BW"))
+p_share_BW <- pretty_share_plot(p_share_BW, "Business Wealth")
+```
+
+```{r}
+wrapped_shares_plot <- wrap_plots(
+  p_share_TW, p_share_HW, p_share_FW, p_share_BW,
+  ncol = 2, guides="collect", axis_titles = "collect_x"
+) +
+  plot_annotation(
+    caption = "Source: ECB DWA, own calculations and visualisation", 
+    theme = theme_tufte()) &
+  theme(legend.position = 'bottom')
+
+wrapped_shares_plot
+ggsave(wrapped_shares_plot, filename = "../../output/appendix/asset_distribution_individual.png", width = 8, height = 12, dpi = 500)
+  
+```
 
 
-
-## Ownership
+## 5: Ownership
 
 ```{r}
 df_owner <- read_csv("../../data/proc/ownership.csv")
@@ -467,7 +558,7 @@ df_owner %>%
 - relevant = I9 = Euro Area = almost no change
 - different kinks, compare (AT,DE,FR) to (ES,IT,NL)
 
-### House Prices
+### 5a: House Prices
 
 ```{r}
 df_house <- read_csv("../../data/proc/prices.csv") 
@@ -518,7 +609,7 @@ ggsave(p5, filename = "../../output/desc/house_prices.png", width = 4, height = 
 p5
 ```
 
-## House: Subplots
+## 5b: House: Subplots
 
 ```{r}
 eastern  <- c("EE", "LT", "LV", "SI", "SK", "HR", "HU")

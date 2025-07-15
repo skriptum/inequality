@@ -13,13 +13,23 @@ descriptive Statistisc
 
 
 
-### B: Asset Distribution and Portfolio Composition
+### B: Asset Distribution and Portfolio Composition across Europe
 
-Asset Distribution (largest European Countries)
+Asset Distribution
+
+```
+../output/appendix/asset_distribution_individual.png
+```
 
 
 
 Portfolio Composition of Wealth Groups (largest European Countries)
+
+```
+../output/apendix/portfolios.png
+```
+
+
 
 
 
