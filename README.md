@@ -14,21 +14,26 @@ This project investigates the connection between wealth inequality and housing p
 
 ```text
 .
-├── data/               # All input datasets
+├── data/               
 │   ├── raw/            # Original files (Excel, CSV)
 │   ├── processed/      # Cleaned and structured datasets
 │   └── models/         # Model input/output files
-├── src/                # Core code base
+├── src/                
 │   ├── 01_preparation/ # Data cleaning and preparation files
 │   ├── 02_analysis/    # Econometric models and simulations
 │   ├── 03_reporting/   # Plots, tables, robustness checks
-│   └── _archive/       # Deprecated or exploratory code
+│   └── _archive/       
 ├── output/             # Exported results
+│   ├── appendix/
+│   ├── desc/
+│   ├── paneltables/
+│   ├── simulation/
+│   └── ts_tables
 ├── docs/               # Methodological references
 ├── renv/               # R package environment
 ├── renv.lock           # Reproducible package snapshot
-├── README.md           # This file
-├── inequality.Rproj    # RStudio project file
+├── README.md           
+├── inequality.Rproj    
 ```
 
 
