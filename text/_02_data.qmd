@@ -1,0 +1,30 @@
+## Data and descriptive statistics
+
+To understand the wealth dynamics, the analysis employs a variety of different datasets, the main being the Distributional Wealth Accounts (henceforth DWA) compiled by the European Central Bank (@blatnikIntroducingDistributionalWealth2024). The DWA provides quarterly wealth positions of different deciles of the wealth distribution for 21 european countries from 2011 until 2025, splitting up the net wealth according to the amount hold in different asset classes (Housing Wealth, Mortages etc.).
+
+A novelty of the DWA is their consistency with macroeconomic estimates of wealth from the quarterly financial accounts. A limitation of existing distributional data based only on surveys is the underreporting of wealth, which is adressed in the DWA following the US example by @batty22DistributionalFinancial2022 for the Federal Reserve.
+
+The exact methodology to derive quarterly distributional accounts as well as a  first analysis of the dataset is described by @engelDevelopingReconciledQuarterly2022. They distribute the wealth estimates from the quarterly sectoral financial accounts (QSA) according to the distribution in the Household Finance and Consumption Survey (HFCS), which are carried out by Eurozone member banks every 3-4 years (@networkEurosystemHouseholdFinance2013). To overcome the differential nonresponse (richer Households are underrepresented in the surveys) and the differential underreporting (richer Households undervalue their assets) they use the method proposed by @vermeulenEstimatingTopTail2016. He builds on the finding that the upper tail of the Wealth Distribution follows a Pareto curve, which can be used to create synthetic rich Households on a Curve fitted to the HFCS data and Households from external rich lists (e.g. @nesshoeferRanglisteGroesstenVermoegen2024 for Germany). After this step, @engelDevelopingReconciledQuarterly2022 use linear interpolation to distribute the QSA between HFCS survey waves and extrapolate after the most recent HFCS wave in 2021. 
+
+The authors perform a wide range of sensitivity and robustness checks for the DWA, but it is important to stress that it is still an experimental dataset, which can not guarantee the same accuracy as data obtained by wealth taxation or other methods.
+
+This analysis draws on the DWA for the time from 2011 until 2021. Potential extrapolation errors after the last HFCS wave and lagged effects of the Covid shock on the housing market are therefore not included in the dataset. The full range of countries is used, including Hungary, which is not part of the Eurozone, but increases the reliability of the results. The countries are abbreviated in Figures and Tables by ther ISO 2-digit country codes. A table with descriptive statistics and their respective full name is provided in **Appendix A**
+
+Additionally, wealth estimates for the Deciles 6 to 9 of the wealth distribution are combined to form the Middle 40% wealth group (next to the Bottom 50% and the Top 10%). This follows the literature (e.g @pikettyInequalityLongRun2014, @kuhnIncomeWealthInequality2020), as the middle 40% have a portfolio composition and wealth levels distinct from the other groups (see @fig-portfolio). 
+
+Furthermore, assets are combined to simplify and ease the interpretation of results as in the literature (@kaasWealthInequalityHomeownership2019). Unlisted shares and non-financial Business Wealth are combined to form Business Wealth; debt securities, listed shares, investment fund shares and life insurance entitlements form the Financial Wealth and Debt is made up of Mortgage Loans and other Loans.
+
+
+
+
+
+```
+![Portfolio Composition of Deciles (Eurozone Average)](../output/desc/portfolio_europe.png){@fig-portfolio}
+
+![Asset distribution among wealth groups (Eurozone Average)](../output/desc/asset_distribution_decile.png){@fig-distribution}
+```
+
+
+
+
+
