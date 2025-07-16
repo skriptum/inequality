@@ -30,12 +30,14 @@ and different returns
 
 
 
-
+*another strand:*
 
 general wealth share / inequality data effort
 - @pikettyIncomeInequalityUnited2003 US
 - collected in WID @alvaredoDistributionalNationalAccounts2020
   - Germany: @bartelsTopIncomesGermany2019
+
+
 
 *inspired creation of*
 
@@ -52,7 +54,7 @@ new distributional accounts
 
 
 
-Europen Lit: explain Wealth Differences cross country
+*Europen Lit*: explain Wealth Differences cross country
 
 - Explanations (W INeq differ much from I Ineq.)
 
@@ -66,6 +68,4 @@ Europen Lit: explain Wealth Differences cross country
   - between group inequality: renter / tenants
   - driven by HH in lower half
 
-  
-
-- HFCS Suvey Data
+- HFCS Survey Data used often

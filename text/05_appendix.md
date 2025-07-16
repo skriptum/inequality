@@ -23,7 +23,7 @@ Asset Distribution
 
 
 
-Portfolio Composition of Wealth Groups (largest European Countries)
+Portfolio Composition of Wealth Deciles
 
 ```
 ../output/apendix/portfolios.png

@@ -43,6 +43,8 @@ selection of data for analysis
   - often done in literature (e.g @pikettyInequalityLongRun2014)
   - similiar asset composition (Plot)
   - large BW starts only in top decile 
+- per capita. (where used), because HH structure differs too much across europe
+  - @fesslerNetWealthEuro2014
 - full country data
   - including Hungary (not Eurozone, but data reported)
     - more cases = more reliability
@@ -67,8 +69,7 @@ selection of data for analysis
 
 
 
-
-descriptive statistics
+### descriptive statistics
 
 HH Portfolios of wealth groups over Time (Eurozone Average)
 
@@ -114,8 +115,6 @@ Asset Composition of Deciles (small) (EUROzone)
 ```
 ../output/desc/asset_distribution_decile.png
 ```
-
-
 
 
 

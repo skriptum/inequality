@@ -135,7 +135,7 @@ european monetary policy
   - housing as well as stocks
   - @bernankeWhatExplainsStock2005 US Stocks
   - @vargas-silvaMonetaryPolicyUS2008 US housing
-  - EU ??
+  - EU 
 - drives housing price valuations => different distributional effects in countries
 
 
