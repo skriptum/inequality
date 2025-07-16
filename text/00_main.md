@@ -2,6 +2,20 @@
 
 
 
+Housing as central asset of the 90%
+
+- central for the analysis of population wide inequalities
+- Largest part of net worth in europe (MAP)
+
+
+
+weath = depends on valuation of existing stock
+
+- rising prices for asset classes = shifts in distribution 
+- without any asset changing hands
+
+
+
 
 
 my question 

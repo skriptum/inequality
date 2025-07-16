@@ -126,6 +126,21 @@ further research needed (microdata, historical data)
 
 
 
+**Role of mortages**
+
+- not directly analysed in this thesis
+- mortages / leverage = play a major role in housing markets
+- leverage differs considerably across countries
+  - regulatory regimes
+  - cultures
+- contribution to inequality has to be asessed
+
+
+
+
+
+
+
 **Policy Implications**
 
 european monetary policy

@@ -28,7 +28,8 @@ This project investigates the connection between wealth inequality and housing p
 │   ├── desc/
 │   ├── paneltables/
 │   ├── simulation/
-│   └── ts_tables
+│   └── ts_tables/
+├── text/               # final text files
 ├── docs/               # Methodological references
 ├── renv/               # R package environment
 ├── renv.lock           # Reproducible package snapshot
@@ -41,16 +42,16 @@ This project investigates the connection between wealth inequality and housing p
 
 1. Open inequality.Rproj in RStudio.
 2. Run renv::restore() to install the required packages.
-3. Execute scripts in src/ in order:
-  - 01_preparation/
-  - 02_analysis/
-  - 03_reporting/
+3. Download the full dataset in csv format from the ECB website ([here](https://data-api.ecb.europa.eu/service/data/DWA?format=csvdata))
+4. Execute scripts in src/ in order:
+
+     - 01_preparation/
+
+     - 02_analysis/
+
+     - 03_reporting/
 
 ## Dependencies
 
 Managed via renv. See renv.lock for exact package versions.
 
-## Notes
-
-File naming and folder structures follow reproducible research practices.
-Outputs are not version-controlled; regenerate using the scripts if needed.
