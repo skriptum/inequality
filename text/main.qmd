@@ -1,0 +1,121 @@
+---
+title: "Cementing the Divide?"
+subtitle: "Housing and Wealth Inequality across 
+Europe"
+abstract: |
+  This is an abstract
+author: "Marten Walk"
+toc: false
+lof: false
+lot: false
+bibliography: ../bachelor.bib
+link-citations: true
+number-sections: true
+format: 
+  pdf: 
+    documentclass: scrartcl
+    #fontfamily: newtxtext
+    #linestretch: "1.5"
+    #geometry:
+    #  - top=20mm
+    #  - bottom=30mm
+    #  - left=32mm
+    #  - right=20mm
+    papersize: a4
+    fig-pos: 'h'
+
+execute:
+  echo: false
+---
+
+```{=latex}
+\pagenumbering{gobble}
+```
+
+{{< pagebreak >}}
+
+```{=latex}
+\tableofcontents
+```
+
+
+
+{{< pagebreak >}}
+
+```{=latex}
+\listoffigures
+```
+
+```{=latex}
+\listoftables
+```
+
+
+
+## List of Abbreviations {.unnumbered .unlisted}
+
+| Abbreviation | Explanation                                            |
+| ------------ | ------------------------------------------------------ |
+| HFCS         | Household Finance and Consumption Surveys              |
+| DWA          | Distributional Wealth Accounts                         |
+| ECB          | European Central Bank                                  |
+| OECD         | Organisation for Economic Co-operation and Development |
+| BIS          | Bank for International Settlements                     |
+
+{{< pagebreak >}}
+
+<!-- Main Text -->
+
+```{=latex}
+\pagenumbering{arabic}
+```
+
+
+
+<!-- Text includes -->
+
+{{< pagebreak >}}
+
+{{< include _00_introduction.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _01_literature.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _02_data.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _03_emp.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _04_discussion.qmd >}}
+
+{{< pagebreak >}}
+
+<!-- End of includes -->
+
+
+
+<!-- Refs, Appendix etc. -->
+
+{{< pagebreak >}}
+
+## Appendix {.unnumbered}
+
+{{< include _05_appendix.qmd >}}
+
+{{< pagebreak >}}
+
+
+
+## References {.unnumbered}
+
+::: {#refs}
+
+:::
+
+{{< pagebreak >}}
