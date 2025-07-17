@@ -1,0 +1,64 @@
+### Appendix A: Descriptive Table {.unnumbered}
+
+The following Table presents the full country names and the net wealth per Capita in Euro in 2022. 
+
+::: {#tbl-descriptive}
+
+```{=latex}
+\begin{table}[hb]
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llccrr}
+\toprule
+\multicolumn{2}{c}{Name} & \multicolumn{2}{c}{Time Period} & \multicolumn{2}{c}{Net Wealth (EUR p.C)} \\ 
+\cmidrule(lr){1-2} \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+ISO2 & Full Name & Start & End & Mean & Median \\ 
+\midrule\addlinespace[2.5pt]
+AT & Austria & 2010 Q4 & 2024 Q3 & 213570 & 148200 \\ 
+BE & Belgium & 2010 Q3 & 2024 Q3 & 254570 & 288469 \\ 
+CY & Cyprus & 2010 Q3 & 2024 Q3 & 200490 & 358090 \\ 
+DE & Germany & 2011 Q1 & 2024 Q3 & 221080 & 118634 \\ 
+EE & Estonia & 2013 Q2 & 2024 Q3 & 94850 & 92574 \\ 
+ES & Spain & 2011 Q4 & 2024 Q3 & 175130 & 202247 \\ 
+FI & Finland & 2009 Q4 & 2024 Q3 & 165160 & 129728 \\ 
+FR & France & 2009 Q4 & 2024 Q3 & 198810 & 175016 \\ 
+GR & Greece & 2009 Q3 & 2024 Q3 & 89890 & 131323 \\ 
+HR & Croatia & 2017 Q2 & 2024 Q3 & 39023 & 40130 \\ 
+HU & Hungary & 2014 Q3 & 2024 Q3 & 73370 & 86680 \\ 
+I9 & Eurozone & 2009 Q1 & 2024 Q3 & 182787 & 152275 \\ 
+IE & Ireland & 2013 Q2 & 2024 Q3 & 251940 & 357059 \\ 
+IT & Italy & 2010 Q4 & 2024 Q3 & 180390 & 158171 \\ 
+LT & Lithuania & 2016 Q4 & 2024 Q3 & 75990 & 69192 \\ 
+LU & Luxembourg & 2010 Q4 & 2024 Q3 & 606820 & 759153 \\ 
+LV & Latvia & 2017 Q3 & 2024 Q3 & 36900 & 27821 \\ 
+MT & Malta & 2010 Q4 & 2024 Q3 & 270420 & 414803 \\ 
+NL & Netherlands & 2014 Q4 & 2023 Q4 & 396990 & 215032 \\ 
+PT & Portugal & 2010 Q2 & 2024 Q3 & 114100 & 125440 \\ 
+SI & Slovenia & 2010 Q4 & 2024 Q3 & 119880 & 160980 \\ 
+SK & Slovakia & 2010 Q3 & 2024 Q3 & 56080 & 101871 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+```
+
+Description of ISO2 Codes
+:::
+
+### Appendix B: Portfolio and Asset Distribution across Europe {.unnumbered}
+
+The following figures describe Asset Distribution as well as Portfolio Composition across Europe using the latest quarter of 2021.
+
+
+![Asset Distribution among Deciles](../output/appendix/asset_distribution_individual.png){#fig-distribution-indiv fig-pos="H"}
+
+![Portfolio Composition of Deciles](../output/appendix/portfolios.png){#fig-portfolio-indiv fig-pos="H"}
+
+
+{{< pagebreak >}}
+
+### Appendix C: Time Series Regression Tables {.unnumbered}
+
+
+
+{{< pagebreak >}}
+
+### Appendix D: Reverse Causality Regression {.unnumbered}

@@ -205,7 +205,7 @@ p3 <- p3 +
       )
   )
     
-ggsave(p3, filename = "../../output/appendix/portfolios.png", width = 8, height = 12, dpi = 500)
+ggsave(p3, filename = "../../output/appendix/portfolios.png", width = 8, height = 10, dpi = 500)
 p3
 ```
 
@@ -301,7 +301,8 @@ df_growth %>%
 p4 <- df_growth %>%
   filter(
     REF_AREA %in% c("I9"),    #Euro 20 Area
-    str_detect(TIME_PERIOD, "01-01|06-01"), # filter for first and third quarter
+    TIME_PERIOD < "2022-01-01", # only before 2022
+    #str_detect(TIME_PERIOD, "01-01|06-01"), # filter for first and third quarter
     ) %>%
   transform(DWA_GRP = factor(
     DWA_GRP, levels = c("B50","M40", "D10"), # order of the GRP for the plot
@@ -346,7 +347,7 @@ p4 <- p4 +
       "BW" = "Business Wealth",
       "FW" = "Financial Wealth",
       "DEP" = "Deposits",
-      "HW" = "Housing Wealth",
+      "HW" = "Housing Wealth (gross)",
       "DEBT" = "Debt"
     )
   ) +
@@ -405,7 +406,7 @@ df_shares <- df_simple %>%
 p_shares <- df_shares %>%
   filter(REF_AREA == "I9") %>%
   ggplot(aes(fill=DWA_GRP)) +
-  geom_col(aes(x="Total Wealth", y=Share_TW )) +
+  geom_col(aes(x="Net Wealth", y=Share_TW )) +
   geom_col(aes(x="Housing Wealth", y=Share_HW)) +
   geom_col(aes(x="Business Wealth", y=Share_BW)) +
   geom_col(aes(x="Financial Wealth", y=Share_FW)) +
@@ -492,7 +493,7 @@ pretty_share_plot <- function(share_plot, title) {
       )
     ) + 
     labs(
-      x = "Share of Total Wealth",
+      x = "Share of Wealth",
       y = element_blank(),
       fill = "Wealth Decile",
       title = title, 
@@ -532,8 +533,7 @@ wrapped_shares_plot <- wrap_plots(
   theme(legend.position = 'bottom')
 
 wrapped_shares_plot
-ggsave(wrapped_shares_plot, filename = "../../output/appendix/asset_distribution_individual.png", width = 8, height = 12, dpi = 500)
-  
+ggsave(wrapped_shares_plot, filename = "../../output/appendix/asset_distribution_individual.png", width = 8, height = 10, dpi = 500)
 ```
 
 
