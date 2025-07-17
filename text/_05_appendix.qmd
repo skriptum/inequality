@@ -2,10 +2,10 @@
 
 The following Table presents the full country names and the net wealth per Capita in Euro in 2022. 
 
-::: {#tbl-descriptive}
+::: {#tbl-descriptive tbl-pos="h" layout-ncol="1"}
 
 ```{=latex}
-\begin{table}[hb]
+\begin{table}
 \fontsize{12.0pt}{14.4pt}\selectfont
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llccrr}
 \toprule
@@ -39,9 +39,9 @@ SK & Slovakia & 2010 Q3 & 2024 Q3 & 56080 & 101871 \\
 \end{tabular*}
 \end{table}
 ```
-
-Description of ISO2 Codes
+Descriptive Table with ISO 2 Codes
 :::
+
 
 ### Appendix B: Portfolio and Asset Distribution across Europe {.unnumbered}
 

@@ -1,4 +1,4 @@
-## Data and descriptive statistics
+## Data and descriptive statistics {#sec-data}
 
 To understand the wealth dynamics, the analysis employs a variety of different datasets, the main being the Distributional Wealth Accounts (henceforth DWA) compiled by the European Central Bank [@blatnikIntroducingDistributionalWealth2024]. The DWA provides quarterly wealth positions of different deciles of the wealth distribution for 21 european countries from 2011 until 2025, splitting up the net wealth according to the amount hold in different asset classes (Housing Wealth, Mortages etc.).
 
@@ -33,7 +33,7 @@ The lower half of the distribution have little wealth, with housing and deposits
 
 ![Residential Property Price Index](../output/desc/house_prices_europe.png){#fig-prices}
 
-For Housing Price Data, the Residential Property Price Dataset from the Bank of International Settlement is used [@scatignaResidentialPropertyPrice2014]. The dataset is widely used in cross country comparisons [i.e. @runstlerBusinessHousingCredit2018] and includes quarterly time series for most developed countries in real terms. 
+For Housing Price Data, the Residential Property Price Dataset from the Bank of International Settlement (BIS) is used [@scatignaResidentialPropertyPrice2014]. The dataset is widely used in cross country comparisons [i.e. @runstlerBusinessHousingCredit2018] and includes quarterly time series for most developed countries in real terms. 
 
 
 

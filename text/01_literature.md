@@ -46,7 +46,6 @@ Asset prices as driver of wealth inequality
 HH Portfolio
 
 - @causaHousingWealthAccumulation2019: OECD, Housing between groups
-- @biewenShapeWealthDistribution2025: wealth differences EU: HO explains 
 - @coccoPortfolioChoicePresence2005: modeling, investment in housing explains differences in portfolio choice
 - @sierminskaOwnNotOwn2013: eu+us+canada, demographic charactersitics of Housing (focus: age)
 
@@ -66,6 +65,7 @@ HH Portfolio
 *Europen Lit*: explain Wealth Differences cross country
 
 - Explanations (W INeq differ much from I Ineq.)
+- @biewenShapeWealthDistribution2025: wealth differences EU: HO explains 
 - @mathaHouseholdWealthEuro2017: HO, HP, Inheritances
 - @pfefferWealthInequalityNations2021: central driver of housing equity in wealth ineq. (LIS)
 - @kaasWealthInequalityHomeownership2019
