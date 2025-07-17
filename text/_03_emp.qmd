@@ -1,0 +1,7 @@
+## Empirical Strategy {#sec-strategy}
+
+## Panel Regression
+
+## Time Series
+
+## Simulation
