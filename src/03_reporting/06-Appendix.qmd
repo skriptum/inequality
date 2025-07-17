@@ -87,5 +87,10 @@ table <- table %>%
 
 table %>% gtsave("../../output/appendix/table_descriptive.html") 
 table %>% gtsave("../../output/appendix/table_descriptive.tex")
+saveRDS(table, "../../output/appendix/table_descriptive.rds")
 ```
  
+```{r}
+tab <- readRDS("../../output/appendix/table_descriptive.rds")
+```
+

@@ -1,21 +1,83 @@
-# Introduction
+---
+toc: true
+lof: true
+lot: true
+bibliography: ../bachelor.bib
+link-citations: true
+number-sections: true
+format: 
+  pdf: 
+    documentclass: scrartcl
+    fig-pos: 'h'
+execute:
+  echo: false
+---
+
+Abbreviations
+
+| Abbr | Explanation |
+| ---- | ----------- |
+| HFCS |             |
+| DWA  |             |
+| ECB  |             |
+| OECD |             |
+
+{{< pagebreak >}}
+
+## Introduction
+
+Housing is Europes largest asset.
+
+
+
+<!-- Text includes -->
+
+{{< pagebreak >}}
+
+{{< include _01_literature.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _02_data.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _03_emp.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include _04_discussion.qmd >}}
+
+{{< pagebreak >}}
+
+<!-- End of includes -->
+
+## Conclusion
 
 
 
 
 
+<!-- Refs, Appendix etc. -->
 
+{{< pagebreak >}}
 
+## Appendix {.unnumbered}
 
+{{< include _05_appendix.qmd >}}
 
+{{< pagebreak >}}
 
+## References {.unnumbered}
 
-{{< include 01_literature.qmd >}}
+::: {#refs}
 
-{{< include 02_data.qmd >}}
+:::
 
-{{< include 03_emp.qmd >}}
+## References {.unnumbered}
 
-{{< include 04_discussion.qmd >}}
+::: {#refs}
 
-{{< include 05_appendix.qmd >}}
+:::
+
+{{< pagebreak >}}
