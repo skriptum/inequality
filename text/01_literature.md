@@ -73,3 +73,33 @@ HH Portfolio
   - HO: explains 
   - between group inequality: renter / tenants
   - driven by HH in lower half
+
+
+
+
+
+methodological related:
+
+- @wolffTopHeavyStudy1995 [p. 31, p. 77]
+
+  - US analyis + regression: wealth share held by top 1% explained by
+    - share of income
+    - ratio of stocks / housing prices
+  - ratio + income share explain the variation = statistically significant
+
+- @kuhnIncomeWealthInequality2020
+
+  - "race between the stock market and the housing market" [p. 37]
+  - Regression: Top 10 % share ~ House Prices, stock Prices, income share
+  - Result: negative to HP, positive to SP
+- @fullerHousingPricesWealth2020 
+  - for western europe and OECD countries: Panel Regression
+  - Wealth to Income Ratios (Piketty) as Inequality measurement
+    - House Prices and other Assets = explain most of the development
+    - Homeownership
+
+Contribute by: extending 
+
+- european cross country
+- for all wealth groups, not only top 10%
+- 
