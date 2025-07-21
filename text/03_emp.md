@@ -1,43 +1,27 @@
-## Empirical Strategy
 
 
+
+
+
+
+
+
+## Methodology
 
 Panel Regression 
 
-- like @kuhnIncomeWealthInequality2020
+- different portfolio compositions of groups 
+  - Different reactions to valuation changes
+  - estimate their reaction to chagnes in asset
+  - focusing on house prices and stock prices
 - reactions of wealth group shares in total wealth to
   - Housing Prices
   - Stock Prices
-- different portfolio compositions of groups
-- different reactions
-
-
-
-Time Series Regression
-
-- heterogeneity in reactions
-- due to heterogeneity in portfolios across europe
-- simple panel regression = averages into the coefficient
-- => separate regressions for each country
-
-
-
-Counterfactual Simulation
-
-- vastly different coefficients = different reactions of share to same increase in HP
-- simulation: what would happen if growth in HW in XX would be distributed like in YY
-  - ex: Germany: most of the asset gains = going to T10 and M40
-  - counter: Spain: more equal distribution of gains
-- Case Example: Germany
-  - largest Country in Eurozone, unequal distribution of asset price gains
-  - simulate what would happen if HP growth would be distributed like in EU average?
-- reaction of share of B50
+- can be interpreted as elasiticity of wealth shares with respect to asset prices
 
 
 
 
-
-## Panel Regression
 
 Regression Formula
 $$
@@ -71,7 +55,18 @@ Estimations
 
 
 
-Results
+Time Series Regression
+
+- heterogeneity in reactions
+- due to heterogeneity in portfolios across europe
+- simple panel regression = averages into the coefficient
+- => separate regressions for each country
+
+
+
+
+
+## Results
 
 ```
 ../output/paneltables/T10.tex
@@ -127,6 +122,8 @@ Transition
 
 ## Time Series Regression
 
+
+
 for each country
 $$
 \Delta \log (\omega_{t}^g) = \beta_0 + \beta_1 \Delta \log (p_{t}^h) + \beta_2 \Delta \log(p^s_{t}) + \epsilon_t
@@ -170,6 +167,21 @@ Results
 
 
 ## Counterfactual Simulation
+
+Counterfactual Simulation
+
+- vastly different coefficients = different reactions of share to same increase in HP
+- simulation: what would happen if growth in HW in XX would be distributed like in YY
+  - ex: Germany: most of the asset gains = going to T10 and M40
+  - counter: Spain: more equal distribution of gains
+- Case Example: Germany
+  - largest Country in Eurozone, unequal distribution of asset price gains
+  - simulate what would happen if HP growth would be distributed like in EU average?
+- reaction of share of B50
+
+
+
+
 
 Overall Wealth Growth in quarter $t$
 $$

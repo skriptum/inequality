@@ -1,7 +1,34 @@
-## Empirical Strategy {#sec-strategy}
+## Methodology
 
-## Panel Regression
 
-## Time Series
 
-## Simulation
+## Results
+
+
+
+```{=latex}
+\small
+{{< include ../output/paneltables/T10.tex >}}
+\normalsize
+```
+
+```{=latex}
+\small
+{{< include ../output/paneltables/M40.tex >}}
+\normalsize
+```
+
+```{=latex}
+\small
+{{< include ../output/paneltables/B50.tex >}}
+\normalsize
+```
+
+
+
+
+
+
+
+## Counterfactual Simulation
+
