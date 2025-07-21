@@ -36,7 +36,7 @@ country_names <- c(
   "PT" = "Portugal",
   "SI" = "Slovenia",
   "SK" = "Slovakia",
-  "I9" = "Eurozone"
+  "EU" = "Eurozone"
  )
 ```
 

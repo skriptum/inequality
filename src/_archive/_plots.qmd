@@ -74,7 +74,7 @@ df %>%
     TIME_PERIOD == "2023-01-01",
     UNIT_MEASURE == "EUR",
     DWA_GRP == "_Z",
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     INSTR_ASSET %in% c("F51M", "NUB", "F62", "F52", "F511", "F3", "NUN", "F2M")
   ) %>%
   select(INSTR_ASSET, OBS_VALUE) %>%

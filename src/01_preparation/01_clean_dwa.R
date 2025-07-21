@@ -47,6 +47,15 @@ df <- df %>%
 
 df$TIME_PERIOD <- as.Date(as.yearqtr(df$TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
 
+## Rename Europe I9 to EU
+
+df <- df %>%
+  mutate(
+    REF_AREA = case_when(
+      REF_AREA == "I9" ~ "EU",
+      TRUE ~ REF_AREA
+    )
+  )
 
 ## Save
 

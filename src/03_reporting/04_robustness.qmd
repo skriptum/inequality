@@ -107,7 +107,7 @@ df_hp <- df_gini %>%
   filter(
     TIME_PERIOD == "2011-10-01",
     ASSET == "NWA",
-    REF_AREA != "I9"
+    REF_AREA != "EU"
   ) %>%
   select(REF_AREA, GINI) %>%
   left_join(

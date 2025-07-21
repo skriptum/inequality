@@ -28,7 +28,7 @@ $$
 ```{r}
 df %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     UNIT_MEASURE == "EUR",
     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
     TIME_PERIOD == "2011-01-01"
@@ -44,7 +44,7 @@ is it smaller than share of housing?
 ```{r}
 df %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     UNIT_MEASURE == "EUR",
     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10"),
     TIME_PERIOD == "2011-01-01"
@@ -100,7 +100,7 @@ CY, DE, MT = winners of this bad game
 df_contrib %>%
   filter(
     TIME_PERIOD>= "2011-01-01",
-    REF_AREA %in% c("I9", "DE", "CY", "BE", "NL")
+    REF_AREA %in% c("EU", "DE", "CY", "BE", "NL")
     ) %>%
   ggplot(aes(x=TIME_PERIOD, y=HW_contrib, color=REF_AREA)) +
   geom_line() 

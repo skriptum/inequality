@@ -70,7 +70,7 @@ df <- read_csv("../../data/proc/dwa_simple.csv")
 df_EU <- df %>%
   # filter for the EU
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     UNIT_MEASURE == "EUR",
     TIME_PERIOD > "2011-01-01",
   ) %>%

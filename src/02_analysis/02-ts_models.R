@@ -8,12 +8,12 @@ library(dynlm)
 df_comb <- read_csv("../data/proc/panel_data.csv")
 
 #--------------------------------
-## Model for I9 simple
+## Model for EU simple
 
 model_dyn <- dynlm(
   d(log(M40_share)) ~ d(log(HP_R_N)) + d(log(Stock_Price)),
   # d(log(T10_share)) ~ d(log(HP_R_N)) + d(log(Stock_Price)) + zoo(YEAR) + zoo(QUARTER),
-  data = df_comb %>% filter(REF_AREA == "I9"),
+  data = df_comb %>% filter(REF_AREA == "EU"),
 )
 model_dyn.summ <- summary(model_dyn)
 model_dyn.summ$coefficients <- unclass(coeftest(model_dyn, vcov = NeweyWest))

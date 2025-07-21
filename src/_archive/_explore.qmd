@@ -14,7 +14,7 @@ df <- read_csv("../data/proc/dwa_simple.csv")
 ```{r}
 gross_Wealth <- df %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     TIME_PERIOD == "2011-01-01",
     UNIT_MEASURE == "EUR_R_POP",
     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
@@ -36,7 +36,7 @@ df_gini <- read_csv("../data/proc/gini_simple.csv")
 
 df_gini %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     TIME_PERIOD == "2011-01-01",
     ASSET == "TW"
   ) %>%
@@ -48,7 +48,7 @@ df_gini %>%
 ```{r}
 gross_Wealth <- df %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     TIME_PERIOD == "2011-01-01",
     UNIT_MEASURE == "EUR_R_NH",
     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
@@ -67,7 +67,7 @@ df_gini <- read_csv("../data/proc/gini_simple.csv")
 
 df_gini %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     TIME_PERIOD == "2011-01-01",
     ASSET == "TW"
   ) %>%
@@ -83,7 +83,7 @@ Cov(Y_k,Y) / Var(Y)
 ```{r}
 df_filter <-df %>%
   filter(
-    REF_AREA == "I9",
+    REF_AREA == "EU",
     UNIT_MEASURE == "EUR",
     DWA_GRP %in% c("B50", "D06", "D07", "D08", "D09", "D10")
   )

@@ -30,7 +30,7 @@ Simple Regression Model
 ```{r}
 gini_model <- lm(
   GINI_change ~ HP_R_Change,
-  data = df_comb %>% filter(REF_AREA == "I9")
+  data = df_comb %>% filter(REF_AREA == "EU")
 )
 summary(gini_model)
 ```
@@ -88,7 +88,7 @@ df_comb2 <- df_gini %>%
 ```{r}
 housing_gini_model <- lm(
   GINI_change ~ HP_R_Change,
-  data = df_comb2 %>% filter(REF_AREA == "I9")
+  data = df_comb2 %>% filter(REF_AREA == "EU")
 )
 summary(housing_gini_model)
 ```

@@ -12,8 +12,8 @@ df_simple <- read_csv("../../data/proc/dwa_simple.csv")
 ```
 how to split up the countries?
 ```{r}
-before1990 = c("BE", "DE", "ES","FR", "GR", "IE", "IT", "LU", "NL", "PT", "I9")
-post1990 = c("AT", "CY", "EE","FI", "HR", "LT", "LV", "MT", "SI", "SK" , "I9")
+before1990 = c("BE", "DE", "ES","FR", "GR", "IE", "IT", "LU", "NL", "PT", "EU")
+post1990 = c("AT", "CY", "EE","FI", "HR", "LT", "LV", "MT", "SI", "SK" , "EU")
 ```
 
 
@@ -79,7 +79,7 @@ southern <- c("CY", "ES", "GR", "MT", "PT", "IT")
 df_east <- df_ratio %>% filter(REF_AREA %in% eastern)
 df_west <- df_ratio %>% filter(REF_AREA %in% western)
 df_south <- df_ratio %>% filter(REF_AREA %in% southern)
-df_I9 <- df_ratio %>% filter(REF_AREA == "I9") # Euro Area Average
+df_I9 <- df_ratio %>% filter(REF_AREA == "EU") # Euro Area Average
 ```
 
 ```{r}
@@ -156,7 +156,7 @@ df_asset <- df_simple %>%
     values_to = "share"
   ) 
 p3 <- df_asset %>%
-  filter(!( REF_AREA %in% c("I9", "HU"))) %>% 
+  filter(!( REF_AREA %in% c("EU", "HU"))) %>% 
   ggplot(aes(x = DWA_GRP, y = share, fill = asset_class)) +
     geom_col(position = "stack") +  # stack the bars to make 1
     facet_wrap(~ REF_AREA, ncol = 4, scales = "free_x")  #x axis should appear at every plot
@@ -214,7 +214,7 @@ p3
 ```{r}
 # european focus
 p_europe <- df_asset %>%
-  filter(REF_AREA == "I9") %>%
+  filter(REF_AREA == "EU") %>%
   ggplot(aes(x = DWA_GRP, y = share, fill = asset_class)) +
     geom_col(position = "stack") +
     scale_fill_manual(
@@ -300,7 +300,7 @@ df_growth %>%
 ```{r}
 p4 <- df_growth %>%
   filter(
-    REF_AREA %in% c("I9"),    #Euro 20 Area
+    REF_AREA %in% c("EU"),    #Euro 20 Area
     TIME_PERIOD < "2022-01-01", # only before 2022
     #str_detect(TIME_PERIOD, "01-01|06-01"), # filter for first and third quarter
     ) %>%
@@ -404,7 +404,7 @@ df_shares <- df_simple %>%
 
 ```{r}
 p_shares <- df_shares %>%
-  filter(REF_AREA == "I9") %>%
+  filter(REF_AREA == "EU") %>%
   ggplot(aes(fill=DWA_GRP)) +
   geom_col(aes(x="Net Wealth", y=Share_TW )) +
   geom_col(aes(x="Housing Wealth", y=Share_HW)) +
@@ -548,7 +548,7 @@ df_owner <- read_csv("../../data/proc/ownership.csv")
 df_owner %>%
   filter(
     DWA_GRP != "ALL", # drop the average group
-    REF_AREA %in% c("DE", "BE", "NL", "AT", "ES", "FR", "IT","I9")
+    REF_AREA %in% c("DE", "BE", "NL", "AT", "ES", "FR", "IT","EU")
   ) %>%
   ggplot(aes(x = DWA_GRP, y = OWNER, group=JAHR)) +
     geom_line(aes(color = as.factor(JAHR)), linewidth = 1) +
@@ -621,7 +621,7 @@ southern <- c("CY", "ES", "GR", "MT", "PT", "IT")
 df_east <- df_house %>% filter(REF_AREA %in% eastern)
 df_west <- df_house %>% filter(REF_AREA %in% western)
 df_south <- df_house %>% filter(REF_AREA %in% southern)
-df_I9 <- df_house %>% filter(REF_AREA == "I9") # Euro Area Average
+df_I9 <- df_house %>% filter(REF_AREA == "EU") # Euro Area Average
 ```
 
 ```{r}

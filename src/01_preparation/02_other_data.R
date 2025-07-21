@@ -44,7 +44,7 @@ for (country in unique_countries) {
 # rename EURO AREA
 df_house <- df_house %>%
   mutate(
-    REF_AREA = ifelse(REF_AREA == "MX", "I9", REF_AREA), # I9 = Euro Area
+    REF_AREA = ifelse(REF_AREA == "MX", "EU", REF_AREA), # EU = Euro Area
     TIME_PERIOD = as.Date(as.yearqtr(TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
   )
 
@@ -145,7 +145,7 @@ for (country in unique_countries) {
 # rename EURO AREA and greece
 df_growth <- df_growth %>%
   mutate(
-    REF_AREA = ifelse(REF_AREA == "EA20", "I9", REF_AREA), # I9 = Euro Area
+    REF_AREA = ifelse(REF_AREA == "EA20", "EU", REF_AREA), # EU = Euro Area
     REF_AREA = ifelse(REF_AREA == "EL", "GR", REF_AREA), # EL = Greece
     TIME_PERIOD = as.Date(as.yearqtr(df_growth$TIME_PERIOD, format = "%Y-Q%q"), frac = 0)
   )

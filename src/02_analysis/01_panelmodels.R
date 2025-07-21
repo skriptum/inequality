@@ -54,7 +54,7 @@ df_filter <- df %>%
    
 # plot shares over time
 df_filter %>%
-  filter(REF_AREA == "I9") %>%
+  filter(REF_AREA == "EU") %>%
   select(TIME_PERIOD, B50_share, M40_share, T10_share) %>%
   pivot_longer(cols = c(B50_share, M40_share, T10_share), names_to = "Group", values_to = "Share") %>%
   ggplot(aes(x = TIME_PERIOD, y = Share, color = Group)) +
