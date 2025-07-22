@@ -53,12 +53,53 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 ![Portfolio Composition of Deciles](../output/appendix/portfolios.png){#fig-portfolio-indiv fig-pos="H"}
 
 
+### Appendix C: Individual regressions results {.unnumbered}
+
+```{=latex}
+\begin{landscape}
+
+{{< include ../output/ts_tables/ts_T10_1.tex >}}
+
+{{< include ../output/ts_tables/ts_T10_2.tex >}}
+
+\end{landscape}
+```
+
 {{< pagebreak >}}
 
-### Appendix C: Time Series Regression Tables {.unnumbered}
+```{=latex}
+\begin{landscape}
 
+{{< include ../output/ts_tables/ts_M40_1.tex >}}
+
+{{< include ../output/ts_tables/ts_M40_2.tex >}}
+
+\end{landscape}
+```
+
+{{< pagebreak >}}
+
+```{=latex}
+\begin{landscape}
+
+{{< include ../output/ts_tables/ts_B50_1.tex >}}
+
+{{< include ../output/ts_tables/ts_B50_2.tex >}}
+
+\end{landscape}
+```
 
 
 {{< pagebreak >}}
 
 ### Appendix D: Reverse Causality Regression {.unnumbered}
+
+
+
+![Inequality and Housing Price Growth](../output/appendix/hp-ineq.png)
+
+
+```{=latex}
+../output/appendix/table_hp_ineq.tex
+```
+

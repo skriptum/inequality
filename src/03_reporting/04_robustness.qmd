@@ -137,8 +137,13 @@ table_hp <- modelsummary(
       list("raw" = "r.squared", "clean" = "R²", "fmt" = 3),
       list("raw" = "adj.r.squared", "clean" = "Adj. R²", "fmt" = 3)
     ),
-  out = "gt"
-) 
+  out = "gt",
+  table_title = "Results",
+) %>% 
+  opt_table_font(
+    size = 10
+  )
+  
 table_hp
 ```
 
@@ -170,6 +175,6 @@ p1 <- p1 +
     panel.border = element_rect(fill = NA, color = "black")
   ) 
 p1 
-ggsave("../../output/appendix/hp-ineq.png", p1, width = 6, height = 4, dpi = 300)
+ggsave("../../output/appendix/hp-ineq.png", p1, width = 9, height = 5, dpi = 300)
 ```
 

@@ -23,6 +23,9 @@ format:
     #  - right=20mm
     papersize: a4
     fig-pos: 'h'
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
 
 execute:
   echo: false
@@ -61,6 +64,8 @@ execute:
 | ECB          | European Central Bank                                  |
 | OECD         | Organisation for Economic Co-operation and Development |
 | BIS          | Bank for International Settlements                     |
+| OLS          | Ordinary Least Squares                                 |
+| SCC          | spatial correlation consistent                         |
 
 {{< pagebreak >}}
 
@@ -96,7 +101,7 @@ execute:
 
 {{< pagebreak >}}
 
-<!-- End of includes -->
+<!-- End of Text -->
 
 
 
