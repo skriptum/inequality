@@ -1,6 +1,5 @@
-\begin{table}[t]
-\caption{Bottom 50\% Share in Total Wealth} 
-\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{table}[h]
+\fontsize{9.0pt}{10.8pt}\selectfont
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccccc}
 \toprule
  & \multicolumn{3}{c}{OLS Estimator} & \multicolumn{2}{c}{Mean Group Estimator} \\ 
@@ -8,12 +7,14 @@
   & (1) & (2) & (3) & (4) & (5) \\ 
 \midrule\addlinespace[2.5pt]
 House Prices & 0.481*** & 0.393*** & 0.189 & 0.212 & 0.253 \\ 
- & (0.064) & (0.058) & (0.143) & (0.192) & (0.179) \\ 
-Stock Prices &  & -0.028* & -0.051* &  & -0.029 \\ 
-{} & {} & {(0.016)} & {(0.030)} & {} & {(0.022)} \\ 
+ & (0.109) & (0.062) & (0.175) & (0.192) & (0.179) \\ 
+Stock Prices &  & -0.028* & -0.051 &  & -0.029 \\ 
+{} & {} & {(0.016)} & {(0.033)} & {} & {(0.022)} \\ 
+\midrule
 Unit Fixed Effects & No & Yes & Yes & - & - \\ 
-{Time Fixed Effects} & {Yes} & {No} & {Year + Quarter} & {Yes} & {No} \\ 
-N & 860 & 860 & 860 & 860 & 860 \\ 
+Time Fixed Effects & Yes & No & Year + Quarter & Yes & No \\ 
+\midrule
+{N} & {860} & {860} & {860} & {860} & {860} \\ 
 R² & 0.065 & 0.056 & 0.043 & 0.361 & 0.340 \\ 
 Adj. R² & 0.006 & 0.030 & 0.016 & 0.320 & 0.298 \\ 
 \bottomrule
