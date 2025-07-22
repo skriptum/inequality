@@ -1,34 +1,62 @@
-## Methodology
+## Empirical Strategy
 
+As described above, different segments of the wealth distribution hold different portfolios, in size as well as in composition of asset classes. Their net wealth therefore reacts in distinct ways to identical changes in valuation of assets. This has a direct effect on the share of overall wealth held by the segment and consequently on general wealth inequality.
 
+To estimate this response, a panel regression outlined in @eq-regression is estimated:
+
+$$
+\Delta \log (\omega_{i,t}^g) = \beta_0 + \beta_1 \Delta \log (p_{i,t}^h) + \beta_2 \Delta \log(p^s_{t}) + \gamma_i + \delta_t + \epsilon_t
+$$ {#eq-regression}
+
+$\omega_{i,t}^g$ is the wealth share of a wealth group $g$ (Bottom 50%, Middle 40%, Top 10%) in country $i$ in quarter $t$. $p^h$ describes the housing price index and $p^s$ the stock market index. $\epsilon_t$ is an error term. Time and Unit Fixed Effects are denoted by $\delta_t$ and $\gamma_i$ respectively. $\Delta \log$ is the first difference of the log, as in $\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})$. The resulting estimates can be interpreted as the elasticity of the groups wealth share with respect to asset prices [@wooldridgeIntroductoryEconometricsModern2013, p44]. 
+
+A potential concern with this type of panel structure is spatial dependence. As the cross-section of countries is not randomly sampled, they are subject to common unobserved and observed disturbances, which potentially bias the standard errors of the parameter estimations. To adress this issue, the standard errors are computed using the spatial correlation consistent (SCC) method by @driscollConsistentCovarianceMatrix1998. 
+
+Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, $\beta_1$ and $\beta_2$ will not have the same slope in all countries and their estimates will not be able to explain the large variation.
+
+To adress this, the parameters are estimated separately for each country. This allows the individual interpretation of the response to an identical price movement. In these regressions, the problem of heteroskedastic error terms due to the nature of the time series is adressed with the @neweyHypothesisTestingEfficient1987 standard error.
+
+Additionally, the panel regression is extended with a mean group estimator. This estimator allows for heterogeneity in individual coefficients and averages them to obtain a common parameter estimate [@pesaranEstimatingLongrunRelationships1995]. Time Fixed Effects are included in the computations by use of a demeaned mean group estimator [@coakleyUnobservedHeterogeneityPanel2006].
 
 ## Results
 
+@tbl-panelT10 reports the results for the Top 10% Share. The first column includes time fixed effects, which absorb the stock prices due to the identical nature of the index in every country. Column 2 drops the time fixed effects, and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 and 5 present calculations using the Mean Group Estimator. 
 
+::: {#tbl-panelT10}
 
 ```{=latex}
-\small
 {{< include ../output/paneltables/T10.tex >}}
-\normalsize
 ```
+Top 10% Panel Regression
+:::
+
+The top 10% wealth share decreases in response to house price increases. The estimates are consistently negative in all specifications and statistically significant, ranging from -0.091 in the first column to -0.057 in the last and preferred specification. A 10% increase in House Prices leads to approximately a half percentage point decrease in the top decile wealth share. 
+
+Rising stock prices are found to have an effect in the opposite direction. Estimates for the elasticity of the top decile wealth share range from 0.027 in the third specification and 0.014 in the last. An increase in stock prices increase the share of wealth hold by the Top 10%, while an increase in house prices compresses the share.
+
+::: {#tbl-panelM40}
 
 ```{=latex}
-\small
 {{< include ../output/paneltables/M40.tex >}}
-\normalsize
 ```
+Middle 40% Panel Regression
+:::
+
+Contrasting effects are identified for the Middle 40% (@tbl-panelM40). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Model (1) to 0.031 in the preferred Model (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.
+
+The Bottom half of the wealth distribution exhibit similar effects to the middle 40%. TODO
+
+
+
+The OLS estimates for all wealth groups display a low coefficient of determination due to the heterogeneity in the data. Using the Mean Group Estimator, the models can explain above 20% of the variance in the standard configuration and above 30% in the demeaned configuration for all groups.
+
+
+
+::: {#tbl-panelB50}
 
 ```{=latex}
-\small
 {{< include ../output/paneltables/B50.tex >}}
-\normalsize
 ```
-
-
-
-
-
-
-
-## Counterfactual Simulation
+Bottom 50% Panel Regression
+:::
 
