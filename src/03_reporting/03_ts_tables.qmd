@@ -49,31 +49,54 @@ ts_table <- function(models, table_title) {
     notes = "Standard errors estimated following Newey and West (1987)",
     #shape = model ~ term ,
     title = table_title
-  )
+  ) %>%
+  opt_table_font(size=10)  %>%
+  tab_options(latex.tbl.pos = "h")
 }
 ```
 
+
+
+
 ```{r}
-ts_table_B50 <- ts_table(models_B50, "Bottom 50% Share of Total Wealth")
+# Full table 
+ts_table_B50 <- ts_table(models_B50, "Bottom 50%: Individual regressions")
 gtsave(ts_table_B50, "../../output/ts_tables/ts_B50.html")
-gtsave(ts_table_B50, "../../output/ts_tables/ts_B50.tex", inline = TRUE)
-#ts_table_B50
+
+# table split up for latex output
+ts_table_B50_1 <- ts_table(models_B50[1:11], "Bottom 50%: Individual regressions")
+ts_table_B50_2 <- ts_table(models_B50[12:22], NA)
+
+gtsave(ts_table_B50_1, "../../output/ts_tables/ts_B50_1.tex", inline = TRUE)
+gtsave(ts_table_B50_2, "../../output/ts_tables/ts_B50_2.tex", inline = TRUE)
 ```
 
 
 ```{r}
-ts_table_M40 <- ts_table(models_M40, "Middle 40% Share of Total Wealth")
+ts_table_M40 <- ts_table(models_M40, "Middle 40%: Individual regressions")
 gtsave(ts_table_M40, "../../output/ts_tables/ts_M40.html")
-gtsave(ts_table_M40, "../../output/ts_tables/ts_M40.tex", inline = TRUE)
-# ts_table_M40
+
+# table split up for latex output
+ts_table_M40_1 <- ts_table(models_M40[1:11], "Middle 40%: Individual regressions")
+ts_table_M40_2 <- ts_table(models_M40[12:22], NA)
+
+gtsave(ts_table_M40_1, "../../output/ts_tables/ts_M40_1.tex", inline = TRUE)
+gtsave(ts_table_M40_2, "../../output/ts_tables/ts_M40_2.tex", inline = TRUE)
 ```
 
 ```{r}
-ts_table_T10 <- ts_table(models_T10, "Top 10% Share of Total Wealth")
+ts_table_T10 <- ts_table(models_T10, "Top 10%: Individual regressions")
 gtsave(ts_table_T10, "../../output/ts_tables/ts_T10.html")
-gtsave(ts_table_T10, "../../output/ts_tables/ts_T10.tex", inline = TRUE)
-# ts_table_T10
+
+# table split up for latex output
+ts_table_T10_1 <- ts_table(models_T10[1:11], "Top 10%: Individual regressions")
+ts_table_T10_2 <- ts_table(models_T10[12:22], NA)
+
+gtsave(ts_table_T10_1, "../../output/ts_tables/ts_T10_1.tex", inline = TRUE)
+gtsave(ts_table_T10_2, "../../output/ts_tables/ts_T10_2.tex", inline = TRUE)
 ```
+
+
 
 ## Coefficient Plot
 
