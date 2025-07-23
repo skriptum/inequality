@@ -26,6 +26,15 @@ models_M40 <- readRDS("../../data/models/M40_ts_models.rds")
 models_T10 <- readRDS("../../data/models/T10_ts_models.rds")
 ```
 
+Filter EU out
+
+```{r}
+models_B50 <- models_B50[names(models_B50) != "EU"]
+models_M40 <- models_M40[names(models_M40) != "EU"]
+models_T10 <- models_T10[names(models_T10) != "EU"]
+```
+
+
 ## Table Creations
 
 ```{r}
@@ -65,7 +74,7 @@ gtsave(ts_table_B50, "../../output/ts_tables/ts_B50.html")
 
 # table split up for latex output
 ts_table_B50_1 <- ts_table(models_B50[1:11], "Bottom 50%: Individual regressions")
-ts_table_B50_2 <- ts_table(models_B50[12:22], NA)
+ts_table_B50_2 <- ts_table(models_B50[12:21], NA)
 
 gtsave(ts_table_B50_1, "../../output/ts_tables/ts_B50_1.tex", inline = TRUE)
 gtsave(ts_table_B50_2, "../../output/ts_tables/ts_B50_2.tex", inline = TRUE)
@@ -78,7 +87,7 @@ gtsave(ts_table_M40, "../../output/ts_tables/ts_M40.html")
 
 # table split up for latex output
 ts_table_M40_1 <- ts_table(models_M40[1:11], "Middle 40%: Individual regressions")
-ts_table_M40_2 <- ts_table(models_M40[12:22], NA)
+ts_table_M40_2 <- ts_table(models_M40[12:21], NA)
 
 gtsave(ts_table_M40_1, "../../output/ts_tables/ts_M40_1.tex", inline = TRUE)
 gtsave(ts_table_M40_2, "../../output/ts_tables/ts_M40_2.tex", inline = TRUE)
@@ -90,7 +99,7 @@ gtsave(ts_table_T10, "../../output/ts_tables/ts_T10.html")
 
 # table split up for latex output
 ts_table_T10_1 <- ts_table(models_T10[1:11], "Top 10%: Individual regressions")
-ts_table_T10_2 <- ts_table(models_T10[12:22], NA)
+ts_table_T10_2 <- ts_table(models_T10[12:21], NA)
 
 gtsave(ts_table_T10_1, "../../output/ts_tables/ts_T10_1.tex", inline = TRUE)
 gtsave(ts_table_T10_2, "../../output/ts_tables/ts_T10_2.tex", inline = TRUE)
@@ -143,8 +152,8 @@ make_model_plot_hp <- function(models_df) {
     ggplot(aes(y = reorder(country, co_hp))) +
     geom_point(aes(x=co_hp, alpha=sign_hp), color="black", size = 2) +
     geom_errorbar(aes(
-      xmin = co_hp - 1.96 * se_hp, 
-      xmax = co_hp + 1.96 * se_hp, 
+      xmin = co_hp - 1.645 * se_hp, 
+      xmax = co_hp + 1.645 * se_hp, 
       alpha=sign_hp), width = 0.2) +
     geom_vline(xintercept = 0, linetype = "dashed") +
     scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.4)) +
@@ -165,8 +174,8 @@ make_model_plot_sp <- function(models_df) {
     ggplot(aes(y = reorder(country, co_sp))) +
     geom_point(aes(x=co_sp, alpha=sign_sp), color="black", size = 2) +
     geom_errorbar(aes(
-      xmin = co_sp - 1.96 * se_sp, 
-      xmax = co_sp + 1.96 * se_sp, 
+      xmin = co_sp - 1.645 * se_sp, 
+      xmax = co_sp + 1.645 * se_sp, 
       alpha=sign_sp), width = 0.2) +
     geom_vline(xintercept = 0, linetype = "dashed") +
     scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.4)) +
@@ -205,28 +214,87 @@ wrap_coeff_plots <- function(models_df) {
 
 Middle 40% Plot
 ```{r}
-models_df <- make_model_df(models_M40)
-coeff_plot_M40 <- wrap_coeff_plots(models_df)
+models_df_M40 <- make_model_df(models_M40)
+coeff_plot_M40 <- wrap_coeff_plots(models_df_M40)
 ggsave("../../output/ts_tables/M40_coeff.png",coeff_plot_M40, width=4, height=5)
-coeff_plot_M40
+# coeff_plot_M40
 ```
 
 
 T10 Plot
 ```{r}
-models_df <- make_model_df(models_T10)
-coeff_plot_T10 <- wrap_coeff_plots(models_df)
+models_df_T10 <- make_model_df(models_T10)
+coeff_plot_T10 <- wrap_coeff_plots(models_df_T10)
 ggsave("../../output/ts_tables/T10_coeff.png",coeff_plot_T10, width=4, height=5)
-coeff_plot_T10
+#coeff_plot_T10
 ```
 
 
 B50 Plot
 ```{r}
-models_df <- make_model_df(models_B50)
-#models_df <- models_df %>% filter(!(country %in% c("NL", "IE")))
+models_df_B50 <- make_model_df(models_B50)
+models_df_B50_filter <- models_df_B50 %>% filter(!(country %in% c("NL", "IE")))
 
-coeff_plot_B50 <- wrap_coeff_plots(models_df)
+coeff_plot_B50 <- wrap_coeff_plots(models_df_B50)
 ggsave("../../output/ts_tables/B50_coeff.png",coeff_plot_B50, width=4, height=5)
-coeff_plot_B50
+#coeff_plot_B50
 ```
+
+
+Shared House Price Coefficient Plot
+
+```{r}
+p_B50_HP <- make_model_plot_hp(models_df_B50) +
+# p_B50_HP <- make_model_plot_hp(models_df_B50_filter) +
+  labs(title = "Bottom 50%")
+  
+p_M40_HP <- make_model_plot_hp(models_df_M40) +
+  labs(title = "Middle 40%")
+
+p_T10_HP <- make_model_plot_hp(models_df_T10) +
+  labs(title = "Top 10%")
+
+p_HP_coeff <- p_T10_HP +
+  p_M40_HP +
+  p_B50_HP  + 
+  plot_layout(ncol = 3, axis_titles = "collect_y") +
+  plot_annotation(
+    caption = "Black = significant, Grey = not significant.
+    Error bars represent 95% confidence intervals
+    Source: ECB, BIS, own calculations"
+  )
+p_HP_coeff
+
+ggsave(p_HP_coeff, file="../../output/ts_tables/HP_coeff.png", width=8, height=4)
+# ggsave(p_HP_coeff, file="../../output/ts_tables/HP_coeff_filter.png", width=8, height=4)
+```
+
+same for stocks
+
+```{r}
+p_B50_SP <- make_model_plot_sp(models_df_B50) +
+  labs(title = "Bottom 50%")
+
+p_M40_SP <- make_model_plot_sp(models_df_M40) +
+  labs(title = "Middle 40%")
+
+p_T10_SP <- make_model_plot_sp(models_df_T10) +
+  labs(title = "Top 10%")
+
+p_SP_coeff <- p_T10_SP +
+  p_M40_SP +
+  p_B50_SP  + 
+  plot_layout(ncol = 3, axis_titles = "collect_y") +
+  plot_annotation(
+    caption = "Black = significant, Grey = not significant.
+    Error bars represent 95% confidence intervals
+    Source: ECB, BIS, own calculations"
+  )
+
+ggsave(p_SP_coeff, file="../../output/ts_tables/SP_coeff.png", width=8, height=4)
+p_SP_coeff
+
+```
+
+
+
