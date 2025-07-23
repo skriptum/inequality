@@ -14,7 +14,7 @@ number-sections: true
 format: 
   pdf: 
     documentclass: scrartcl
-    #fontfamily: newtxtext
+    fontfamily: newtxtext
     #linestretch: "1.5"
     #geometry:
     #  - top=20mm
@@ -75,31 +75,27 @@ execute:
 \pagenumbering{arabic}
 ```
 
-
+{{< pagebreak >}}
 
 <!-- Text includes -->
 
-{{< pagebreak >}}
-
 {{< include _00_introduction.qmd >}}
 
-{{< pagebreak >}}
+
 
 {{< include _01_literature.qmd >}}
 
-{{< pagebreak >}}
+
 
 {{< include _02_data.qmd >}}
 
-{{< pagebreak >}}
+
 
 {{< include _03_emp.qmd >}}
 
-{{< pagebreak >}}
+
 
 {{< include _04_discussion.qmd >}}
-
-{{< pagebreak >}}
 
 <!-- End of Text -->
 
@@ -113,9 +109,9 @@ execute:
 
 {{< include _05_appendix.qmd >}}
 
+
+
 {{< pagebreak >}}
-
-
 
 ## References {.unnumbered}
 
