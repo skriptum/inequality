@@ -22,6 +22,14 @@ Additionally, the panel regression is extended with a mean group estimator. This
 
 @tbl-panelT10 reports the results for the Top 10% Share. The first column includes time fixed effects, which absorb the stock prices due to the identical nature of the index in every country. Column 2 drops the time fixed effects, and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 and 5 present calculations using the Mean Group Estimator. 
 
+The top 10% wealth share decreases in response to house price increases. The estimates are consistently negative in all specifications and statistically significant, ranging from -0.091 in the first column to -0.057 in the last and preferred specification. A 10% increase in House Prices leads to approximately a half percentage point decrease in the top decile wealth share. 
+
+Rising stock prices are found to have an effect in the opposite direction. Estimates for the elasticity of the top decile wealth share range from 0.027 in the third specification and 0.014 in the last. An increase in stock prices increase the share of wealth hold by the Top 10%, while an increase in house prices compresses the share.
+
+The OLS estimates for this as well as the other segments of the wealth distribution display a low coefficient of determination due to the heterogeneity in the data. Using the Mean Group Estimator, the models can explain above 20% of the variance in the standard configuration and above 30% in the demeaned configuration for all groups.
+
+
+
 ::: {#tbl-panelT10}
 
 ```{=latex}
@@ -30,10 +38,6 @@ Additionally, the panel regression is extended with a mean group estimator. This
 Top 10% Panel Regression
 :::
 
-The top 10% wealth share decreases in response to house price increases. The estimates are consistently negative in all specifications and statistically significant, ranging from -0.091 in the first column to -0.057 in the last and preferred specification. A 10% increase in House Prices leads to approximately a half percentage point decrease in the top decile wealth share. 
-
-Rising stock prices are found to have an effect in the opposite direction. Estimates for the elasticity of the top decile wealth share range from 0.027 in the third specification and 0.014 in the last. An increase in stock prices increase the share of wealth hold by the Top 10%, while an increase in house prices compresses the share.
-
 ::: {#tbl-panelM40}
 
 ```{=latex}
@@ -41,14 +45,6 @@ Rising stock prices are found to have an effect in the opposite direction. Estim
 ```
 Middle 40% Panel Regression
 :::
-
-Contrasting effects are identified for the Middle 40% (@tbl-panelM40). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Model (1) to 0.031 in the preferred Model (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.
-
-The Bottom half of the wealth distribution exhibit similar effects to the middle 40%. TODO
-
-
-
-The OLS estimates for all wealth groups display a low coefficient of determination due to the heterogeneity in the data. Using the Mean Group Estimator, the models can explain above 20% of the variance in the standard configuration and above 30% in the demeaned configuration for all groups.
 
 
 
@@ -59,4 +55,28 @@ The OLS estimates for all wealth groups display a low coefficient of determinati
 ```
 Bottom 50% Panel Regression
 :::
+
+
+
+Contrasting effects to those of the top decile are identified for the Middle 40% (@tbl-panelM40). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Model (1) to 0.031 in the preferred Model (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.
+
+The Bottom half of the wealth distribution responds similarly to the middle 40% in direction, albeit with greater magnitude. Estimates for the House Price elasticity range from 0.189 to 0.481. Conversely, accelerating stock prices by 10% decreases the share of the group by 0.28 percentage points to 0.51 percentage points.
+
+This group is notable for its lack of statistical significance for most coefficient values, particularly in specifications that use the mean group estimator. As outlined above, it is the lower half that exhibits the most variation in their wealth portfolio and positions. Therefore, they will display the most variation in their response to price movements of their assets, which cannot be averaged without high standard errors.
+
+To obtain the unique responses, the regression is calculated individually for each country [^e0] . A graphical representation of the country level coefficient estimates for housing prices is presented in @fig-coeffplot [^e1]. Countries are ordered according to their results, with the color representing the statistical significance.
+
+[^e0]: Full regression tables are presented in Appendix C
+
+[^e1]: A corresponding stock price coefficient plot is available in Appendix D.
+
+Visible in the panels is the large heterogeneity in all wealth segments. Estimates for the top decile range from -0.20 for Spain  to 0.19 for the Netherlands. The majority of the coefficients with statistical significance are negative, which confirms the results from @tbl-panelT10. For the middle 40%, the coefficients fall between -0.11 in the Netherlands and 0.13 in France, with a large share of countries for which the null hypothesis cannot be rejected. Results in the lower half of the wealth distribution exceed those of the other groups. The Netherlands has an estimated elasticity of -2.71, which indicates that a 1% increase in house prices decreases the share of net wealth held by that group by 2.7%. In contrast, they increase their share by 2.18% in Ireland in response to an identical increase in house prices.
+
+@boelhouwerHousingMarketNetherlands2020 present explanations for the dutch outlier results. The social housing sector in the Netherlands is larger than in other european countries, promising affordable renting for poorer households. Additionally, new stricter mortgage lending requirements were implemented in 2011, reducing the ability of first time buyers to afford sufficient housing. This could explain the very low share of housing wealth owned by the bottom 50% documented in @fig-distribution-indiv and the negative effect in response to increasing house prices.
+
+
+
+![House Price Coefficient Plots](../output/ts_tables/HP_coeff.png){#fig-coeffplot}
+
+In general, the individual regressions support the panel model results. Accelerating stock prices profits the upper decile of the wealth distribution, at the expense of the rest of the population. House prices have a contrary effect, increasing the share of the bottom 50% and middle 40%. Statistical significance as well as $R^2$ varies due to heterogeneity in the responses in european countries.
 

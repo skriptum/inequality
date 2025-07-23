@@ -89,17 +89,17 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 \end{landscape}
 ```
 
-
 {{< pagebreak >}}
 
-### Appendix D: Reverse Causality Regression {.unnumbered}
+### Appendix D: Stock Prices Coefficient Plot {.unnumbered}
+
+![Stock Prices Coefficient Plot](../output/ts_tables/SP_coeff.png)
+
+### Appendix E: Reverse Causality {.unnumbered}
 
 
 
 ![Inequality and Housing Price Growth](../output/appendix/hp-ineq.png)
 
 
-```{=latex}
-../output/appendix/table_hp_ineq.tex
-```
 
