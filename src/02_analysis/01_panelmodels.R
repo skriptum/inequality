@@ -130,3 +130,43 @@ for (dependent in c("B50_share_change", "M40_share_change", "T10_share_change"))
 }
 saveRDS(all_models, "../data/models/panelmodels.rds")
 
+
+## MGE Panels with and without NL
+
+df_NL <- df_comb %>%
+  filter(REF_AREA != "NL")
+
+B50_NL <- pmg(
+  B50_share_change ~ HP_R_Change + STOCK_Change | factor(QUARTER) + factor(YEAR),
+  data = df_NL,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+
+M40_NL <- pmg(
+  M40_share_change ~ HP_R_Change + STOCK_Change | factor(QUARTER) + factor(YEAR),
+  data = df_NL,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+
+T10_NL <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change | factor(QUARTER) + factor(YEAR),
+  data = df_NL,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+
+B50_normal <- all_models$B50_share_change$pmg_plain
+M40_normal <- all_models$M40_share_change$pmg_plain
+T10_normal <- all_models$T10_share_change$pmg_plain
+
+# Save models
+saveRDS(list(
+  T10_normal = T10_normal,
+  T10_NL = T10_NL,
+  M40_normal = M40_normal,
+  M40_NL = M40_NL,
+  B50_normal = B50_normal,
+  B50_NL = B50_NL
+), "../data/models/panelmodels_nl.rds")

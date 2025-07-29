@@ -133,23 +133,87 @@ Create for each DWA_GRP
 ```{r}
 models_T10 <- unname(all_models$T10_share_change)
 table_T10 <- model_table(models_T10, "Top 10% Share in Total Wealth")
-gtsave(table_T10, "../../output/paneltables/T10.tex", inline = TRUE)
-gtsave(table_T10, "../../output/paneltables/T10.html")
+# gtsave(table_T10, "../../output/paneltables/T10.tex", inline = TRUE)
+# gtsave(table_T10, "../../output/paneltables/T10.html")
 #table_T10
 ```
 
 ```{r}
 models_M40 <- unname(all_models$M40_share_change)
 table_M40 <- model_table(models_M40, "Middle 40% Share in Total Wealth")
-gtsave(table_M40, "../../output/paneltables/M40.tex", inline = TRUE)
-gtsave(table_M40, "../../output/paneltables/M40.html")
+# gtsave(table_M40, "../../output/paneltables/M40.tex", inline = TRUE)
+# gtsave(table_M40, "../../output/paneltables/M40.html")
 # table_M40
 ```
 
 ```{r}
 B50_models <- unname(all_models$B50_share_change)
 table_B50 <- model_table(B50_models, "Bottom 50% Share in Total Wealth")
-gtsave(table_B50, "../../output/paneltables/B50.tex", inline = TRUE)
-gtsave(table_B50, "../../output/paneltables/B50.html")
+# gtsave(table_B50, "../../output/paneltables/B50.tex", inline = TRUE)
+# gtsave(table_B50, "../../output/paneltables/B50.html")
 # table_B50
 ```
+
+## Netherlands Outlier Models
+
+```{r}
+models_NL <- readRDS("../../data/models/panelmodels_NL.rds")
+models_NL <- unname(models_NL)
+```
+
+```{r}
+rows_NL <- tibble::tibble(
+  term = c("NL included"),
+  T10_normal = c("Yes"),
+  T10_NL = c("No"),
+  M40_normal = c("Yes"),
+  M40_NL = c("No"),
+  B50_normal = c("Yes"),
+  B50_NL = c("No")
+)
+attr(rows_NL, "position") <- ("gof_start")
+```
+
+
+```{r}
+table_NL <- modelsummary(
+  models_NL,
+  coef_omit = "(Intercept)",
+  stars = c("***" = 0.01, "**" = 0.05, "*" = 0.1),
+  add_rows = rows_NL,
+  coef_rename = c(
+    "HP_R_Change" = "House Prices",
+    "STOCK_Change" = "Stock Prices"
+  ),
+  gof_omit = "IC|RMSE|Std.Errors",
+  gof_map = list(
+    list("raw" = "nobs", "clean" = "N", "fmt" = 0),
+    list("raw" = "r.squared", "clean" = "R²", "fmt" = 3),
+    list("raw" = "adj.r.squared", "clean" = "Adj. R²", "fmt" = 3)
+  ),
+  output = "gt",
+) 
+table_NL <- table_NL %>%
+  tab_spanner(label = "Top 10%", columns = 2:3) %>%
+  tab_spanner(label = "Middle 40%", columns = 4:5) %>%
+  tab_spanner(label = "Bottom 50%", columns = 6:7) %>%
+  opt_table_font(size=12)  %>%
+  tab_options(latex.tbl.pos = "h") %>%
+  gt::tab_style(
+    style = gt::cell_borders(
+      sides = "top",
+      color = "#000000",
+    ),
+    locations = gt::cells_body(
+      rows = 6
+    )
+  )
+table_NL
+```
+
+
+```{r}
+#gt::gtsave(table_NL, "../../output/paneltables/NL.tex", inline = TRUE)
+#gt::gtsave(table_NL, "../../output/paneltables/NL.html")
+```
+
