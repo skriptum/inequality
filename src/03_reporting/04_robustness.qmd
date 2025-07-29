@@ -88,35 +88,107 @@ df_house <- read_csv("../../data/proc/prices.csv")
 ```
 
 ```{r}
+t1 <- "2014-10-01"
+t2 <- "2019-10-01"
+t3 <- "2024-10-01"
 #housing price growth from 2010 to 2020
 df_hp <- df_house %>%
   select(REF_AREA, TIME_PERIOD, HP_R_N) %>%
   filter(
-    TIME_PERIOD %in% c("2011-10-01", "2021-01-01")
+    TIME_PERIOD %in% c(t1,t2,t3)
   ) %>%
-  pivot_wider(
-    names_from = TIME_PERIOD,
-    values_from = HP_R_N
-  ) %>%
+  # calculate growth
+  group_by(REF_AREA) %>%
   mutate(
-    growth = `2021-01-01` / `2011-10-01`
-  )
+    growth_1 = log(HP_R_N[TIME_PERIOD == t2]) - log(HP_R_N[TIME_PERIOD == t1]),
+    growth_2 = log(HP_R_N[TIME_PERIOD == t3]) - log(HP_R_N[TIME_PERIOD == t2])
+  ) 
 ```
+
 
 ```{r}
 df_hp <- df_gini %>%
   filter(
-    TIME_PERIOD == "2011-10-01",
+    TIME_PERIOD %in% c(t1, t2),
     ASSET == "NWA",
     REF_AREA != "EU"
   ) %>%
-  select(REF_AREA, GINI) %>%
+  select(REF_AREA, TIME_PERIOD, GINI) %>%
+  pivot_wider(
+    names_from = TIME_PERIOD,
+    values_from = GINI
+  ) %>%
+  rename(
+    GINI_2011 = sym(t1),
+    GINI_2016 = sym(t2)
+  ) %>%
   left_join(
     df_hp %>%
-      select(REF_AREA, growth),
+      select(REF_AREA, growth_1, growth_2),
     by = "REF_AREA"
-  )
+  ) %>%
+  unique() 
 ```
+
+```{r}
+df_long <- bind_rows(
+  df_hp %>%
+    transmute(REF_AREA, Period = "2014–2019", GINI = GINI_2011, growth = growth_1),
+  df_hp %>%
+    transmute(REF_AREA, Period = "2019–2024", GINI = GINI_2016, growth = growth_2)
+)
+```
+
+
+### Plot
+
+
+
+```{r}
+p1 <- df_hp %>%
+  ggplot() +
+  geom_text(aes(x = GINI_2011, y = growth_1, label = REF_AREA), size = 3, color="red") +
+  geom_text(aes(x = GINI_2016, y = growth_2, label = REF_AREA), size = 3, color="#377EB8") +
+  geom_smooth(
+    aes(x = GINI_2011, y = growth_1, color="2014-2019"), 
+    method = "lm", se = T, linewidth=0.5) +
+  geom_smooth(
+    aes(x = GINI_2016, y = growth_2, color="2019-2024"), 
+    method = "lm", se = T, linewidth=0.5) 
+
+p1
+```
+
+```{r}
+p1 <- p1 +
+  geom_hline(yintercept=0, linetype = "dotted", color = "black", linewidth=0.5) +
+  labs(
+    x = "Gini Index at beginning of period",
+    y = "Housing Price Growth",
+    caption = "Grey bars represent 95% confidence intervals.
+    Source: Eurostat, ECB, own calculations and visualization"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  theme_tufte() +
+  theme(
+    panel.border = element_rect(fill = NA, color = "black"),
+    legend.title = element_blank(),
+    legend.position = "bottom",
+  ) 
+p1 
+ggsave("../../output/appendix/hp-ineq.png", p1, width = 9, height = 5, dpi = 300)
+```
+
+```{r}
+ggplot(df_long, aes(x = GINI, y = growth)) +
+  geom_text(aes(label = REF_AREA, color=Period), size = 3) +
+  geom_smooth(method = "lm", se = TRUE, linewidth = 0.5) +
+  scale_color_manual(values = c("2011–2016" = "red", "2016–2021" = "blue")) 
+```
+
+
+
+### Regression
 
 ```{r}
 model_hp <- lm(growth ~ GINI, data = df_hp)
@@ -151,30 +223,3 @@ table_hp
 table_hp %>% gtsave("../../output/appendix/table_hp_ineq.html")
 table_hp %>% gtsave("../../output/appendix/table_hp_ineq.tex")
 ```
-
-
-
-```{r}
-p1 <- df_hp %>%
-  ggplot(aes(x = GINI, y = growth)) +
-  geom_point(size = 0.5, shape= 5) +
-  geom_text(aes(label = REF_AREA), vjust = 0.5,hjust = -0.2, family = "serif") 
-p1
-```
-
-```{r}
-p1 <- p1 +
-  geom_hline(yintercept=1, linetype = "dotted", color = "black", linewidth=0.5) +
-  labs(
-    x = "Gini Index (2011)",
-    y = "Housing Price Growth (2011-2021)",
-    caption = "Source: Eurostat, ECB, own calculations and visualization"
-  ) +
-  theme_tufte() +
-  theme(
-    panel.border = element_rect(fill = NA, color = "black")
-  ) 
-p1 
-ggsave("../../output/appendix/hp-ineq.png", p1, width = 9, height = 5, dpi = 300)
-```
-

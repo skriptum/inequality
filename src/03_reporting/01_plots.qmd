@@ -541,19 +541,62 @@ ggsave(wrapped_shares_plot, filename = "../../output/appendix/asset_distribution
 
 ```{r}
 df_owner <- read_csv("../../data/proc/ownership.csv")
+#rename I9 to EU
+df_owner <- df_owner %>%
+  mutate(REF_AREA = ifelse(REF_AREA == "I9", "EU", REF_AREA))
+
+#make D8D10 as average from D8D9 and D9D10
+df_owner <- df_owner %>%
+  mutate(
+    DWA_GRP = case_when(
+      DWA_GRP == "D8D10" ~ "D8D9",
+      TRUE ~ DWA_GRP
+    )
+  ) %>%
+  group_by(REF_AREA, DWA_GRP, JAHR) %>%
+  summarise(OWNER = mean(OWNER, na.rm = TRUE), .groups = "drop")
 ```
 
 ```{r}
 #plot Europe Differences between years
-df_owner %>%
+p_owner <- df_owner %>%
   filter(
     DWA_GRP != "ALL", # drop the average group
-    REF_AREA %in% c("DE", "BE", "NL", "AT", "ES", "FR", "IT","EU")
   ) %>%
   ggplot(aes(x = DWA_GRP, y = OWNER, group=JAHR)) +
     geom_line(aes(color = as.factor(JAHR)), linewidth = 1) +
-    facet_wrap(~REF_AREA, scales = "free_x", ncol=4)
+    facet_wrap(~REF_AREA, scales = "free_x", ncol=6)
+p_owner
 ```
+```{r}
+p_owner +
+    scale_color_brewer(palette = "Set1") +
+    scale_x_discrete(
+      labels = c(
+        "D0D2" = "1",
+        "D2D4" = "2",
+        "D4D6" = "3",
+        "D6D8" = "4",
+        "D8D9" = "1a",
+        "D9D10" = "1b"
+      )
+    ) +
+    labs(
+      x = "Wealth Quintile",
+      y = "Share of Owners",
+      color = "Year",
+      caption = "Source: ECB DWA, own calculations and visualization"
+    ) +
+    theme_tufte() +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.border = element_rect(fill = NA, color = "black"),
+    ) +
+    guides(color = guide_legend(ncol = 2))
+```
+
+
 
 - relevant = I9 = Euro Area = almost no change
 - different kinks, compare (AT,DE,FR) to (ES,IT,NL)

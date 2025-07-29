@@ -69,7 +69,7 @@ selection of data for analysis
 
 
 
-### descriptive statistics
+
 
 HH Portfolios of wealth groups over Time (Eurozone Average)
 

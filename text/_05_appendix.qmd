@@ -93,13 +93,14 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 ### Appendix D: Stock Prices Coefficient Plot {.unnumbered}
 
-![Stock Prices Coefficient Plot](../output/ts_tables/SP_coeff.png)
+![Stock Prices Coefficient Plot](../output/ts_tables/SP_coeff.png){#fig-coeffStock}
 
 ### Appendix E: Reverse Causality {.unnumbered}
 
 
 
-![Inequality and Housing Price Growth](../output/appendix/hp-ineq.png)
+![Inequality and Housing Price Growth](../output/appendix/hp-ineq.png){#fig-reverse}
 
 
 
+@fig-reverse plots the relationship between the Gini coefficient at the beginning of a five-year period and the cumulative growth in real house prices during that period. Two periods are shown: 2014–2019 (red) and 2019–2024 (blue). The year 2014 is used as the starting point because it maximizes country coverage in the ECB DWA dataset. The periods are split to account for potential structural breaks around the COVID-19 pandemic and related policy interventions. Each point represents a country, and linear fits are shown separately for each period. The absence of a clear or consistent slope in either period suggests that higher initial inequality does not robustly predict stronger house price growth.
