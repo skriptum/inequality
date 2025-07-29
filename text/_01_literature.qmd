@@ -1,4 +1,4 @@
-## Literature {#sec-literature}
+## Literature on Wealth Inequality {#sec-literature}
 
 This thesis builds on the effort to collect detailed data on wealth distribution and inequality. Pioneered by @pikettyIncomeInequalityUnited2003 and followed by his seminal book [@pikettyCapitalTwentyFirstCentury2014], where he documents wealth-to-income ratios in developed economics rising to levels prevously seen in 19th century Europe [^l1].
 

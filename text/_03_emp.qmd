@@ -14,11 +14,13 @@ A potential concern with this type of panel structure is spatial dependence. As 
 
 Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, $\beta_1$ and $\beta_2$ will not have the same slope in all countries and their estimates will not be able to explain the large variation.
 
-To adress this, the parameters are estimated separately for each country. This allows the individual interpretation of the response to an identical price movement. In these regressions, the problem of heteroskedastic error terms due to the nature of the time series is adressed with the @neweyHypothesisTestingEfficient1987 standard error.
+To adress this, the panel regression is extended with a mean group estimator. This estimator allows for heterogeneity in individual coefficients and averages them to obtain a common parameter estimate [@pesaranEstimatingLongrunRelationships1995]. **XX**  Time Fixed Effects are included in the computations by use of a demeaned mean group estimator [@coakleyUnobservedHeterogeneityPanel2006]. **XX** 
 
-Additionally, the panel regression is extended with a mean group estimator. This estimator allows for heterogeneity in individual coefficients and averages them to obtain a common parameter estimate [@pesaranEstimatingLongrunRelationships1995]. Time Fixed Effects are included in the computations by use of a demeaned mean group estimator [@coakleyUnobservedHeterogeneityPanel2006].
+Additionally, the parameters are estimated separately for each country. This allows the individual interpretation of the response to an identical price movement. In these regressions, the problem of heteroskedastic error terms due to the nature of the time series is adressed with the @neweyHypothesisTestingEfficient1987 standard error.
 
-## Results
+
+
+## Wealth Share Elasticities: Panel Regression
 
 @tbl-panelT10 reports the results for the Top 10% Share. The first column includes time fixed effects, which absorb the stock prices due to the identical nature of the index in every country. Column 2 drops the time fixed effects, and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 and 5 present calculations using the Mean Group Estimator. 
 
@@ -64,7 +66,9 @@ The Bottom half of the wealth distribution responds similarly to the middle 40% 
 
 This group is notable for its lack of statistical significance for most coefficient values, particularly in specifications that use the mean group estimator. As outlined above, it is the lower half that exhibits the most variation in their wealth portfolio and positions. Therefore, they will display the most variation in their response to price movements of their assets, which cannot be averaged without high standard errors.
 
-To obtain the unique responses, the regression is calculated individually for each country [^e0] . A graphical representation of the country level coefficient estimates for housing prices is presented in @fig-coeffplot [^e1]. Countries are ordered according to their results, with the color representing the statistical significance.
+## Country-Level Variation
+
+To capture these heterogeneous effects, the regression is re-estimated separately for each country[^e0]. Figure @fig-coeffplot displays the resulting country-level coefficients for housing prices, ordered by magnitude and colored by statistical significance[^e1].
 
 [^e0]: Full regression tables are presented in Appendix C
 
@@ -80,3 +84,21 @@ Visible in the panels is the large heterogeneity in all wealth segments. Estimat
 
 In general, the individual regressions support the panel model results. Accelerating stock prices profits the upper decile of the wealth distribution, at the expense of the rest of the population. House prices have a contrary effect, increasing the share of the bottom 50% and middle 40%. Statistical significance as well as $R^2$ varies due to heterogeneity in the responses in european countries.
 
+To address the outlier effect of the Netherlands, the panel regressions are re-estimated excluding this country. Table @tbl-panelNL compares the results of the preferred specification using the standard mean group estimator with and without the Dutch data.
+
+Excluding the Netherlands slightly reduces the magnitude of the coefficients for housing prices on the Top 10% and Middle 40%, but the signs and significance remain stable. For the Top 10%, the negative effect of house prices weakens from -0.057 to -0.069, while for the Middle 40%, the positive effect increases slightly and becomes more statistically significant.
+
+The most notable change is for the bottom 50%. The coefficient on house prices increases from 0.253 to 0.395 and becomes statistically significant at the 1% level. This suggests that, once the outlier is removed, the effect of housing prices on the lower half of the distribution becomes clearer and more robust.
+
+Stock price effects remain broadly stable across all specifications, with a significant positive effect on the Top 10% and a negative effect on the Middle 40%, consistent with prior estimates. No meaningful change is observed when the Netherlands is excluded
+
+Overall, the results strengthen the interpretation that rising house prices tend to benefit the Bottom 50% and Middle 40%, while rising stock prices disproportionately benefit the Top 10%.
+
+::: {#tbl-panelNL}
+
+```{=latex}
+{{< include ../output/paneltables/NL.tex >}}
+```
+
+Panel Regression without the Netherlands
+:::
