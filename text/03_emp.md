@@ -55,6 +55,28 @@ Estimations
 
 
 
+Mean Grooup Estiator
+
+- Assumption T > p
+- allow individual coefficients adn error terms
+- not intercepts
+- implemented by @croissantPlmLinearModels2023, ch. 8.2.2.2, p. 190
+
+
+$$
+\hat{\beta}^{MG} = 1/N \sum_{i=1}^N \hat{\beta}_i
+$$
+
+- requirements: N, T sufficiently large, similar order  @pesaranLargeHeterogeneousPanel2015 p. 718, ch. 28.5
+  - @hsiaoBayesEstimationShortrun1999, p. 2 monte carlo simulations
+  - T >= 20 error is reduced
+  - dataset: N = 21, T from 17-49
+
+
+
+
+
+
 Time Series Regression
 
 - heterogeneity in reactions
