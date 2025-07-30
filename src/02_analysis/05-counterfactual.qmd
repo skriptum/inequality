@@ -1,0 +1,143 @@
+# Counterfactual
+
+Create a counterfactual Scenario for the Eurozone by swapping the coefficients estimated
+to coeffcients of certain countries.
+
+Focus:
+- B50% group
+- Coefficients from the preferred PMG model
+
+## Imports
+
+```{r}
+library(tidyverse)
+library(plm)
+library(dynlm)
+```
+
+```{r}
+df <- read_csv("../../data/proc/panel_data.csv") %>%
+  select(!c("B50", "D06", "D07", "D08", "D09", "D10"))
+```
+
+
+
+## Panel Model ?
+
+```{r}
+pmg_model <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change,
+  data = pdf,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+```
+
+```{r}
+summary(pmg_model)
+```
+
+## Model EU with alternative Prices
+
+build a curve with european housing prices and individual components
+
+```{r}
+m <- dynlm(
+  d(log(T10_share)) ~ d(log(HP_R_N)) + d(log(Stock_Price)),
+  data = df %>% filter(REF_AREA == "EU"),
+)
+```
+
+
+
+```{r}
+summary(m)
+model_length <- length(m$fitted.values)
+```
+### Real Values 
+```{r}
+# series of real values of share
+share_real <- df$T10_share[df$REF_AREA == "EU"]
+```
+
+
+### Fitted Vaues 
+
+```{r}
+#predicted values of the model
+predictions <- 
+  m$coefficients[1]  +
+  m$coefficients[2] * m$model$`d(log(HP_R_N))` +
+  m$coefficients[3] * m$model$`d(log(Stock_Price))`
+
+share_fitted <- numeric(length(predictions) + 1)
+share_fitted[1] <- share_real[1]  # replace with actual starting value
+
+# recursively compute the levels from log-diffs
+for (t in 2:length(share_fitted)) {
+  share_fitted[t] <- share_fitted[t - 1] * exp(predictions[t - 1])
+}
+```
+
+possible counterfactuals
+
+- low / no housing growth
+- low / no stock growth
+- elasticity like in NL
+- elasticity like in ES
+
+### No HP growth 
+
+```{r}
+predictions_1 <- 
+  m$coefficients[1]  +
+  m$coefficients[2] * 0 + # no housing growth
+  m$coefficients[3] * m$model$`d(log(Stock_Price))`
+
+share_cf_1 <- numeric(length(predictions_1) + 1)
+share_cf_1[1] <- share_real[1]  # replace with actual starting value
+
+# recursively compute the levels from log-diffs
+for (t in 2:length(share_cf_1)) {
+  share_cf_1[t] <- share_cf_1[t - 1] * exp(predictions_1[t - 1])
+}
+```
+
+
+### No SP Growth
+
+```{r}
+predictions_2 <- 
+  m$coefficients[1]  +
+  m$coefficients[2] * m$model$`d(log(HP_R_N))` +
+  m$coefficients[3] * 0 # no stock growth
+
+share_cf_2 <- numeric(length(predictions_2) + 1)
+share_cf_2[1] <- share_real[1]  # replace with actual starting value
+
+# recursively compute the levels from log-diffs
+for (t in 2:length(share_cf_2)) {
+  share_cf_2[t] <- share_cf_2[t - 1] * exp(predictions_2[t - 1])
+}
+```
+
+### Plot
+
+```{r}
+ggplot() +
+  # real share
+  geom_line(aes(y = share_real, x=seq(1,model_length+1)), color="black", linetype="dotted") +
+  # fitted values
+  geom_line(aes(y = share_fitted, x=seq(1,model_length+1)), color="blue") +
+  # counterfactual 1: low housing growth
+  geom_line(aes(y = share_cf_1, x=seq(1,model_length+1)), color="red") +
+  # counterfactual 2: low stock growth
+  geom_line(aes(y = share_cf_2, x=seq(1,model_length+1)), color="green") 
+```
+
+
+
+### Model EU with alternative Elasticities
+
+
+
