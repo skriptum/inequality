@@ -50,7 +50,7 @@ counter:
   - possible
   - local stock markets = tightly integrated (stock market integration)
   - @kimDynamicStockMarket2005 for 15 member states before 2004
-  - @savvaStockMarketIntegration2010a for new member states after 2004
+  - @savvaStockMarketIntegration2010 for new member states after 2004
   - comovement of local with european market
 
 
@@ -75,7 +75,7 @@ is it driven by higher prices or more stock?
   - no change in stock
   - change of prices of existing Houses
 - quantity effect
-  - changes in stock / ownership
+  - changes in stock / ownership 
   - independent of HP
   - Counter: 
     - Stock did not grow much in Europe
@@ -91,6 +91,12 @@ Literature @knollNoPriceHome2017
 therefore: main focus: valuation channel
 
 
+
+
+
+Society: W = P x Q
+
+Individual: $\Delta$ W = W * P + $\Delta$ S
 
 ---
 
