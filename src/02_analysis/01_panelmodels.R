@@ -7,6 +7,7 @@ library(sandwich)
 library(lmtest)
 library(plm)
 
+
 #setwd("./src")
 df <- read_csv("../data/proc/dwa_simple.csv")
 df_house <- read_csv("../data/proc/prices.csv")
@@ -170,3 +171,40 @@ saveRDS(list(
   B50_normal = B50_normal,
   B50_NL = B50_NL
 ), "../data/models/panelmodels_nl.rds")
+
+## Dynamic Models
+
+model_dynamic_l1 <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change + lag(T10_share_change, 1),
+  data = df_comb,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+model_dynamic_l2 <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change + lag(T10_share_change, 1) + lag(T10_share_change, 2),
+  data = df_comb,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+model_dynamic_l3 <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change + lag(T10_share_change, 1)+ lag(T10_share_change, 2) + lag(T10_share_change, 3),
+  data = df_comb,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+model_dynamic_l4 <- pmg(
+  T10_share_change ~ HP_R_Change + STOCK_Change + lag(T10_share_change, 1)+ lag(T10_share_change, 2) + lag(T10_share_change, 3) + lag(T10_share_change, 4),
+  data = df_comb,
+  index = c("REF_AREA", "TIME_PERIOD"),
+  model = "mg"
+)
+
+dynamic_models <- list(
+  T10_normal,
+  model_dynamic_l1,
+  model_dynamic_l2,
+  model_dynamic_l3,
+  model_dynamic_l4
+)
+saveRDS(dynamic_models, "../data/models/panelmodels_dynamic.rds")
+

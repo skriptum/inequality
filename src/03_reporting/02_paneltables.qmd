@@ -217,3 +217,41 @@ table_NL
 #gt::gtsave(table_NL, "../../output/paneltables/NL.html")
 ```
 
+## Dynamic Model Table
+
+```{r}
+dynamic_models <- readRDS("../../data/models/panelmodels_dynamic.rds")
+```
+
+```{r}
+table_dynamic <- modelsummary(
+  dynamic_models,
+  coef_omit = "(Intercept)",
+  stars = c("***" = 0.01, "**" = 0.05, "*" = 0.1),
+  coef_rename = c(
+    "HP_R_Change" = "House Prices",
+    "STOCK_Change" = "Stock Prices",
+    "lag(T10_share_change, 1)" = "Lag 1",
+    "lag(T10_share_change, 2)" = "Lag 2",
+    "lag(T10_share_change, 3)" = "Lag 3",
+    "lag(T10_share_change, 4)" = "Lag 4"
+  ),
+  gof_omit = "IC|RMSE|Std.Errors",
+  gof_map = list(
+    list("raw" = "nobs", "clean" = "N", "fmt" = 0),
+    list("raw" = "r.squared", "clean" = "R²", "fmt" = 3),
+    list("raw" = "adj.r.squared", "clean" = "Adj. R²", "fmt" = 3)
+  ),
+  output = "gt",
+) 
+table_dynamic <- table_dynamic %>%
+  opt_table_font(size=12)  %>%
+  tab_options(latex.tbl.pos = "h")
+table_dynamic
+```
+
+```{r}
+#gt::gtsave(table_dynamic, "../../output/paneltables/dynamic.tex", inline = TRUE)
+#gt::gtsave(table_dynamic, "../../output/paneltables/dynamic.html")
+```
+
