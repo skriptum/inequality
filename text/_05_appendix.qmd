@@ -6,7 +6,7 @@ The following Table presents the full country names and the net wealth per Capit
 
 ```{=latex}
 \begin{table}
-\fontsize{12.0pt}{14.4pt}\selectfont
+\fontsize{10.0pt}{12.0pt}\selectfont
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llccrr}
 \toprule
 \multicolumn{2}{c}{Name} & \multicolumn{2}{c}{Time Period} & \multicolumn{2}{c}{Net Wealth (EUR p.C)} \\ 
@@ -24,7 +24,7 @@ FR & France & 2009 Q4 & 2024 Q3 & 198810 & 175016 \\
 GR & Greece & 2009 Q3 & 2024 Q3 & 89890 & 131323 \\ 
 HR & Croatia & 2017 Q2 & 2024 Q3 & 39023 & 40130 \\ 
 HU & Hungary & 2014 Q3 & 2024 Q3 & 73370 & 86680 \\ 
-I9 & Eurozone & 2009 Q1 & 2024 Q3 & 182787 & 152275 \\ 
+EU & Eurozone & 2009 Q1 & 2024 Q3 & 182787 & 152275 \\ 
 IE & Ireland & 2013 Q2 & 2024 Q3 & 251940 & 357059 \\ 
 IT & Italy & 2010 Q4 & 2024 Q3 & 180390 & 158171 \\ 
 LT & Lithuania & 2016 Q4 & 2024 Q3 & 75990 & 69192 \\ 
@@ -52,8 +52,7 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 ![Portfolio Composition of Deciles](../output/appendix/portfolios.png){#fig-portfolio-indiv fig-pos="H"}
 
-
-### Appendix C: Individual regressions results {.unnumbered}
+### Appendix D: Individual regressions results {.unnumbered}
 
 ```{=latex}
 \begin{landscape}
@@ -91,11 +90,19 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 {{< pagebreak >}}
 
-### Appendix D: Stock Prices Coefficient Plot {.unnumbered}
+### Appendix D: Dynamic Panel Regression {.unnumbered}
+
+```{=latex}
+{{< include ../output/paneltables/dynamic.tex >}}
+```
+
+
+
+### Appendix E: Stock Prices Coefficient Plot {.unnumbered}
 
 ![Stock Prices Coefficient Plot](../output/ts_tables/SP_coeff.png){#fig-coeffStock}
 
-### Appendix E: Reverse Causality {.unnumbered}
+### Appendix F: Reverse Causality {.unnumbered}
 
 
 
