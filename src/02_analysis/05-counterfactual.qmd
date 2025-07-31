@@ -13,51 +13,46 @@ Focus:
 library(tidyverse)
 library(plm)
 library(dynlm)
+library(ggthemes)
 ```
 
 ```{r}
 df <- read_csv("../../data/proc/panel_data.csv") %>%
   select(!c("B50", "D06", "D07", "D08", "D09", "D10"))
-```
 
-
-
-## Panel Model ?
-
-```{r}
-pmg_model <- pmg(
-  T10_share_change ~ HP_R_Change + STOCK_Change,
-  data = pdf,
-  index = c("REF_AREA", "TIME_PERIOD"),
-  model = "mg"
-)
+df_house <- read_csv("../../data/proc/prices.csv") 
 ```
 
 ```{r}
-summary(pmg_model)
+# extract coefficients from individual models
+ts_models <- readRDS("../../data/models/T10_ts_models.rds")
 ```
 
-## Model EU with alternative Prices
+
+## alternative Prices
 
 build a curve with european housing prices and individual components
 
 ```{r}
-m <- dynlm(
-  d(log(T10_share)) ~ d(log(HP_R_N)) + d(log(Stock_Price)),
-  data = df %>% filter(REF_AREA == "EU"),
-)
+AREA <- "EU"
 ```
-
 
 
 ```{r}
-summary(m)
-model_length <- length(m$fitted.values)
+m <- ts_models[[AREA]]
 ```
+
 ### Real Values 
+
 ```{r}
 # series of real values of share
-share_real <- df$T10_share[df$REF_AREA == "EU"]
+share_real <- df$T10_share[df$REF_AREA == AREA]
+
+# time series
+date_series <- df %>% 
+  filter(REF_AREA == AREA) 
+
+date_series <- date_series$TIME_PERIOD 
 ```
 
 
@@ -83,8 +78,7 @@ possible counterfactuals
 
 - low / no housing growth
 - low / no stock growth
-- elasticity like in NL
-- elasticity like in ES
+- elasticity like in EE, GR
 
 ### No HP growth 
 
@@ -121,23 +115,213 @@ for (t in 2:length(share_cf_2)) {
 }
 ```
 
-### Plot
+### HP growth like in Estonia 
 
 ```{r}
-ggplot() +
-  # real share
-  geom_line(aes(y = share_real, x=seq(1,model_length+1)), color="black", linetype="dotted") +
-  # fitted values
-  geom_line(aes(y = share_fitted, x=seq(1,model_length+1)), color="blue") +
-  # counterfactual 1: low housing growth
-  geom_line(aes(y = share_cf_1, x=seq(1,model_length+1)), color="red") +
-  # counterfactual 2: low stock growth
-  geom_line(aes(y = share_cf_2, x=seq(1,model_length+1)), color="green") 
+cf_hp_ee <- df_house %>%
+  filter(REF_AREA == "EE") %>%
+  mutate(
+    HP_R_Change = log(HP_R_N) - log(dplyr::lag(HP_R_N))
+  ) %>%
+  # compare TIME_PERIOD to date_series
+  filter(TIME_PERIOD %in% date_series[-1] ) 
+cf_hp_ee <- cf_hp_ee$HP_R_Change  
+
+
+predictions_3 <-
+  m$coefficients[1]  +
+  m$coefficients[3] * m$model$`d(log(Stock_Price))` +
+  m$coefficients[2] * cf_hp_ee  # HP growth like in Estonia
+
+share_cf_3 <- numeric(length(predictions_3) + 1)
+share_cf_3[1] <- share_real[1]  # replace with actual starting value
+
+# recursively compute the levels from log-diffs
+for (t in 2:length(share_cf_3)) {
+  share_cf_3[t] <- share_cf_3[t - 1] * exp(predictions_3[t - 1])
+}
+```
+
+now like in Greece
+
+```{r}
+cf_hp_gr <- df_house %>%
+  filter(REF_AREA == "GR") %>%
+  mutate(
+    HP_R_Change = log(HP_R_N) - log(dplyr::lag(HP_R_N))
+  ) %>%
+  # compare TIME_PERIOD to date_series
+  filter(TIME_PERIOD %in% date_series[-1] )
+cf_hp_gr <- cf_hp_gr$HP_R_Change
+
+predictions_4 <-
+  m$coefficients[1]  +
+  m$coefficients[3] * m$model$`d(log(Stock_Price))` +
+  m$coefficients[2] * cf_hp_gr  # HP growth like in Greece
+
+share_cf_4 <- numeric(length(predictions_4) + 1)
+share_cf_4[1] <- share_real[1]  # replace with actual starting value
+
+# recursively compute the levels from log-diffs
+for (t in 2:length(share_cf_4)) {
+  share_cf_4[t] <- share_cf_4[t - 1] * exp(predictions_4[t - 1])
+}
 ```
 
 
+### Plot
 
-### Model EU with alternative Elasticities
+```{r}
+p_cf <- ggplot() +
+  # real share
+  geom_line(aes(y = share_real, x=date_series, color="Observed"), linetype="dotted") +
+  # fitted values
+  geom_line(aes(y = share_fitted, x=date_series, color ="Predicted")) +
+  # counterfactual 1: low housing growth
+  geom_line(aes(y = share_cf_1, x=date_series, color = "No HP"))+
+  # counterfactual 2: low stock growth
+  geom_line(aes(y = share_cf_2, x=date_series, color = "No SP")) +
+  # counteractual: EE HP growth
+  geom_line(aes(y = share_cf_3, x=date_series, color = "HP EE")) +
+  # counteractual: GR HP growth
+  geom_line(aes(y = share_cf_4, x=date_series, color = "HP GR")) 
+  
+
+p_cf
+```
+
+```{r}
+p_cf <- p_cf +
+  labs(
+    x = "Time Period",
+    y = "Share in Total Wealth",
+    color = "Scenario",
+    caption = "Data: BIS, ECB, own calculations"
+  ) +
+  scale_color_manual(
+    values = c(
+    "Observed" = "black", "Predicted" = "black", 
+    "No HP" = "#377EB8", "No SP" = "#cdb04b",
+    "HP EE" = "#4daf4a", "HP GR" = "#e41a1c"
+    ),
+    labels = c(
+      "No HP" =  expression(Delta ~ p^h == 0),
+      "No SP" =  expression(Delta ~ p^s == 0),
+      "HP EE" =  expression(Delta ~ p^h == "EE"),
+      "HP GR" =  expression(Delta ~ p^h == "GR")
+      )
+    ) +
+  guides(color = guide_legend(reverse = TRUE))+
+  # y scale on right side to and tick at every 0,1
+  scale_y_continuous(
+    sec.axis = sec_axis(~ ., breaks = seq(0, 1, by = 0.01)),
+    breaks = seq(0, 1, by = 0.01),
+  ) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y")+
+  theme_tufte() +
+  theme(
+      legend.position = "right",
+      panel.border = element_rect(fill = NA, color = "black"),
+    )
+p_cf
+
+ggsave(p_cf, filename = "../../output/simulation/counterfactual_T10.png", width = 8, height = 4)
+```
 
 
+- freezing stock prices at starting level = lower share
+  - T10 profit disproportianally from Stocks
+- freezing HP at their starting level = higher share
+
+## Elasiticity Swap
+
+what would have happened if the EU coefficients were like in Country X
+
+```{r}
+# extract coefficients from individual models
+ts_models <- readRDS("../../data/models/T10_ts_models.rds")
+```
+
+selected countries: ES, NL, IE, EU
+
+### Coefficients
+
+```{r}
+EU_coeff <- ts_models$EU$coefficients
+ES_coeff <- ts_models$ES$coefficients
+NL_coeff <- ts_models$NL$coefficients
+IE_coeff <- ts_models$IE$coefficients
+```
+
+now predict values with european prices and other elasticities
+
+### Predictions 
+
+```{r}
+# series of real values of share
+share_real <- df$T10_share[df$REF_AREA == AREA]
+
+# time series
+date_series <- df %>% 
+  filter(REF_AREA == AREA) 
+date_series <- date_series$TIME_PERIOD 
+
+# prices
+hp_ts <- ts_models$EU$model$`d(log(HP_R_N))`
+sp_ts <- ts_models$EU$model$`d(log(Stock_Price))`
+```
+
+### Level Predictions
+Predict values with differenct coefficients
+
+```{r}
+predictions_eu <- 
+  EU_coeff[1] +
+  EU_coeff[2] * hp_ts +
+  EU_coeff[3] * sp_ts
+
+predictions_es <-
+  EU_coeff[1]  +
+  ES_coeff[2] * hp_ts +
+  ES_coeff[3] * sp_ts
+
+predictions_nl <-
+  EU_coeff[1]  +
+  NL_coeff[2] * hp_ts +
+  NL_coeff[3] * sp_ts
+
+predictions_ie <-
+  EU_coeff[1]  +
+  IE_coeff[2] * hp_ts +
+  IE_coeff[3] * sp_ts
+```
+
+
+Convert the predictions to levels
+
+```{r}
+predict_levels <- function(predictions, share_real) {
+  share_fitted <- numeric(length(predictions) + 1)
+  share_fitted[1] <- share_real[1]  # replace with actual starting value
+
+  # recursively compute the levels from log-diffs
+  for (t in 2:length(share_fitted)) {
+    share_fitted[t] <- share_fitted[t - 1] * exp(predictions[t - 1])
+  }
+  
+  return(share_fitted)
+}
+
+share_fitted_eu <- predict_levels(predictions_eu, share_real)
+share_fitted_es <- predict_levels(predictions_es, share_real)
+share_fitted_nl <- predict_levels(predictions_nl, share_real)
+```
+
+```{r}
+ggplot() +
+  geom_line(aes(y = share_real, x=date_series, color="Actual"), linetype="dotted") +
+  geom_line(aes(y = share_fitted_eu, x=date_series, color ="EU")) +
+  geom_line(aes(y = share_fitted_es, x=date_series, color ="ES")) +
+  geom_line(aes(y = share_fitted_nl, x=date_series, color ="NL"))
+```
 
