@@ -12,9 +12,11 @@ Another potential issue is the use of the Stoxx 50 as a stock price index. As an
 
 On the other hand, the broadness of the index ensures that over 60% of the european capitalization is accounted for. Additionally, the local markets in the European Union are highly integrated into the european market. As @kimDynamicStockMarket2005 describes for 15 member states before 2004 and @savvaStockMarketIntegration2010 for new member states after 2004, there are significant comovements of local and european stock prices. Using local stock indices therefore would not yield different results and introduce a range of new problems concerning comparability.
 
-A key limitation of the DWA is that it does not differentiate between the price and quantity effects when measuring housing wealth. An increase could be driven by changes the valuation of the existing stock as well as an expansion in the stock of houses independent of their valuation. This would influence the measurement of housing wealth as well as total wealth and could bias interpretations of inequality dynamics if the underlying drivers are not solely price-based.
+A key limitation of the DWA is that it does not differentiate between the valuation and savings when measuring changes in wealth. An increase could be driven by changes to the valuation of the existing stock as well as increased savings of wealth segments. This is especially important if rising earnings inequality leads to more disposable income in the upper part of the wealth distribution, which is invested in assets. Rising Income Inequality would lead to rising wealth inequality in this scenario without changes in asset valuations.
 
-If the quantity effect would be the main driver of the wealth, this would result in a large increase in the stock of houses as well as an increase in home ownership rates. While there is a marginal increase in the number of dwellings per inhabitant in most european countries between 2011 and 2022 [@OECDAffordableHousing2024], home ownership rates remained stable. The eurozone average moved from 66.6% in 2011 to 65.8% in 2021, reaching a high of 66.9% in 2012 [@eurostatDistributionPopulationTenure2024]. This pattern is inconsistent with a quantity-driven explanation. Instead, the stability in homeownership suggests that rising housing wealth reflects valuation effects. 
+
+
+
 
 
 

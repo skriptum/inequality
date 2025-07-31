@@ -92,6 +92,16 @@ therefore: main focus: valuation channel
 
 
 
+Savings vs Valuation Effect
+
+
+
+Counter:
+
+- Declinining INcome Inequality
+  - Top 10% not much differential savings
+- stable savings rate
+
 
 
 Society: W = P x Q
