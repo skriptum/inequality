@@ -188,6 +188,54 @@ Results
 
 
 
+
+
+## Alternatve Asset Prices
+
+
+
+scenarios
+
+- Baseline = predicted values
+  - diverge from observed values, especially around 2013-2018
+- no stock price growth
+  - share still grows
+  - but slower than observed
+  - = portfolio of the T10 = highest share in stock
+- no HP growth
+  - middel 40% and b50% = no growth in wealth
+  - lose relatively to T10
+- HP like in EE
+  - highest HP growth in Eurozone
+  - = lowest T10 share in predictions
+  - bottom 90% profit more 
+- HP like in GR
+  - declining HP since 2010
+  - mostly financial assets rising (T10 more)
+  - highest counterfactual weath share
+
+
+
+summary
+
+- only broad simulation, low R^2
+- but shows first order consequences of asset prices
+  - calculated Difference between EE and GR: 6.8%
+  - high HP growth = redistribute total wealth
+  - while stock price > hp = entrench the T10
+- approximate ratio of HP to SP to keep the T10 share stable: 4.22
+  - stock price gains = highly concentrated
+  - house price gains = everyone, relativelay more to other wealth segments
+  - math in footnote:
+    - from $\Delta \log(T10) = \beta_h \Delta \log(p^h) + \beta_s \Delta \log({p^s})$
+    - for $\Delta \log(T10_{t+1}) = 0$ to be
+    - need $\frac{\beta_h}{\beta_s}  = \frac{\log({p^s})}{\log({p^h})}$
+    - substitutung with EU coefficients yields the calcuated ratio
+
+
+
+
+
 ## Counterfactual Simulation
 
 Counterfactual Simulation

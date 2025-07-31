@@ -115,7 +115,7 @@ for (t in 2:length(share_cf_2)) {
 }
 ```
 
-### HP growth like in Estonia 
+### HP growth like in Estonia  / Greece
 
 ```{r}
 cf_hp_ee <- df_house %>%
@@ -169,6 +169,7 @@ for (t in 2:length(share_cf_4)) {
 ```
 
 
+
 ### Plot
 
 ```{r}
@@ -184,7 +185,9 @@ p_cf <- ggplot() +
   # counteractual: EE HP growth
   geom_line(aes(y = share_cf_3, x=date_series, color = "HP EE")) +
   # counteractual: GR HP growth
-  geom_line(aes(y = share_cf_4, x=date_series, color = "HP GR")) 
+  geom_line(aes(y = share_cf_4, x=date_series, color = "HP GR")) +
+  # counteractual: ratio to keep stable
+  geom_line(aes(y = share_cf_5, x=date_series, color = "Ratio")) 
   
 
 p_cf
@@ -207,8 +210,8 @@ p_cf <- p_cf +
     labels = c(
       "No HP" =  expression(Delta ~ p^h == 0),
       "No SP" =  expression(Delta ~ p^s == 0),
-      "HP EE" =  expression(Delta ~ p^h == "EE"),
-      "HP GR" =  expression(Delta ~ p^h == "GR")
+      "HP EE" =  expression(Delta ~ p^h == Delta ~ p[plain("EE")]^h),
+      "HP GR" =  expression(Delta ~ p^h == Delta ~ p[plain("GR")]^h)
       )
     ) +
   guides(color = guide_legend(reverse = TRUE))+
@@ -225,13 +228,63 @@ p_cf <- p_cf +
     )
 p_cf
 
-ggsave(p_cf, filename = "../../output/simulation/counterfactual_T10.png", width = 8, height = 4)
+#ggsave(p_cf, filename = "../../output/simulation/counterfactual_T10.png", width = 8, height = 4)
 ```
 
 
 - freezing stock prices at starting level = lower share
   - T10 profit disproportianally from Stocks
 - freezing HP at their starting level = higher share
+
+Difference in outcomes: EE vs GR
+
+```{r}
+share_cf_4[52] - share_cf_5[52]
+```
+
+
+### Ratio neeeded to keep in check
+
+$$
+\Delta \log(T10_{t+1}) = \beta_h \Delta \log(p^h) + \beta_s \Delta \log({p^s}) \\
+\Delta \log(T10_{t+1}) = 0  \\
+
+\implies \beta_h \Delta \log(p^h) = - \beta_s \Delta \log({p^s}) \\
+\frac{\beta_h}{\beta_s}  = \frac{\log({p^s})}{\log({p^h})}
+$$
+
+```{r}
+# ratio of prices needed to keep the share stable
+stable_ratio <- - m$coefficients[2] / m$coefficients[3]
+stable_ratio
+```
+
+
+
+```{r}
+#ratio of growth
+ratio <- hp_ts / sp_ts
+
+ggplot() +
+  geom_line(aes(y=ratio, x=seq(1:51))) +
+  #limit y axis to 5
+  coord_cartesian(ylim=c(-2.5, 7.5)) +
+  geom_hline(yintercept = stable_ratio, linetype="dashed", color = "red") +
+  geom_hline(yintercept = 0, linetype="dashed", color = "black") 
+```
+= never enough housing growth to keep the share stable
+
+
+
+```{r}
+ggplot() +
+    geom_line(aes(y=hp_ts, color="HP",x=seq(1:51))) +
+    geom_line(aes(y=sp_ts, color="SP", x=seq(1:51))) +
+    #cumulative sum of the series
+    geom_line(aes(y=cumsum(hp_ts), color="HP Cumulative", x=seq(1:51))) +
+    geom_line(aes(y=cumsum(sp_ts), color="SP Cumulative", x=seq(1:51))) 
+```
+
 
 ## Elasiticity Swap
 
@@ -324,4 +377,5 @@ ggplot() +
   geom_line(aes(y = share_fitted_es, x=date_series, color ="ES")) +
   geom_line(aes(y = share_fitted_nl, x=date_series, color ="NL"))
 ```
+
 
