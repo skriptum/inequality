@@ -24,10 +24,9 @@ df_house <- read_csv("../../data/proc/prices.csv")
 ```
 
 ```{r}
-# extract coefficients from individual models
+# extract coefficients from the models
 ts_models <- readRDS("../../data/models/T10_ts_models.rds")
 ```
-
 
 ## alternative Prices
 
@@ -185,9 +184,7 @@ p_cf <- ggplot() +
   # counteractual: EE HP growth
   geom_line(aes(y = share_cf_3, x=date_series, color = "HP EE")) +
   # counteractual: GR HP growth
-  geom_line(aes(y = share_cf_4, x=date_series, color = "HP GR")) +
-  # counteractual: ratio to keep stable
-  geom_line(aes(y = share_cf_5, x=date_series, color = "Ratio")) 
+  geom_line(aes(y = share_cf_4, x=date_series, color = "HP GR")) 
   
 
 p_cf

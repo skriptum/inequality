@@ -69,26 +69,23 @@ counter:
 
 **Drivers of**: rising Housing Wealth
 
-is it driven by higher prices or more stock?
+is it driven by higher prices or more savings?
 
-- price effect
-  - no change in stock
-  - change of prices of existing Houses
-- quantity effect
-  - changes in stock / ownership 
-  - independent of HP
-  - Counter: 
-    - Stock did not grow much in Europe
-    - HO did not change much in Europe Countries
-    - not able to explain the changes
-
-Literature @knollNoPriceHome2017
-
-- most is valuation channel, especially for lower deciles
+- 
 
 
 
-therefore: main focus: valuation channel
+
+
+- gini coefficient of income = down
+- short time frame = probably not possible for doubling of wealth in 2011-2021
+- Literature @knollNoPriceHome2017
+  - valuatio channel over the 70 years = half
+  - Differential, lower deciles = more than upper (long term)
+
+
+
+
 
 
 
@@ -164,12 +161,33 @@ european monetary policy
 - 2011-2021 = period with expansive monetary policy
 - some say: drove asset price valuation
   - housing as well as stocks
-  - @bernankeWhatExplainsStock2005 US Stocks
-  - @vargas-silvaMonetaryPolicyUS2008 US housing
+  - @bernankeWhatExplainsStock2005 US Stocks 
+  - @vargas-silvaMonetaryPolicyUS2008 US housing of Contraction
   - EU 
 - drives housing price valuations => different distributional effects in countries
 
 
+
+Monetary policy 
+
+- Stocks:
+
+  - Conventional: rate cuts = increase prices @bernanke
+  - unconventional: stock buying programs = boost equity prices @fratzscherECBUnconventionalMonetary2016
+
+- Housing:
+
+  - contraction: negatively affects prices @coenMonetaryShocksHouse2024 Europe 
+  - but also heterogenous across Europe @noceraHousePricesMonetary2018
+
+- period 2011-2022
+
+  - Euro Crisis
+  - "whatever it takes"
+  - unconvetnial moentary policy, bought commercial assets
+  - while housing rpices = declining 
+
+  
 
 
 

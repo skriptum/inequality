@@ -110,23 +110,21 @@ Panel Regression without the Netherlands
 
 ## Alternative Asset Price Scenarios
 
-To illustrate the distributional consequences of asset price dynamics, counterfactual scenarios are simulated using the estimated elasticities. The central question is: how would wealth shares have evolved if prices had followed a different path than observed?
+To illustrate the distributional consequences of asset price dynamics, counterfactual scenarios are simulated using the estimated elasticities. Its goal is to highlight how wealth shares would have evolved if prices had followed a different path than observed.
 
 The baseline scenario reflects the share of wealth held by the top decile in the Eurozone. Four counterfactuals are constructed based on alternative asset price paths: (1) stock prices remain flat over the entire period ($\Delta p^s=0$); (2) housing prices remain stable throughout ($\Delta p^h=0$); (3) housing prices follow the trajectory observed in Greece ($\Delta p^h = \Delta p^h_{GR}$); and (4) housing prices follow those in Estonia ($\Delta p^h = \Delta p^h_{EE}$).
 
 The predictions in @fig-ctfT10 diverge slightly from actual values, particularly between 2013 and 2018, suggesting that there are factors not captured by the model. Over the full period from 2010 to 2022, the predicted as well as observed share of the top decile rises from 54.1% to 57.5%.
 
-In a scenario with flat stock prices, the share increases, albeit at a slower rate. This indicates the important role equities play in wealth portfolios, as the top decile predominantly holds stocks. Conversely, when house prices plateau, the middle 40% and the bottom 50% experience minimal wealth growth, resulting in a relative loss and greater wealth concentration at the top.
+In a scenario with flat stock prices, the share increases, albeit at a slower rate. This indicates the important role equities play in wealth portfolios, as the top decile predominantly holds stocks. Conversely, in a scenario where house prices plateau, the middle 40% and the bottom 50% experience minimal wealth growth, resulting in a relative loss and greater wealth concentration at the top.
 
-When housing prices follow Estonia's trajectory, which exhibited the steepest growth in the eurozone, the top decile's share is the lowest of all the scenarios. This suggests that rapid housing appreciation can benefit the rest of the population trough relatively higher asset gains.
+When housing prices follow Estonia's trajectory, which exhibited the steepest growth in the eurozone, the top decile's share is the lowest of all the scenarios. This suggests that rapid housing appreciation can benefit the rest of the population trough relatively higher asset gains. In contrast, when housing prices follow Greece's trajectory of decline since 2010, the estimated share reaches its highest level. In this case, financial assets, mainly held by the top decile, drive wealth growth, thereby reinforcing concentration.
 
-In contrast, when housing prices follow Greece's trajectory of decline since 2010, the estimated share reaches its highest level. In this case, financial assets, mainly held by the top decile, drive wealth growth, thereby reinforcing concentration.
-
-The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share [^e2]. The estimated ratio to fulfill this condition equals $4.46$. This implies that housing prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. It highlights how strongly concentrated stock ownership drives inequality relative to housing.
+The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share [^e2]. The estimated ratio to fulfill this condition equals $4.46$. This implies that housing prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
 
 [^e2]: Starting from the regression equation $\Delta \log(\omega_{t}^{T10}) = \beta_h \Delta \log(p^h_t) + \beta_s \Delta \log({p^s_t}) + \epsilon_t$, the condition $\Delta \log(\omega_{t}^{T10}) = 0$ is imposed to keep the top 10% share constant. Solving for the ratio yields $\frac{\beta_h}{\beta_s}  = - \frac{\log({p^s})}{\log({p^h})}$. Substituting the estimated EU coefficients results in the reported value.
 
-This rough simulation exemplifies the first order consequences of asset valuations in the wealth distribution. Rising house prices can to a certain extent compensate stock prices due to the differential distribution of gains among wealth segments. The estimated difference in top wealth shares between scenario (4) with low house price growth and (5) with high house price growth amounts to 6.8 percentage points. However, not even the highest house price growth in Estonia reaches the necessary ratio to keep the share stable.
+This accounting exercise exemplifies the first order consequences of asset valuations in the wealth distribution. Rising house prices can to a certain extent compensate stock prices due to the differential distribution of gains among wealth segments. The estimated difference in top wealth shares between scenario (4) with low house price growth and (5) with high house price growth amounts to 6.8 percentage points. However, not even the highest house price growth in Estonia reaches the necessary ratio to keep the share stable.
 
 ![Counterfactual Simulations of top decile wealth shares](../output/simulation/counterfactual_T10.png){#fig-ctfT10}
 
