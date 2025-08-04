@@ -8,7 +8,7 @@ The exact methodology to derive quarterly distributional accounts as well as a  
 
 The authors perform a wide range of sensitivity and robustness checks for the DWA, but it is important to stress that it is still an experimental dataset, which can not guarantee the same accuracy as data obtained by wealth taxation or other methods.
 
-This analysis draws on the DWA for the time from 2011 until 2022. Potential extrapolation errors after the last HFCS wave and lagged effects of the Covid shock on the housing market are therefore not included in the dataset. The full range of countries is used, including Hungary, which is not part of the Eurozone, but increases the reliability of the results. The countries are abbreviated in Figures and Tables by ther ISO 2-digit country codes. A table with descriptive statistics and their respective full name is provided in @tbl-descriptive in Appendix A. The final dataset comprises 21 european countries, with the number of included quarters ranging from 17 to 49.
+This analysis draws on the DWA for the time from 2011 until 2022. Potential extrapolation errors after the last HFCS wave and lagged effects of the Covid shock on the housing market are therefore not included in the dataset. The full range of countries is used, including Hungary, which is not part of the Eurozone, but increases the reliability of the results. The countries are abbreviated in Figures and Tables by ther ISO 2-digit country codes. A table with descriptive statistics and their respective full name is provided in @tbl-descriptive in Appendix A. 
 
 Furthermore, assets are combined to simplify and ease the interpretation of results [as in @kaasWealthInequalityHomeownership2019]. Unlisted shares and non-financial Business Wealth are combined to form Business Wealth; debt securities, listed shares, investment fund shares and life insurance entitlements form the Financial Wealth and Debt is made up of Mortgage Loans and other Loans.
 
@@ -23,6 +23,8 @@ For Housing Price Data, the Residential Property Price Dataset from the Bank of 
 Housing Prices in the Eurozone plateaud until 2015 and experienced a strong increase afterwards, as visible in @fig-prices. This average marks strong differences in the individual member states. Southern European Countries like Spain, Italy and Greece experienced a devaluation after 2010, while many western and eastern european countries show strong increases in property price indices. Price Indices in Estonia and Luxemburg almost doubled in the observed timeframe, while they declined by 25 index points in Greece.
 
 Stock prices are represented using the Euro Stoxx 50 index, which includes 50 large firms from 11 Eurozone countries, offering broad representation of the region’s equity markets. The index captures approximately 60% of total market capitalization and serves as a standard benchmark for European stock market performance [e.g @brechmannRiskManagementHighdimensional2013].
+
+The final panel dataset includes asset holdings for the three wealth groups in 21 countries as well as the Eurozone as an aggregate, measured in nominal values. The number of observations per country ranges from 17 in Latvia to 49 in Greece, totaling 860 observations. This is complemented by housing price indices for all countries over the observed time frames and the European stock price index for the entire time period.
 
 After presenting the data sources used in the analysis, the next section provides some stylized facts and descriptive statistics drawn from the DWA.
 
