@@ -18,6 +18,18 @@ post1990 = c("AT", "CY", "EE","FI", "HR", "LT", "LV", "MT", "SI", "SK" , "EU")
 
 
 
+```{r}
+# color theme
+
+c_theme <- c(
+  "HW" = "#783239",
+  "FW" = "#6B6D9B",
+  "BW" = "#F7D970",
+  "DEP" = "#B2C4EB"
+)
+```
+
+
 ### 1a: Tenant - Owner Wealth Ratio
 
 ```{r}
@@ -141,7 +153,7 @@ df_asset <- df_simple %>%
   ) %>%
   arrange(desc(DWA_GRP)) %>% #sort GRP descending 
   # shares for all assets
-  summarise(
+  reframe(
     REF_AREA = REF_AREA,
     DWA_GRP = DWA_GRP,
     share_BW = BW / TW,
@@ -160,7 +172,7 @@ p3 <- df_asset %>%
   ggplot(aes(x = DWA_GRP, y = share, fill = asset_class)) +
     geom_col(position = "stack") +  # stack the bars to make 1
     facet_wrap(~ REF_AREA, ncol = 4, scales = "free_x")  #x axis should appear at every plot
-p3
+#p3
 ```
 
 ```{r}
@@ -168,10 +180,10 @@ p3 <- p3 +
     scale_fill_manual(
       # change the colors of the stacks
       values = c(
-        "share_BW" = "#cdb04b",
-        "share_FW" = "#377EB8",
-        "share_DEP" = "#11ad52",
-        "share_HW" = "#9f464f"
+          "share_HW" = "#783239",
+          "share_FW" = "#6B6D9B",
+          "share_BW" = "#F7D970",
+          "share_DEP" = "#B2C4EB"
       ),
       # change the labels
       labels = c(
@@ -220,10 +232,10 @@ p_europe <- df_asset %>%
     scale_fill_manual(
       # change the colors of the stacks
       values = c(
-        "share_BW" = "#cdb04b",
-        "share_FW" = "#377EB8",
-        "share_DEP" = "#11ad52",
-        "share_HW" = "#9f464f"
+          "share_HW" = "#783239",
+          "share_FW" = "#6B6D9B",
+          "share_BW" = "#F7D970",
+          "share_DEP" = "#B2C4EB"
       ),
       # change the labels
       labels = c(
@@ -336,10 +348,10 @@ p4 <- p4 +
   scale_fill_manual(
     #change the colors of the stacks
     values = c(   
-        "BW" = "#cdb04b",
-        "FW" = "#377EB8",
-        "DEP" = "#11ad52",
-        "HW" = "#9f464f",
+      "HW" = "#783239",
+      "FW" = "#6B6D9B",
+      "BW" = "#F7D970",
+      "DEP" = "#B2C4EB",
         "DEBT" = "grey"
       ),
     # change the labels
@@ -419,9 +431,9 @@ p_shares <- p_shares +
     scale_fill_manual(
       # change the colors of the stacks
       values = c(
-        "B50" = "#539987",
-        "M40" = "#885A89",
-        "D10" = "#CC978E"
+        "B50" = "#E3E3E3",
+        "M40" = "#999999",
+        "D10" = "#262626"
         ),
       labels = c(
         "B50" = "Bottom 50%",
@@ -482,9 +494,9 @@ pretty_share_plot <- function(share_plot, title) {
     scale_fill_manual(
       # change the colors of the stacks
       values = c(
-        "B50" = "#539987",
-        "M40" = "#885A89",
-        "D10" = "#CC978E"
+        "B50" = "#E3E3E3",
+        "M40" = "#999999",
+        "D10" = "#262626"
       ),
       labels = c(
         "B50" = "Bottom 50%",

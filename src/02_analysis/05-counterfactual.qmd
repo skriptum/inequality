@@ -205,10 +205,10 @@ p_cf <- p_cf +
     "HP EE" = "#4daf4a", "HP GR" = "#e41a1c"
     ),
     labels = c(
-      "No HP" =  expression(Delta ~ p^h == 0),
-      "No SP" =  expression(Delta ~ p^s == 0),
-      "HP EE" =  expression(Delta ~ p^h == Delta ~ p[plain("EE")]^h),
-      "HP GR" =  expression(Delta ~ p^h == Delta ~ p[plain("GR")]^h)
+      "No HP" =  expression(p^h == 0),
+      "No SP" =  expression(p^s == 0),
+      "HP EE" =  expression(p^h == p[plain("EE")]^h),
+      "HP GR" =  expression(p^h == p[plain("GR")]^h)
       )
     ) +
   guides(color = guide_legend(reverse = TRUE))+
