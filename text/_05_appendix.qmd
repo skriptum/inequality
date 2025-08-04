@@ -119,6 +119,6 @@ reports results from dynamic panel regressions of the top 10% wealth share on ch
 
 
 
-### Appendix G: Data and Code
+### Appendix G: Data and Code {.unnumbered}
 
 Data and code used in this thesis are available for reproduction online at [https://github.com/skriptum/inequality](https://github.com/skriptum/inequality)
