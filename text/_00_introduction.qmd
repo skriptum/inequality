@@ -1,6 +1,6 @@
 ## Introduction
 
-Housing is Europes largest asset.
+Housing is Europes largest asset [^i1]. 
 
-
+[^i1]: A country specific breakdown of the share of housing in net wealth is provided in @fig-map in Appendix **XX**
 

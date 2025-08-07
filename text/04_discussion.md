@@ -152,6 +152,26 @@ further research needed (microdata, historical data)
 
 
 
+**Insititutional**
+
+- why do the responses differ in countries? to same shock
+- = different portfolios 
+- why do these differ? instituional differences
+- central role = homeownership, (part of the property ladder)
+- National housing policy = drives these decisions
+  - credit access 
+  - tax incentinves for ownership
+  - rental market structure
+  - market regulation on prices
+
+@kaas
+
+```
+The authors also stress the importance of differential homeownership rates as a determinant of the level of wealth inequality across Europe. It is highly negatively correlated with inequality, e.g Germany with one of the lowest homeownership rates exhibits one of the highest gini coefficients. However, this variation cannot be attributed to demographic differences alone. Instead, institutional factors play a central role in shaping ownership structures.
+```
+
+
+
 
 
 **Policy Implications**

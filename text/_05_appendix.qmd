@@ -1,3 +1,9 @@
+### Appendix 0: Importance of housing wealth across Europe {.unnumbered}
+
+![Housing wealth as share of total wealth](../output/desc/map.png){#fig-map}
+
+{{< pagebreak >}}
+
 ### Appendix A: Descriptive Table {.unnumbered}
 
 The following Table presents the full country names and the net wealth per Capita in Euro in 2022. 

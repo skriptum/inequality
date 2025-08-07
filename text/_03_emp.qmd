@@ -8,7 +8,7 @@ $$
 \Delta \log (\omega_{i,t}^g) = \beta_0 + \beta_h \Delta \log (p_{i,t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
 $$ {#eq-regression}
 
-$\Delta \log$ is the first difference of the log, as in $\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})$. $\omega_{i,t}^g$ is the wealth share of a wealth group $g$ (Bottom 50%, Middle 40%, Top 10%) in country $i$ in quarter $t$. $p^h$ describes the housing price index and $p^s$ the stock market index. $\epsilon_t$ is an error term. The resulting estimates can be interpreted as the elasticity of the groups wealth share with respect to asset prices [@wooldridgeIntroductoryEconometricsModern2013, p44]. 
+$\Delta \log$ is the first difference of the log, as in $\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})$. $\omega_{i,t}^g$ is the wealth share of a wealth group $g$ (Bottom 50%, Middle 40%, Top 10%) in country $i$ in quarter $t$. $p^h$ describes the housing price index and $p^s$ the stock market index. $\epsilon_t$ is an error term. The resulting estimates can be interpreted as the elasticity of the groups wealth share with respect to asset prices [@wooldridgeIntroductoryEconometricsModern2013, p. 44]. 
 
 Some regressions are extended to include country and time fixed effects. To control for seasonal patterns and macroeconomic shocks, one specification also includes separate fixed effects for each quarter and each year. Quarter fixed effects are defined as categorical indicators for Q1 to Q4, while year fixed effects cover the years 2011 to 2022, capturing annual shocks common across countries.
 
@@ -16,15 +16,15 @@ A potential concern with this type of panel structure is spatial dependence. As 
 
 Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, $\beta_h$ and $\beta_s$ will not have the same slope in all countries and their estimates will not be able to explain the large variation.
 
-To adress this, the estimates are calculated with the mean group estimator (MGE) proposed by @pesaranEstimatingLongrunRelationships1995. This estimator allows for heterogeneity in individual coefficients and error terms by running separate regressions for each unit. Resulting estimates are averaged as $\hat{\beta}^{MG} = 1/N \sum_{i=1}^N \hat{\beta}_i$ [@milloPanelTimeSeries2018, p. 190, chap. 8.2.2]. 
+To adress this, the estimates are additionally calculated with the mean group estimator (MGE) proposed by @pesaranEstimatingLongrunRelationships1995. This estimator allows for heterogeneity in individual coefficients and error terms by running separate regressions for each unit. Resulting estimates are averaged as $\hat{\beta}^{MG} = 1/N \sum_{i=1}^N \hat{\beta}_i$ [@milloPanelTimeSeries2018, p. 190]. 
 
 The MGE requires that $T \ge p$ and $N$ and $T$ are sufficiently large. Using Monte Carlo simulations, @hsiaoBayesEstimationShortrun1999 find that $T=5$ leads to considerable estimation error, while $T=20$ yields reliable results. The DWA dataset places well within the recommended range for applying the MGE, with $N=21$ and $T$ ranging from 17 to 49 across countries
 
 One specification of the MGE is demeaned cross-sectionally, which reduces the influence of common factors. It is comparable to Time Fixed Effects in an OLS estimate [@coakleyUnobservedHeterogeneityPanel2006]. Both the standard as well as the demeaned MGE use the implementation in R by @croissantPlmLinearModels2023.
 
-Additionally, regressions are estimated separately for each country. This allows for the interpretation of country-specific responses to identical price movements and helps identify outliers. One problem with the OLS estimator in real world time series data like the one used in this analysis is standard errors are autocorrelated. This could result in biased estimates of the standard errors, as one of the core assumptions of the OLS estimator is not fulfilled. To address the autocorrelation and potential heteroskedasticity in the time series, standard errors are computed using the Newey-West estimator [@neweyHypothesisTestingEfficient1987]. This method corrects the standard errors by computing **TODO** [@wooldridgeIntroductoryEconometricsModern2013, p. 389, chap. 12]
+Additionally, regressions are estimated separately for each country. This allows for the interpretation of country-specific responses to identical price movements and helps identify outliers. One problem with the OLS estimator in real world time series data like the one used in this analysis is standard errors are autocorrelated. This could result in biased estimates of the standard errors, as one of the core assumptions of the OLS estimator is not fulfilled. To address the autocorrelation and potential heteroskedasticity in the time series, standard errors are computed using the Newey-West estimator [@neweyHypothesisTestingEfficient1987]. This method corrects the standard errors by computing a heteroskedasticity and autocorrelation consistent variance matrix with a lag window to capture common disturbances [@pesaran **XX** 113]. Lag chosen is **XX**
 
-After introducing the methodology and 
+The next section describes the results of the panel regressions
 
 ## Wealth Share Elasticities: Panel Regression
 
