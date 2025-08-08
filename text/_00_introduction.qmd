@@ -5,7 +5,7 @@ Housing is Europe's largest asset. Its value is central to both household financ
 
 The importance of housing for the modern economy cannot be overstated: houses are the primary item on household balance sheets [^i1]; mortgages make up the largest share of debt in developed economies [@jordaGreatMortgagingHousing2016]; and housing cycles play a central role in macroeconomic fluctuations [@cesa-bianchiHousingCyclesMacroeconomic2013], particularly evident during and after the financial crisis of 2008.
 
-[^i1]: A country specific breakdown of the share of housing in net wealth is provided in @fig-map in Appendix **XX**
+[^i1]: A country specific breakdown of the share of housing in net wealth is provided in @fig-map in Appendix A
 
 
 At the same time, inequality has returned to the forefront of economic debate. Since Piketty's *Capital in the Twenty-First Century* [@pikettyCapitalTwentyFirstCentury2014], research on the distribution of wealth and income has expanded rapidly, supported by large-scale data initiatives such as WID.world [@alvaredoGlobalInequalityDynamics2017] and the creation of official distributional accounts in developed economies [e.g. @battyDistributionalFinancialAccounts2022].

@@ -3,8 +3,10 @@ title: "Cementing the Divide?"
 subtitle: "Housing and Wealth Inequality across 
 Europe"
 abstract: |
-  This is an abstract
-author: "Marten Walk"
+  Abstract:
+author: 
+  - name: Marten Walk
+    email: post@martenw.com
 toc: false
 lof: false
 lot: false
@@ -15,12 +17,12 @@ format:
   pdf: 
     documentclass: scrartcl
     fontfamily: newtxtext
-    linestretch: "1.5"
-    geometry:
-      - top=20mm
-      - bottom=30mm
-      - left=32mm
-      - right=20mm
+    #linestretch: "1.5"
+    #geometry:
+    #  - top=20mm
+    #  - bottom=20mm
+    #  - left=20mm
+    #  - right=20mm
     papersize: a4
     fig-pos: 'h'
     include-in-header: 
@@ -40,8 +42,6 @@ execute:
 ```{=latex}
 \tableofcontents
 ```
-
-
 
 {{< pagebreak >}}
 
