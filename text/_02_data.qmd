@@ -2,7 +2,7 @@
 
 To understand the wealth dynamics, the analysis employs a variety of different datasets, the main being the Distributional Wealth Accounts (henceforth DWA) compiled by the European Central Bank [@blatnikIntroducingDistributionalWealth2024]. The DWA provides quarterly wealth positions of different deciles of the wealth distribution for 21 european countries from 2011 until 2025, splitting up the net wealth according to the amount hold in different asset classes (Housing Wealth, Mortages etc.).
 
-A novelty of the DWA is their consistency with macroeconomic estimates of wealth from the quarterly financial accounts. A limitation of existing distributional data based only on surveys is the underreporting of wealth, which is adressed in the DWA following the US example by @batty22DistributionalFinancial2022 for the Federal Reserve.
+A novelty of the DWA is their consistency with macroeconomic estimates of wealth from the quarterly financial accounts. A limitation of existing distributional data based only on surveys is the underreporting of wealth, which is adressed in the DWA following the US example by @battyDistributionalFinancialAccounts2022 for the Federal Reserve.
 
 The exact methodology to derive quarterly distributional accounts as well as a  first analysis of the dataset is described by @engelDevelopingReconciledQuarterly2022. They distribute the wealth estimates from the quarterly sectoral financial accounts (QSA) according to the distribution in the Household Finance and Consumption Surveys (HFCS), which are carried out by Eurozone member banks every 3-4 years [@networkEurosystemHouseholdFinance2013]. To overcome the problems of differential nonresponse (richer Households are underrepresented in the surveys) and the differential underreporting (richer Households undervalue their assets) they use the method proposed by @vermeulenEstimatingTopTail2016. He builds on the finding that the upper tail of the Wealth Distribution follows a Pareto distribution, which can be used to create synthetic rich Households on a Curve fitted to the HFCS data and Households from external rich lists (e.g. @nesshoeferRanglisteGroesstenVermoegen2024 for Germany). After this step, @engelDevelopingReconciledQuarterly2022 use linear interpolation to distribute the QSA between HFCS survey waves and extrapolate after the most recent HFCS wave in 2022. 
 
@@ -28,15 +28,15 @@ The final panel dataset includes asset holdings for the three wealth groups in 2
 
 After presenting the data sources used in the analysis, the next section provides some stylized facts and descriptive statistics drawn from the DWA.
 
-## Stylized Facts about the Wealth Distribution
+## Stylized Facts about the Wealth Distribution {#sec-descriptive}
 
-The portfolios of the bottom 50% display the largest heterogeneities across Europe [^d1]. In most countries, they closely resemble the composition of the middle class with housing as the main asset (examples include Italy, Ireland and Finland). Outliers to this rule include Germany, Austria and the Netherlands. The wealth of the lower half in these countries is predominantly made up of the other assets and housing contributes less than 50% to total wealth.
+The portfolios of the bottom 50% display the largest heterogeneities across Europe[^d1]. In most countries, they closely resemble the composition of the middle class with housing as the main asset (examples include Italy, Ireland and Finland). Outliers to this rule include Germany, Austria and the Netherlands. The wealth of the lower half in these countries is predominantly made up of the other assets and housing contributes less than 50% to total wealth.
 
 [^d1]: The complete breakdown for all european countries is provided in @fig-portfolio-indiv in Appendix B.
 
 The distribution of these asset classes among the wealth groups in the Eurozone is described in @fig-distribution. As visible, Housing is distributed most equally of the wealth categories, with the Top Decile owning 47% of the total Housing Wealth. It is followed by Net Wealth with 57%, and Financial Wealth and Business Wealth with 72% and 85% respectively. 
 
-This sequence holds in all european countries, with the absolute numbers differing considerably. [^d2]. While almost all financial wealth is owned by the top decile in Croatia and Greece, it is less than half in the Netherlands and Malta. For business wealth, the most significant share held by the top 10% is in Austria and Germany, while Greece and Cyprus feature the most equal distribution. In Housing Wealth, it is not the share of the top 10% that varies much, but the bottom 50%. In Germany, Austria and the Netherlands they possess below 2% of the asset, while their counterparts in Slovakia and Lithuania own more than 15%.
+This sequence holds in all european countries, with the absolute numbers differing considerably[^d2]. While almost all financial wealth is owned by the top decile in Croatia and Greece, it is less than half in the Netherlands and Malta. For business wealth, the most significant share held by the top 10% is in Austria and Germany, while Greece and Cyprus feature the most equal distribution. In Housing Wealth, it is not the share of the top 10% that varies much, but the bottom 50%. In Germany, Austria and the Netherlands they possess below 2% of the asset, while their counterparts in Slovakia and Lithuania own more than 15%.
 
 [^d2]: The expanded version of @fig-distribution with country-specific distributions is available as @fig-distribution-indiv in Appendix B
 
@@ -57,7 +57,7 @@ The lower half of the distribution have little wealth, with housing and deposits
 
 
 
-The next section lines out the econometric methodology to estimate the effect of these changes in valuation on wealth inequality.
+These differences in portfolio size and composition suggest that changes in asset prices are likely to affect each segment of the distribution in distinct ways. The next section sets out the econometric framework used to quantify these effects.
 
 
 

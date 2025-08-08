@@ -16,6 +16,14 @@ weath = depends on valuation of existing stock
 
 
 
+intersection of 2 topics
+
+- composition + leverage of portfolios along distribution differ
+- identical asset price movements = different effects on different segments
+- focus on housing prices 
+
+
+
 
 
 my question 

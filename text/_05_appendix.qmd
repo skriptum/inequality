@@ -107,7 +107,7 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 Dynamic Panel Regression
 :::
 
-reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.
+@tbl-dynamic reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.
 
 ### Appendix E: Stock Prices Coefficient Plot {.unnumbered}
 

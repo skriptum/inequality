@@ -207,7 +207,26 @@ Monetary policy
   - unconvetnial moentary policy, bought commercial assets
   - while housing rpices = declining 
 
-  
+
+
+
+
+
+Home ownership rates , drivers
+
+- bourassaDeterminantsHomeownershipRate2015: overview paper
+- choTaxTreatmentOwner2011: preferential tax treatment
+- kindermann kohls: better rental market = lower HO
+- kaas first paper
+  - imputed rent taxation
+  - interest rate deduction
+- kaasLowHomeownershipGermany2021: structural model to explain Germanys low HO rate
+  - mortgage interest rate deductions
+- all in all: complicated, diverse distributional consequences
+  - e.g. mortgage interest rate tax deductions: 
+- higher HO = not always good 
+  - higher savings
+  - reduced labor mobility
 
 
 

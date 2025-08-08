@@ -1,4 +1,4 @@
-## Discussion
+## Discussion {#sec-discussion}
 
 The empirical results provide a first indication of how asset prices correlate with changes in wealth distribution across Europe.
 
@@ -20,7 +20,7 @@ In the Eurozone, a similar picture emerges. Wealth inequality increased over the
 
 In addition to the short-term consequences of asset prices on inequality, it is important to consider the second-order effects. Rising house prices without corresponding income increases reduce the affordability of owning a house, especially for first time buyers. This could lead to higher wealth inequality in the long term, as lower income and wealth groups are increasingly excluded from accumulating housing assets and thus miss out on the associated wealth gains.
 
-Empirical evidence of this phenomenon is presented by @bonnetRisingInequalitiesAccess2019 for France. They find that in the last 40 years, low-income households between 25 and 44 years exhibited a decline in their homeownership rates, with the reverse for high-income households. While in 1973, in the former group 34% of households owned their home, while in the latter it was 43%. This gap widened in the following decades, with 66% of the high income group owning their residence, while the percentage of the low income group more than halved with 16%. Notably, the average homeownership rate remained relatively stable during this period. The authors attribute the rise in housing inequality to increasing house prices, the growing importance of inheritances, and shifts in family structures.
+Empirical evidence of this phenomenon is presented by @bonnetRisingInequalitiesAccess2019 for France. They find that in the last 40 years, low-income households between 25 and 44 years exhibited a decline in their homeownership rates, with the reverse for high-income households. In 1973, in the former group 34% of households owned their home, while in the latter it was 43%. This gap widened in the following decades, with 66% of the high income group owning their residence, while the percentage of the low income group more than halved with 16%. Notably, the average homeownership rate remained relatively stable during this period. The authors attribute the rise in housing inequality to increasing house prices, the subsequent growing importance of inheritances, and shifts in family structures.
 
 Additionally, rising house prices often translate into higher rents, further eroding affordability. As @hickHousingAffordabilityPoverty2024 document, housing cost burdens across Europe have become increasingly concentrated among renters in the private market. Higher rents reduce tenants ability to save and often prevent the accumulation of wealth, while rental income flows to landlords, who are disproportionately in the top wealth deciles. This dynamic also affects first-time buyers as high rents make it harder to save for mortgage deposits, delaying homeownership and deepening the divide between those with and without housing wealth.
 
@@ -38,14 +38,22 @@ The observation period of this thesis (2011–2022) overlaps with a phase of his
 
 Thus decisions taken in light of the euro crisis had direct consequences on the wealth distribution in Europe. Higher stock prices, coupled with stable house prices, resulted in an increase in capital gains for the top decile, while the rest of the population did not benefit in a similar fashion. @bernothECBAssetPurchases2016 described this theoretical consequence of the ECB purchasing programs, and more detailed empirical research on the heterogenous distributional effects is needed to incorporate it into monetary policy frameworks.
 
+
+
 One question that arises from the individual results is why portfolios and subsequent reactions to asset price movements differ so strongly across Europe. What institutional and cultural differences explain the large variance?
 
-Research points into the direction of home ownership as a central explanatory power. @mathaHouseholdWealthEuro2017 find that the home ownership rate in addition to house price dynamics explain more than 50% of the wealth differences in Europe, particularly in the middle part of the distribution. Similarly, @kaasWealthInequalityHomeownership2019 find that home ownership rates are strongly negatively related to wealth inequality in the 9 largest european countries. The authors also stress that the home ownership rate itself is higly endogenous and have to be explained by institutional and cultural differences.
+Research points into the direction of home ownership as a central explanatory power. @mathaHouseholdWealthEuro2017 find that the home ownership rate in addition to house price dynamics explain more than 50% of the wealth differences in Europe, particularly in the middle part of the distribution. Similarly, @kaasWealthInequalityHomeownership2019 highlight that home ownership rates are strongly negatively related to wealth inequality in the 9 largest european countries. The authors also stress that the home ownership rate itself is higly endogenous and variations have to be explained by institutional and cultural differences.
 
-Several policies influencing home ownership decisions are analysed in the literature. 
+Several institutions influencing home ownership decisions are analysed in the literature [for an overview see @bourassaDeterminantsHomeownershipRate2015]. @choTaxTreatmentOwner2011 focus on preferential tax treatment in the form of mortgage interest rate deductibility and missing taxation of imputed rents. They find that it provides a financial incentive to own instead of rent in the US case and has negative distributional effects. 
+
+@kaasWealthInequalityHomeownership2019 additionally highlight the role of sales tax on homes and average downpayment requirements, which differ across Europe and explain part of the variation in homeownership rates. In a companion paper [@kaasLowHomeownershipGermany2021], the authors incorporate these factors into a structural model to explain the low german homeownership rate. Running counterfactual experiments, they show that reducing transfer taxes and implementing mortgage interest rate deductions would increase the share of homeowners, while reducing welfare, particularly for new entrants into the housing market.
+
+Therefore, it is important to note that while a higher homeownership rate may lead to a more equitable distribution of wealth, it also introduces consequences regarding market efficiency and distribution. In addition to upper-income classes profiting more if the higher rate is achieved through preferential tax treatment, it also creates an incentive to over consume housing as an asset [@choTaxTreatmentOwner2011]. This creates a "lock in" effect for owners, decreasing residential mobility with adverse effects on the functioning of the labor market [@causaHousingWealthAccumulation2019].
 
 
 
-## Conclusion
+Taken together, the discussion highlights the importance of asset prices, especially housing and equities, in shaping recent wealth dynamics across Europe. While short-term valuation effects appear to drive much of the observed inequality, their distributional consequences are mediated by national institutions, ownership structures, and policy regimes. The analysis also points to monetary policy as an indirect but powerful driver of wealth inequality, raising questions about the distributive impact of asset purchases and interest rate decisions. Given the data limitations and focus on a relatively short time frame, further research is needed to disentangle long-run structural drivers from cyclical price effects, and to assess how policy interventions can be designed to mitigate wealth concentration.
+
+## Conclusion {#sec-conclusion}
 
  To summarize

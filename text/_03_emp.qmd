@@ -1,4 +1,4 @@
-## Empirical Strategy
+## Empirical Strategy {#sec-strategy}
 
 As described above, different segments of the wealth distribution hold different portfolios, in size as well as in composition of asset classes. Their net wealth therefore reacts in distinct ways to identical changes in valuation of assets. This has a direct effect on the share of overall wealth held by the segment and consequently on general wealth inequality.
 
@@ -22,11 +22,11 @@ The MGE requires that $T \ge p$ and $N$ and $T$ are sufficiently large. Using Mo
 
 One specification of the MGE is demeaned cross-sectionally, which reduces the influence of common factors. It is comparable to Time Fixed Effects in an OLS estimate [@coakleyUnobservedHeterogeneityPanel2006]. Both the standard as well as the demeaned MGE use the implementation in R by @croissantPlmLinearModels2023.
 
-Additionally, regressions are estimated separately for each country. This allows for the interpretation of country-specific responses to identical price movements and helps identify outliers. One problem with the OLS estimator in real world time series data like the one used in this analysis is standard errors are autocorrelated. This could result in biased estimates of the standard errors, as one of the core assumptions of the OLS estimator is not fulfilled. To address the autocorrelation and potential heteroskedasticity in the time series, standard errors are computed using the Newey-West estimator [@neweyHypothesisTestingEfficient1987]. This method corrects the standard errors by computing a heteroskedasticity and autocorrelation consistent variance matrix with a lag window to capture common disturbances [@pesaran **XX** 113]. Lag chosen is **XX**
+Additionally, regressions are estimated separately for each country. This allows for the interpretation of country-specific responses to identical price movements and helps identify outliers. One problem with the OLS estimator in real world time series data like the one used in this analysis is standard errors are autocorrelated. This could result in biased estimates of the standard errors, as one of the core assumptions of the OLS estimator is not fulfilled. To address the autocorrelation and potential heteroskedasticity in the time series, standard errors are computed using the Newey-West estimator [@neweyHypothesisTestingEfficient1987]. This method corrects the standard errors by computing a heteroskedasticity and autocorrelation consistent variance matrix with a lag window to capture common disturbances [@pesaranTimeSeriesPanel2015, p. 113]. 
 
-The next section describes the results of the panel regressions
+The following section applies this framework to estimate the relationship between asset price changes and wealth shares.
 
-## Wealth Share Elasticities: Panel Regression
+## Wealth Share Elasticities: Panel Regression {#sec-panel}
 
 ::: {#tbl-panelT10}
 
@@ -72,13 +72,13 @@ Bottom 50% Panel Regression
 
 
 
-## Country-Level Variation 
+## Country-Level Variation {#sec-indiv}
 
 To examine these heterogeneous effects across countries, the regression is re-estimated separately for each country following @eq-indiv[^e0]. As mentioned above, the standard errors are heteroskedasticity and autocorrelation consistent by use of the method of @neweyHypothesisTestingEfficient1987.
 
 $$
 \Delta \log (\omega_{t}^g) = \beta_0 + \beta_h \Delta \log (p_{t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
-$$ {eq-indiv}
+$$ {#eq-indiv}
 
 Figure @fig-coeffplot displays the resulting country-level coefficients for housing prices for each segment of the wealth distribution. Estimates are ordered by magnitude and colored by statistical significance, with their standard errors represented by the error bars[^e1].
 
@@ -103,7 +103,7 @@ The most notable change is for the bottom 50%. The coefficient on house prices i
 
 Stock price effects remain broadly stable across all specifications, with a significant positive effect on the Top 10% and a negative effect on the Middle 40%, consistent with prior estimates. No meaningful change is observed when the Netherlands is excluded
 
-Overall, the results strengthen the interpretation that rising house prices tend to benefit the Bottom 50% and Middle 40%, while rising stock prices disproportionately benefit the Top 10%. Having established the sensitivity of wealth segments to asset prices, the next section simulates the evolution of wealth shares under different scenarios
+Overall, the results strengthen the interpretation that rising house prices tend to benefit the Bottom 50% and Middle 40%, while rising stock prices disproportionately benefit the Top 10%. Having established the sensitivity of wealth segments to asset prices, the next section simulates the evolution of wealth shares under different scenarios.
 
 ::: {#tbl-panelNL}
 
@@ -116,14 +116,14 @@ Panel Regression without the Netherlands
 
 
 
-## Alternative Asset Price Scenarios
+## Alternative Asset Price Scenarios {#sec-simulation}
 
 To illustrate the distributional consequences of asset price dynamics, counterfactual scenarios are simulated using the estimated elasticities. Its goal is to highlight how wealth shares would have evolved if prices had followed a different path than observed. 
 
 The values are estimated using the formula in @eq-fitted.
 $$
 \Delta \log (\hat{\omega}_{EU,t}^{T10}) = \hat{\beta}_0 + \hat{\beta}_h \, \Delta \log (p_{t}^h) + \hat{\beta}_s \, \Delta \log(p_t^s)
-$$ {#eg-fitted}
+$$ {#eq-fitted}
 
 and the counterfactual absolute shares are calcualted using @eq-ctf.
 
@@ -131,7 +131,7 @@ $$
 \hat{\omega}_{EU,t}^{T10}  = \hat{\omega}_{EU,t-1}^{T10} \cdot \exp \left( \Delta \log (\hat{\omega}_{EU,t}^{T10}) \right)
 $$ {#eq-ctf}
 
-Five scenarios are considered in the counterfactual simulations. (1) In the baseline scenario fitted values are calculated using the actual asset price paths observed in the Eurozone, with $p^h = p_{EU}^h$ and $p^s = p^s_{\text{Stoxx50}}$. (2) In the second scenario, stock prices remain flat over the entire period ($p^s = 0$), while house prices follow their observed path. (3) Conversely, the third scenario assumes stable housing prices throughout ($p^h = 0$, ceteris paribus). (4) In the fourth case, housing prices follow the trajectory observed in Greece ( $p^h = p^h_{GR}$ ). Finally, (5) housing prices evolve as in Estonia ( $p^h = p^h_{EE}$ ), representing the strongest observed housing boom in the Eurozone.
+Five scenarios are considered in the counterfactual simulations. (1) In the baseline scenario fitted values are calculated using the actual asset price paths observed in the Eurozone, with $\Delta p^h = \Delta p_{EU}^h$ and $\Delta p^s = \Delta p^s_{\text{Stoxx50}}$. (2) In the second scenario, stock prices are fixed to their initial value ($\Delta p^s = 0$), while house prices follow their observed path. (3) Conversely, the third scenario assumes stable housing prices throughout ($\Delta p^h = 0$), with stock prices equal to the actual price index. (4) In the fourth case, housing prices follow the trajectory observed in Greece ( $\Delta p^h = \Delta p^h_{GR}$ ). Finally, (5) housing prices evolve as in Estonia ( $\Delta p^h = \Delta p^h_{EE}$ ), representing the strongest observed housing boom in the Eurozone.
 
 
 The fitted values in @fig-ctfT10 diverge slightly from actual values, particularly between 2013 and 2018, suggesting that there are factors not captured by the model. Over the full period from 2010 to 2022, the predicted as well as observed share of the top decile rises from 54.1% to 57.5%.
