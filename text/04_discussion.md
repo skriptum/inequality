@@ -230,4 +230,68 @@ Home ownership rates , drivers
 
 
 
+
+
+
+
+role of leverage:
+
+- @causaHousingWealthAccumulation2019
+  - heterogeneity in leverage, especially housing debt
+  - countries with loan to value ratios above 50% (NL, IE)
+  - especially at lower part of the distribution
+- opens up to gains if prices icnrease
+- but expoe to risks
+  - if prices fall
+  - or interest rates rise in countries with variable interest rates
+- diverse role in countries = could explain the reactins
+- further research needed for europe in connection to housing prices + wealth inequality
+
+
+
+
+
+
+
+
+
 ## Conclusion
+
+
+
+
+
+thesis:
+
+- examine inequality reaction to asset prices in europe
+- direct consequences
+  - middle and lower class wealth = sensitive to house prices
+  - upper class = stock prices
+- Gains = shift the wealth dsitrbution without chagnes in savings / income distribution
+- diverse 
+
+
+
+literatue:
+
+- determinants of wealth inequality: asset prices
+- central = housing
+- contributes to this: higher frequency data, from novel dataset DWA
+- valuation effects = important to dynamics, not only savings / income
+
+
+
+further research
+
+- decomposing savings / valuation effects
+- role of leverage
+- heterogenous analysis for individual countries
+- determinants of wealth inequality look
+
+
+
+implications
+
+- housing policy regimes
+- monetary policy
+
