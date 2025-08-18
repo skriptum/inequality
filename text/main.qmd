@@ -28,6 +28,10 @@ format:
     include-in-header: 
       text: |
         \usepackage{lscape}
+  html:
+    toc: true
+    lof: true
+    lot: true
 
 execute:
   echo: false

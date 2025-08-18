@@ -34,10 +34,14 @@ The following section applies this framework to estimate the relationship betwee
 {{< include ../output/paneltables/T10.tex >}}
 ```
 
+```{=html}
+{{< include ../output/paneltables/T10.html >}}
+```
+
 Top 10% Panel Regression
 :::
 
-@tbl-panelT10 reports the results of the panel regression for the share of the Top 10%. The first column includes time fixed effects, which absorb the stock prices due to the identical nature of the index in every country. Column 2 drops the time fixed effects, and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 presents calculations using the Demeaned MGE, which again absorb the estimates for stock prices. Column 5 uses the standard MGE. A separate regression with year and quarter fixed effects is not included, as it is identical. Including lags of the dependent variable does not materially alter the estimated effects. Full results with lags are reported in @tbl-dynamic in Appendix D.
+@tbl-panelT10 reports the results of the panel regression for the share of the Top 10%. The first column includes time fixed effects, which absorb the stock prices due to the identical nature of the index in every country. Column 2 drops the time fixed effects, and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 presents calculations using the Demeaned MGE, which again absorb the estimates for stock prices. Column 5 uses the standard MGE. A separate regression with year and quarter fixed effects is not included, as it is identical. Including lags of the dependent variable does not materially alter the estimated effects. Full results with lags are reported in @tbl-dynamic in Appendix E.
 
 The top 10% wealth share decreases in response to house price increases. The estimates are consistently negative in all specifications and statistically significant, ranging from -0.091 in the first column to -0.057 in the last and preferred specification. A 10% increase in House Prices leads to approximately a half percentage point decrease in the top decile wealth share. 
 
@@ -50,6 +54,11 @@ The OLS estimates for this as well as the other segments of the wealth distribut
 ```{=latex}
 {{< include ../output/paneltables/M40.tex >}}
 ```
+
+```{=html}
+{{< include ../output/paneltables/M40.html >}}
+```
+
 Middle 40% Panel Regression
 :::
 
@@ -67,6 +76,10 @@ This group is notable for its lack of statistical significance for most coeffici
 {{< include ../output/paneltables/B50.tex >}}
 ```
 
+```{=html}
+{{< include ../output/paneltables/B50.html >}}
+```
+
 Bottom 50% Panel Regression
 :::
 
@@ -82,9 +95,9 @@ $$ {#eq-indiv}
 
 Figure @fig-coeffplot displays the resulting country-level coefficients for housing prices for each segment of the wealth distribution. Estimates are ordered by magnitude and colored by statistical significance, with their standard errors represented by the error bars[^e1].
 
-[^e0]: Full regression tables are presented in Appendix C
+[^e0]: Full regression tables are presented in Appendix D
 
-[^e1]: A corresponding stock price coefficient plot is available in Appendix E.
+[^e1]: A corresponding stock price coefficient plot is available in Appendix F.
 
 Visible in the panels is the large heterogeneity in all wealth segments. Estimates for the top decile range from -0.20 for Spain  to 0.19 for the Netherlands. The majority of the coefficients with statistical significance are negative, which confirms the results from @tbl-panelT10. For the middle 40%, the coefficients fall between -0.11 in the Netherlands and 0.13 in France, with a large share of countries for which the null hypothesis cannot be rejected. Results in the lower half of the wealth distribution exceed those of the other groups. The Netherlands has an estimated elasticity of -2.71, which indicates that a 1% increase in house prices decreases the share of net wealth held by that group by 2.7%. In contrast, they increase their share by 2.18% in Ireland in response to an identical increase in house prices.
 
@@ -109,6 +122,10 @@ Overall, the results strengthen the interpretation that rising house prices tend
 
 ```{=latex}
 {{< include ../output/paneltables/NL.tex >}}
+```
+
+```{=html}
+{{< include ../output/paneltables/NL.html >}}
 ```
 
 Panel Regression without the Netherlands
@@ -140,7 +157,7 @@ In a scenario with flat stock prices, the share increases, albeit at a slower ra
 
 When housing prices follow Estonia's trajectory, which exhibited the steepest growth in the eurozone, the top decile's share is the lowest of all the scenarios. This suggests that rapid housing appreciation can benefit the rest of the population trough relatively higher asset gains. In contrast, when housing prices follow Greece's trajectory of decline since 2010, the estimated share reaches its highest level. In this case, financial assets, mainly held by the top decile, drive wealth growth, thereby reinforcing concentration.
 
-The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share [^e2]. The estimated ratio to fulfill this condition equals $4.46$. This implies that housing prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
+The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share [^e2]. The estimated ratio to fulfill this condition equals 4.46. This implies that housing prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
 
 [^e2]: Starting from the regression equation $\Delta \log(\omega_{t}^{T10}) = \beta_h \Delta \log(p^h_t) + \beta_s \Delta \log({p^s_t}) + \epsilon_t$, the condition $\Delta \log(\omega_{t}^{T10}) = 0$ is imposed to keep the top 10% share constant. Solving for the ratio yields $\frac{\beta_h}{\beta_s}  = - \frac{\log({p^s})}{\log({p^h})}$. Substituting the estimated EU coefficients results in the reported value.
 

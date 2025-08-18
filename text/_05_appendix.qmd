@@ -1,12 +1,14 @@
 
-### Appendix A: Importance of housing wealth across Europe {.unnumbered}
+### Appendix A: Housing Wealth across Europe {.unnumbered}
 
-![Housing wealth as share of total wealth](../output/desc/map.png){#fig-map}
+![Housing wealth as share of total net wealth](../output/desc/map.png){#fig-map}
+
+
 
 {{< pagebreak >}}
 
 
-### Appendix A: Descriptive Table {.unnumbered}
+### Appendix B: Descriptive Table {.unnumbered}
 
 The following Table presents the full country names and the net wealth per Capita in Euro in 2022. 
 
@@ -47,11 +49,16 @@ SK & Slovakia & 2010 Q3 & 2024 Q3 & 56080 & 101871 \\
 \end{tabular*}
 \end{table}
 ```
+
+```{=html}
+{{< include ../output/appendix/table_descriptive.html >}}
+```
+
 Descriptive Table with ISO 2 Codes
 :::
 
 
-### Appendix B: Portfolio and Asset Distribution across Europe {.unnumbered}
+### Appendix C: Portfolio and Asset Distribution across Europe {.unnumbered}
 
 The following figures describe Asset Distribution as well as Portfolio Composition across Europe using the latest quarter of 2021.
 
@@ -60,7 +67,7 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 ![Portfolio Composition of Deciles](../output/appendix/portfolios.png){#fig-portfolio-indiv fig-pos="H"}
 
-### Appendix C: Individual regressions results {.unnumbered}
+### Appendix D: Individual regressions results {.unnumbered}
 
 ```{=latex}
 \begin{landscape}
@@ -72,6 +79,11 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 \end{landscape}
 ```
 
+```{=html}
+{{< include ../output/ts_tables/ts_T10.html >}}
+```
+
+
 {{< pagebreak >}}
 
 ```{=latex}
@@ -82,6 +94,10 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 {{< include ../output/ts_tables/ts_M40_2.tex >}}
 
 \end{landscape}
+```
+
+```{=html}
+{{< include ../output/ts_tables/ts_M40.html >}}
 ```
 
 {{< pagebreak >}}
@@ -96,14 +112,22 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 \end{landscape}
 ```
 
+```{=html}
+{{< include ../output/ts_tables/ts_B50.html >}}
+```
+
 {{< pagebreak >}}
 
-### Appendix D: Dynamic Panel Regression {.unnumbered}
+### Appendix E: Dynamic Panel Regression {.unnumbered}
 
 :::::: {#tbl-dynamic tbl-pos="h" layout-ncol="1"}
 
 ```{=latex}
 {{< include ../output/paneltables/dynamic.tex >}}
+```
+
+```{=html}
+{{< include ../output/paneltables/dynamic.html >}}
 ```
 
 Dynamic Panel Regression
@@ -113,11 +137,11 @@ Dynamic Panel Regression
 
 {{< pagebreak >}}
 
-### Appendix E: Stock Prices Coefficient Plot {.unnumbered}
+### Appendix F: Stock Prices Coefficient Plot {.unnumbered}
 
 ![Stock Prices Coefficient Plot](../output/ts_tables/SP_coeff.png){#fig-coeffStock}
 
-### Appendix F: Reverse Causality {.unnumbered}
+### Appendix G: Reverse Causality {.unnumbered}
 
 ![Inequality and Housing Price Growth](../output/appendix/hp-ineq.png){#fig-reverse}
 
@@ -126,6 +150,6 @@ Dynamic Panel Regression
 
 {{< pagebreak >}}
 
-### Appendix G: Data and Code {.unnumbered}
+### Appendix E: Data and Code {.unnumbered}
 
 Data and code used in this thesis are available for reproduction online at [https://github.com/skriptum/inequality](https://github.com/skriptum/inequality)

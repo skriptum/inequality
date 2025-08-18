@@ -7,7 +7,7 @@ general inequality data effort
 - @pikettyIncomeInequalityUnited2003 US
 - followed by widely received book @pikettyCapitalTwentyFirstCentury2014
 - collected in WID @alvaredoDistributionalNationalAccounts2020
-  - Germany: @bartelsTopIncomesGermany2019
+  - sparked a multi country effort to collect top wealth data, e.g. Germany: @bartelsTopIncomesGermany2019
 
 
 
@@ -27,7 +27,34 @@ new distributional accounts
 
 
 
+
+
+
+
 *understand drivers:*
+
+general:
+
+Artola 2021?
+
+- channels:
+  - labor income 
+  - savings rate
+  - asset prices
+- differences in wealth = inequalities in these factors
+
+
+
+
+
+@blanchetWealthInequalityDynamics2023
+
+- compare and analyze drivers of wealth ineuqliaty
+- ling run: EUR + US
+
+
+
+
 
 Asset prices as driver of wealth inequality
 
