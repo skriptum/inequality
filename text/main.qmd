@@ -6,17 +6,18 @@ abstract: |
   Abstract:
 author: 
   - name: Marten Walk
-    email: post@martenw.com
 toc: false
 lof: false
 lot: false
 bibliography: ../bachelor.bib
 link-citations: true
 number-sections: true
+
 format: 
   pdf: 
     documentclass: scrartcl
     fontfamily: newtxtext
+    keep-tex: true
     #linestretch: "1.5"
     #geometry:
     #  - top=20mm
@@ -30,8 +31,15 @@ format:
         \usepackage{lscape}
   html:
     toc: true
+    toc-location: left
     lof: true
     lot: true
+    reference-location: margin
+    html-math-method: katex
+    code-links:
+      - text: Code (GitHub) 
+        href: https://github.com/skriptum/inequality/
+    theme: litera
 
 execute:
   echo: false
@@ -59,6 +67,8 @@ execute:
 
 
 
+::: {.content-visible when-format="pdf"}
+
 ## List of Abbreviations {.unnumbered .unlisted}
 
 | Abbreviation | Explanation                                            |
@@ -72,7 +82,10 @@ execute:
 | SCC          | spatial correlation consistent                         |
 | MGE          | Mean Group Estimator                                   |
 
+:::
+
 {{< pagebreak >}}
+
 
 <!-- Main Text -->
 

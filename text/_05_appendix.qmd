@@ -12,7 +12,7 @@
 
 The following Table presents the full country names and the net wealth per Capita in Euro in 2022. 
 
-::: {#tbl-descriptive tbl-pos="h" layout-ncol="1"}
+::: {#tbl-descriptive tbl-pos="h" layout-ncol="1" .content-visible when-format="pdf"}
 
 ```{=latex}
 \begin{table}
@@ -50,13 +50,18 @@ SK & Slovakia & 2010 Q3 & 2024 Q3 & 56080 & 101871 \\
 \end{table}
 ```
 
+Descriptive Table with ISO 2 Codes
+:::
+
+::: {#tbl-descriptive .content-visible when-format="html"}
+
 ```{=html}
 {{< include ../output/appendix/table_descriptive.html >}}
 ```
 
 Descriptive Table with ISO 2 Codes
-:::
 
+:::
 
 ### Appendix C: Portfolio and Asset Distribution across Europe {.unnumbered}
 
@@ -69,6 +74,7 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 ### Appendix D: Individual regressions results {.unnumbered}
 
+::: {.content-visible when-format="pdf"}
 ```{=latex}
 \begin{landscape}
 
@@ -78,13 +84,17 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 \end{landscape}
 ```
+:::
 
+::: {.content-visible when-format="html"}
 ```{=html}
 {{< include ../output/ts_tables/ts_T10.html >}}
 ```
-
+:::
 
 {{< pagebreak >}}
+
+::: {.content-visible when-format="pdf"}
 
 ```{=latex}
 \begin{landscape}
@@ -95,13 +105,17 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 \end{landscape}
 ```
+:::
 
+::: {.content-visible when-format="html"}
 ```{=html}
 {{< include ../output/ts_tables/ts_M40.html >}}
 ```
+:::
 
 {{< pagebreak >}}
 
+::: {.content-visible when-format="pdf"}
 ```{=latex}
 \begin{landscape}
 
@@ -111,27 +125,34 @@ The following figures describe Asset Distribution as well as Portfolio Compositi
 
 \end{landscape}
 ```
+:::
 
+::: {.content-visible when-format="html"}
 ```{=html}
 {{< include ../output/ts_tables/ts_B50.html >}}
 ```
+:::
 
 {{< pagebreak >}}
 
 ### Appendix E: Dynamic Panel Regression {.unnumbered}
 
-:::::: {#tbl-dynamic tbl-pos="h" layout-ncol="1"}
+:::: {#tbl-dynamic tbl-pos="h" layout-ncol="1"}
 
+::: {.content-visible when-format="pdf"}
 ```{=latex}
 {{< include ../output/paneltables/dynamic.tex >}}
 ```
+:::
 
+::: {.content-visible when-format="html"}
 ```{=html}
 {{< include ../output/paneltables/dynamic.html >}}
 ```
+:::
 
 Dynamic Panel Regression
-:::
+::::
 
 @tbl-dynamic reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.
 

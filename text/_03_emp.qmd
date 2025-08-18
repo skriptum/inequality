@@ -28,18 +28,26 @@ The following section applies this framework to estimate the relationship betwee
 
 ## Wealth Share Elasticities: Panel Regression {#sec-panel}
 
-::: {#tbl-panelT10}
+:::: {#tbl-panelT10}
+
+::: {.content-visible when-format="pdf"}
 
 ```{=latex}
 {{< include ../output/paneltables/T10.tex >}}
 ```
 
+:::
+
+::: {.content-visible when-format="html"}
+
 ```{=html}
 {{< include ../output/paneltables/T10.html >}}
 ```
 
-Top 10% Panel Regression
 :::
+
+Top 10% Panel Regression
+::::
 
 @tbl-panelT10 reports the results of the panel regression for the share of the Top 10%. The first column includes time fixed effects, which absorb the stock prices due to the identical nature of the index in every country. Column 2 drops the time fixed effects, and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 presents calculations using the Demeaned MGE, which again absorb the estimates for stock prices. Column 5 uses the standard MGE. A separate regression with year and quarter fixed effects is not included, as it is identical. Including lags of the dependent variable does not materially alter the estimated effects. Full results with lags are reported in @tbl-dynamic in Appendix E.
 
@@ -49,18 +57,26 @@ Rising stock prices are found to have an effect in the opposite direction. Estim
 
 The OLS estimates for this as well as the other segments of the wealth distribution display a low coefficient of determination due to the heterogeneity in the data. Using the Mean Group Estimator, the models can explain above 20% of the variance in the standard configuration and above 30% in the demeaned configuration for all groups.
 
-::: {#tbl-panelM40}
+:::: {#tbl-panelM40}
+
+::: {.content-visible when-format="pdf"}
 
 ```{=latex}
 {{< include ../output/paneltables/M40.tex >}}
 ```
 
+:::
+
+::: {.content-visible when-format="html"}
+
 ```{=html}
 {{< include ../output/paneltables/M40.html >}}
 ```
 
-Middle 40% Panel Regression
 :::
+
+Middle 40% Panel Regression
+::::
 
 
 
@@ -72,13 +88,21 @@ This group is notable for its lack of statistical significance for most coeffici
 
 ::: {#tbl-panelB50}
 
+::: {.content-visible when-format="pdf"}
+
 ```{=latex}
 {{< include ../output/paneltables/B50.tex >}}
 ```
 
+:::
+
+::: {.content-visible when-format="html"}
+
 ```{=html}
 {{< include ../output/paneltables/B50.html >}}
 ```
+
+:::
 
 Bottom 50% Panel Regression
 :::
@@ -120,13 +144,22 @@ Overall, the results strengthen the interpretation that rising house prices tend
 
 ::: {#tbl-panelNL}
 
+::: {.content-visible when-format="pdf"}
+
 ```{=latex}
 {{< include ../output/paneltables/NL.tex >}}
 ```
 
+:::
+
+::: {.content-visible when-format="html"}
+
 ```{=html}
 {{< include ../output/paneltables/NL.html >}}
 ```
+
+:::
+
 
 Panel Regression without the Netherlands
 :::
