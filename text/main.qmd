@@ -17,7 +17,7 @@ format:
   pdf: 
     documentclass: scrartcl
     fontfamily: newtxtext
-    keep-tex: true
+    keep-tex: false
     #linestretch: "1.5"
     #geometry:
     #  - top=20mm
