@@ -4,6 +4,8 @@
 .Rproj.user
 .DS_Store
 /renv
+/docs
+/final
 
 data/proc/dwa_full.csv
 data/raw/DWA_ECB.csv
