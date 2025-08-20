@@ -4,7 +4,7 @@ To understand the wealth dynamics, the analysis employs a variety of different d
 
 A novelty of the DWA is their consistency with macroeconomic estimates of wealth from the quarterly financial accounts. A limitation of existing distributional data based only on surveys is the underreporting of wealth, which is adressed in the DWA following the US example by @battyDistributionalFinancialAccounts2022 for the Federal Reserve.
 
-The exact methodology to derive quarterly distributional accounts as well as a  first analysis of the dataset is described by @engelDevelopingReconciledQuarterly2022. They distribute the wealth estimates from the quarterly sectoral financial accounts (QSA) according to the distribution in the Household Finance and Consumption Surveys (HFCS), which are carried out by Eurozone member banks every 3-4 years [@networkEurosystemHouseholdFinance2013]. To overcome the problems of differential nonresponse (richer Households are underrepresented in the surveys) and the differential underreporting (richer Households undervalue their assets) they use the method proposed by @vermeulenEstimatingTopTail2016. He builds on the finding that the upper tail of the Wealth Distribution follows a Pareto distribution, which can be used to create synthetic rich Households on a Curve fitted to the HFCS data and Households from external rich lists (e.g. @nesshoeferRanglisteGroesstenVermoegen2024 for Germany). After this step, @engelDevelopingReconciledQuarterly2022 use linear interpolation to distribute the QSA between HFCS survey waves and extrapolate after the most recent HFCS wave in 2022. 
+The exact methodology to derive quarterly distributional accounts as well as a  first analysis of the dataset is described by @engelDevelopingReconciledQuarterly2022. They distribute the wealth estimates from the quarterly sectoral financial accounts (QSA) according to the distribution in the Household Finance and Consumption Surveys (HFCS), which are carried out by Eurozone member banks every 3-4 years [@eurosystemhouseholdfinanceandconsumptionnetworkEurosystemHouseholdFinance2013]. To overcome the problems of differential nonresponse (richer Households are underrepresented in the surveys) and the differential underreporting (richer Households undervalue their assets) they use the method proposed by @vermeulenEstimatingTopTail2016. He builds on the finding that the upper tail of the Wealth Distribution follows a Pareto distribution, which can be used to create synthetic rich Households on a Curve fitted to the HFCS data and Households from external rich lists (e.g. @nesshoeferRanglisteGroesstenVermoegen2024 for Germany). After this step, @engelDevelopingReconciledQuarterly2022 use linear interpolation to distribute the QSA between HFCS survey waves and extrapolate after the most recent HFCS wave in 2022. 
 
 The authors perform a wide range of sensitivity and robustness checks for the DWA, but it is important to stress that it is still an experimental dataset, which can not guarantee the same accuracy as data obtained by wealth taxation or other methods.
 
@@ -12,7 +12,7 @@ This analysis draws on the DWA for the time from 2011 until 2022. Potential extr
 
 Furthermore, assets are combined to simplify and ease the interpretation of results [as in @kaasWealthInequalityHomeownership2019]. Unlisted shares and non-financial Business Wealth are combined to form Business Wealth; debt securities, listed shares, investment fund shares and life insurance entitlements form the Financial Wealth and Debt is made up of Mortgage Loans and other Loans.
 
-Additionally, wealth estimates for the Deciles 6 to 9 of the wealth distribution are combined to form the Middle 40%, next to the Bottom 50% and the Top 10% (henfecorth the wealth groups). This follows the literature [e.g @pikettyCapitalTwentyFirstCentury2014, @kuhnIncomeWealthInequality2020], as the middle 40% have a portfolio composition and wealth levels distinct from the other groups  (see @fig-portfolio). Their wealth is predominatly made up of housing equity, whereas in the top decile business and financial assets play a much larger role. 
+Additionally, wealth estimates for the Deciles 6 to 9 of the wealth distribution are combined to form the Middle 40%, next to the Bottom 50% and the Top 10% (henfecorth the wealth groups). This follows the literature (e.g @pikettyCapitalTwentyFirstCentury2014, @kuhnIncomeWealthInequality2020), as the middle 40% have a portfolio composition and wealth levels distinct from the other groups  (see @fig-portfolio). Their wealth is predominatly made up of housing equity, whereas in the top decile business and financial assets play a much larger role. 
 
 
 
@@ -32,24 +32,23 @@ After presenting the data sources used in the analysis, the next section provide
 
 Before turning to the econometric results, it is useful to highlight some stylized facts on the distribution of wealth across Europe. These descriptive patterns provide context for the regression analysis by showing how assets are distributed across groups and countries, and why similar price shocks may have very different consequences.
 
+::: {layout-ncol=2}
+![Asset distribution among wealth groups](../output/desc/asset_distribution_decile.png){#fig-distribution}
+
+![Portfolio Composition of Deciles](../output/desc/portfolio_europe.png){#fig-portfolio}
+:::
+
 At the Eurozone level, portfolios differ markedly across the wealth distribution. As shown in @fig-portfolio, housing dominates the balance sheets of the middle 40% and the bottom 50%, while the top 10% hold a much larger share of financial and business assets. Debt is most pronounced in the lower half, consistent with their reliance on mortgages to finance housing wealth.
 
 These aggregate patterns mask considerable heterogeneity across countries. The portfolios of the bottom 50% display the greatest variation in composition[^d1]. In many cases, their holdings resemble those of the middle class, with housing as the main asset (e.g., Italy, Ireland, and Finland). In others, such as Germany, Austria, and the Netherlands, housing plays a far smaller role, contributing less than half of total wealth.
 
 [^d1]: The complete breakdown for all european countries is provided in @fig-portfolio-indiv in Appendix C.
 
-The distribution of these asset classes among the wealth groups in the Eurozone is described in @fig-distribution. As visible, Housing is distributed most equally of the wealth categories, with the Top Decile owning 47% of the total Housing Wealth. It is followed by Net Wealth with 57%, and Financial Wealth and Business Wealth with 72% and 85% respectively. 
+The distribution of the different asset classes among the wealth groups in the Eurozone is described in @fig-distribution. As visible, Housing is distributed most equally of the wealth categories, with the Top Decile owning 47% of the total Housing Wealth. It is followed by Net Wealth with 57%, and Financial Wealth and Business Wealth with 72% and 85% respectively. 
 
 This sequence holds in all european countries, with the absolute numbers differing considerably[^d2]. While almost all financial wealth is owned by the top decile in Croatia and Greece, it is less than half in the Netherlands and Malta. For business wealth, the most significant share held by the top 10% is in Austria and Germany, while Greece and Cyprus feature the most equal distribution. In Housing Wealth, it is not the share of the top 10% that varies much, but the bottom 50%. In Germany, Austria and the Netherlands they possess below 2% of the asset, while their counterparts in Slovakia and Lithuania own more than 15%.
 
 [^d2]: The expanded version of @fig-distribution with country-specific distributions is available as @fig-distribution-indiv in Appendix C
-
-::: {layout-ncol=2}
-![Asset distribution among wealth groups (Eurozone Average)](../output/desc/asset_distribution_decile.png){#fig-distribution}
-
-![Portfolio Composition of Deciles (Eurozone Average)](../output/desc/portfolio_europe.png){#fig-portfolio}
-:::
-
 
 
 @fig-trends tracks the portfolios of the wealth groups over the observed time frame. The figure confirms the large heterogeneity of wealth portfolios in the literature and additionally adds a time dimension displaying the diffferent growth trends of net wealth.

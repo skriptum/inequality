@@ -1,15 +1,15 @@
 ---
 title: "Cementing the Divide?"
-subtitle: "Housing and Wealth Inequality across 
-Europe"
+subtitle: "Housing and Wealth Inequality across Europe"
 abstract: |
-  Abstract:
+  Sint adipisci eveniet aperiam consequatur. Et veritatis voluptas neque placeat id voluptas dolores et. Odit tenetur eligendi deserunt vel et aperiam enim. Ad ipsam facilis omnis deleniti labore quia et perferendis. Officiis est ipsa accusamus recusandae maiores nesciunt earum. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. Adipisci neque saepe dolorum nam eum omnis architecto. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. \newpage
 author: 
   - name: Marten Walk
-toc: false
+toc: true
 lof: false
 lot: false
 bibliography: ../bachelor.bib
+csl: harvard-halle.csl
 link-citations: true
 number-sections: true
 
@@ -17,18 +17,20 @@ format:
   pdf: 
     documentclass: scrartcl
     fontfamily: newtxtext
+    indent: "0.5cm"
     keep-tex: false
-    #linestretch: "1.5"
-    #geometry:
-    #  - top=20mm
-    #  - bottom=20mm
-    #  - left=20mm
-    #  - right=20mm
+    linestretch: "1.5"
+    geometry:
+      - top=20mm
+      - bottom=20mm
+      - left=20mm
+      - right=20mm
     papersize: a4
     fig-pos: 'h'
     include-in-header: 
       text: |
         \usepackage{lscape}
+        \pagenumbering{gobble}
   html:
     toc: true
     toc-location: left
@@ -44,28 +46,6 @@ format:
 execute:
   echo: false
 ---
-
-```{=latex}
-\pagenumbering{gobble}
-```
-
-{{< pagebreak >}}
-
-```{=latex}
-\tableofcontents
-```
-
-{{< pagebreak >}}
-
-```{=latex}
-\listoffigures
-```
-
-```{=latex}
-\listoftables
-```
-
-
 
 ::: {.content-visible when-format="pdf"}
 
@@ -85,6 +65,20 @@ execute:
 :::
 
 {{< pagebreak >}}
+
+```{=latex}
+\listoffigures
+```
+
+```{=latex}
+\listoftables
+```
+
+
+
+{{< pagebreak >}}
+
+
 
 
 <!-- Main Text -->

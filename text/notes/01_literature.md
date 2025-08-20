@@ -35,22 +35,18 @@ new distributional accounts
 
 general:
 
-Artola 2021?
-
-- channels:
+- channels: [@blanchetWealthInequalityDynamics2023, p.29]
   - labor income 
   - savings rate
-  - asset prices
-- differences in wealth = inequalities in these factors
-
-
-
-
-
-@blanchetWealthInequalityDynamics2023
+  - capital gains,
+- inequalities in these: shape wealth inequality
+  - higher income inequality c.p. -< more wealth accumulation
+  - higher asset prices = higher capital gains = inequality
+  
 
 - compare and analyze drivers of wealth ineuqliaty
-- ling run: EUR + US
+  - ling run: EUR + US
+
 
 
 
@@ -60,11 +56,16 @@ Asset prices as driver of wealth inequality
 
 - @kuhnIncomeWealthInequality2020: Middle Class: positive Housing Reactions, negative Stock (US, historic)	
   - especially bottom 50%: valuation = 90% of hitoric wealth growth
-
 - @martinez-toledanoHousePriceCycles2022: spain: busts negative for Middle class, top = reshiftign portfolio
 - @adamDistributionalConsequencesAsset2016: different capital gains, euro area countries, accounting exercise
-- @knollNoPriceHome2017 historic house prices analysis, imlications for wealth inequality analysis
 - @bonnetDoesHousingCapital2014: response to Piketty: wealth income ratios driven by housing equity, not wealth per se
+
+
+
+housing prices
+
+- long term data housing @knoll 
+- drivers of housgin prices = credit @jordaLeveragedBubbles2015
 
 
 

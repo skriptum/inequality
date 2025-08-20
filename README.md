@@ -1,4 +1,6 @@
-# Inequality and Wealth Distribution
+# Cementing the Divide? 
+
+## Housing and Wealth Inequality across Europe
 
 This repository contains the data, code, and documentation for my Bachelor's thesis project analyzing housing prices as a driver of wealth inequality in Europe. The Final Result is available as [a PDF](https://raw.githubusercontent.com/skriptum/inequality/refs/heads/main/text/main.pdf) or [a Website](https://html-preview.github.io/?url=https://github.com/skriptum/inequality/blob/main/text/main.html). 
 

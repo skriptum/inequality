@@ -12,7 +12,7 @@
 
 The following Table presents the full country names and the net wealth per Capita in Euro in 2022. 
 
-::: {#tbl-descriptive tbl-pos="h" layout-ncol="1" .content-visible when-format="pdf"}
+:::: {#tbl-descriptive tbl-pos="h" layout-ncol="1"}
 
 ```{=latex}
 \begin{table}
@@ -48,24 +48,24 @@ SK & Slovakia & 2010 Q3 & 2024 Q3 & 56080 & 101871 \\
 \bottomrule
 \end{tabular*}
 \end{table}
+:::
 ```
 
-Descriptive Table with ISO 2 Codes
-:::
-
-::: {#tbl-descriptive .content-visible when-format="html"}
+::: {.content-visible when-format="html"}
 
 ```{=html}
 {{< include ../output/appendix/table_descriptive.html >}}
 ```
 
+:::
+
 Descriptive Table with ISO 2 Codes
 
-:::
+::::
 
 ### Appendix C: Portfolio and Asset Distribution across Europe {.unnumbered}
 
-The following figures describe Asset Distribution as well as Portfolio Composition across Europe using the latest quarter of 2021.
+
 
 
 ![Asset Distribution among Deciles](../output/appendix/asset_distribution_individual.png){#fig-distribution-indiv fig-pos="H"}
@@ -173,4 +173,4 @@ Dynamic Panel Regression
 
 ### Appendix E: Data and Code {.unnumbered}
 
-Data and code used in this thesis are available for reproduction online at [https://github.com/skriptum/inequality](https://github.com/skriptum/inequality)
+Data and code used in this thesis are available online at [https://doi.org/10.5281/zenodo.15856334](https://doi.org/10.5281/zenodo.15856334) or as a [GitHub Repository](https://github.com/skriptum/inequality). A
