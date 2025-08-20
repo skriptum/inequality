@@ -1,4 +1,36 @@
-## Abstract
+Abstract:
+
+- What are the distributional consequences of house prices?
+- this thesis: 
+  - recent cycles in Europe after Financial Crisis
+  - asset gains. especially housing, as consequences on wealth distribution
+- employ: newly DWA
+  - shot term, high quality
+- results
+  - first order consequences
+  - stock prices = positive
+  - house prices = negative for top wealth
+- document:
+  - large heterogeneity across european countries
+  - subsumed under averages
+- simulate
+  - wealth shares under different scenarios
+- taken together: 
+
+
+
+Notes:
+
+- Data set quality
+  - Wealth Tax Data (Denmark, Switzerland)
+  - Would alleviate concerns about underreporting of top wealth
+  - top 1% effect: again different, needs more inclusiveness
+- Literature Housing
+- Discussion: 
+  - situate findings in literature
+  - simulation: consequences for real world
+    - no scenario with these high ratios of HP to SP
+
 
 
 

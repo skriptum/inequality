@@ -43,7 +43,6 @@ general:
   - higher income inequality c.p. -< more wealth accumulation
   - higher asset prices = higher capital gains = inequality
   
-
 - compare and analyze drivers of wealth ineuqliaty
   - ling run: EUR + US
 
@@ -61,11 +60,6 @@ Asset prices as driver of wealth inequality
 - @bonnetDoesHousingCapital2014: response to Piketty: wealth income ratios driven by housing equity, not wealth per se
 
 
-
-housing prices
-
-- long term data housing @knoll 
-- drivers of housgin prices = credit @jordaLeveragedBubbles2015
 
 
 
@@ -85,6 +79,16 @@ HH Portfolio
 
 - @bachRichPickingsRisk2020 : swedish data, higher net wort = higher returns
 - @fagerengHeterogeneityPersistenceReturns2020: norwegian data, in same asst classes D10 vs D01 different returns
+
+
+
+
+
+*importance of housing for whole economy*
+
+- long term data housing prices @knoll 
+- drivers of housgin prices = credit @jordaLeveragedBubbles2015
+-  increasing importance of housing credit in overall debt @jordaGreatMortgagingHousing2016
 
 
 

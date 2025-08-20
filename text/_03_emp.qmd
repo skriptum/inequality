@@ -8,7 +8,7 @@ $$
 \Delta \log (\omega_{i,t}^g) = \beta_0 + \beta_h \Delta \log (p_{i,t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
 $$ {#eq-regression}
 
-The resulting coefficients can be interpreted as elasticities, capturing the percentage change in a group’s wealth share associated with a one percent change in asset prices [@wooldridgeIntroductoryEconometricsModern2013, p. 44]. This makes the effects directly comparable across groups and asset classes. $\Delta \log$ is the first difference of the log, as in $\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})$. $\omega_{i,t}^g$ is the wealth share of a wealth group $g$ (Bottom 50%, Middle 40%, Top 10%) in country $i$ in quarter $t$. $p^h$ describes the housing price index and $p^s$ the stock market index. $\epsilon_t$ is an error term. 
+The resulting coefficients can be interpreted as elasticities, capturing the percentage change in a group’s wealth share associated with a one percent change in asset prices [@wooldridgeIntroductoryEconometricsModern2013, p. 44]. This makes the effects directly comparable across groups and asset classes. $\Delta \log$ is the first difference of the log, as in $\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})$. $\omega_{i,t}^g$ is the wealth share of a wealth group $g$ (Bottom 50%, Middle 40%, Top 10%) in country $i$ in quarter $t$. $p^h$ describes the house price index and $p^s$ the stock market index. $\epsilon_t$ is an error term. 
 
 Some regressions are extended to include country and time fixed effects. To control for seasonal patterns and macroeconomic shocks, one specification also includes separate fixed effects for each quarter and each year. Quarter fixed effects are defined as categorical indicators for Q1 to Q4, while year fixed effects cover the years 2011 to 2022, capturing annual shocks common across countries.
 
@@ -117,7 +117,7 @@ $$
 \Delta \log (\omega_{t}^g) = \beta_0 + \beta_h \Delta \log (p_{t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
 $$ {#eq-indiv}
 
-@fig-coeffplot displays the resulting country-level coefficients for housing prices for each segment of the wealth distribution[^e0]. Estimates are ordered by magnitude and colored by statistical significance, with their standard errors represented by the error bars[^e1].
+@fig-coeffplot displays the resulting country-level coefficients for house prices for each segment of the wealth distribution[^e0]. Estimates are ordered by magnitude and colored by statistical significance, with their standard errors represented by the error bars[^e1].
 
 [^e0]: Full regression tables are presented in Appendix D
 
@@ -125,7 +125,7 @@ $$ {#eq-indiv}
 
 Visible in the panels is the large heterogeneity in all wealth segments. Estimates for the top decile range from -0.20 for Spain  to 0.19 for the Netherlands. The majority of the coefficients with statistical significance are negative, which confirms the results from @tbl-panelT10. For the middle 40%, the coefficients fall between -0.11 in the Netherlands and 0.13 in France, with a large share of countries for which the null hypothesis cannot be rejected. Results in the lower half of the wealth distribution exceed those of the other groups. The Netherlands has an estimated elasticity of -2.71, which indicates that a 1% increase in house prices decreases the share of net wealth held by that group by 2.7%. In contrast, they increase their share by 2.18% in Ireland in response to an identical increase in house prices.
 
-@boelhouwerHousingMarketNetherlands2020 present explanations for the dutch outlier results. The social housing sector in the Netherlands is larger than in other european countries, promising affordable renting for poorer households. Additionally, new stricter mortgage lending requirements were implemented in 2011, reducing the ability of first time buyers to afford sufficient housing. This could explain the very low share of housing wealth owned by the bottom 50% documented in @fig-distribution-indiv and the negative effect in response to increasing house prices.
+@boelhouwerHousingMarketNetherlands2020 present explanations for the dutch outlier results. The social housing sector in the Netherlands is larger than in other european countries, promising affordable renting for poorer households. Additionally, new stricter mortgage lending requirements were implemented in 2011, reducing the ability of first time buyers to afford buying a house. This could explain the very low share of housing wealth owned by the bottom 50% documented in @fig-distribution-indiv and the negative effect in response to increasing house prices.
 
 
 ![House Price Coefficient Plots](../output/ts_tables/HP_coeff.png){#fig-coeffplot}
@@ -134,9 +134,9 @@ In general, the individual regressions support the panel model results. Accelera
 
 To address the outlier effect of the Netherlands, the panel regressions are re-estimated excluding this country. @tbl-panelNL compares the results of the preferred specification using the standard mean group estimator with and without the Dutch data.
 
-Excluding the Netherlands slightly reduces the magnitude of the coefficients for housing prices on the Top 10% and Middle 40%, but the signs and significance remain stable. For the Top 10%, the negative effect of house prices weakens from -0.057 to -0.069, while for the Middle 40%, the positive effect increases slightly and becomes more statistically significant.
+Excluding the Netherlands slightly reduces the magnitude of the coefficients for house prices on the Top 10% and Middle 40%, but the signs and significance remain stable. For the Top 10%, the negative effect of house prices weakens from -0.057 to -0.069, while for the Middle 40%, the positive effect increases slightly and becomes more statistically significant.
 
-The most notable change is for the bottom 50%. The coefficient on house prices increases from 0.253 to 0.395 and becomes statistically significant at the 1% level. This suggests that, once the outlier is removed, the effect of housing prices on the lower half of the distribution becomes clearer and more robust.
+The most notable change is for the bottom 50%. The coefficient on house prices increases from 0.253 to 0.395 and becomes statistically significant at the 1% level. This suggests that, once the outlier is removed, the effect of house prices on the lower half of the distribution becomes clearer and more robust.
 
 Stock price effects remain broadly stable across all specifications, with a significant positive effect on the Top 10% and a negative effect on the Middle 40%, consistent with prior estimates. No meaningful change is observed when the Netherlands is excluded.
 
@@ -181,20 +181,20 @@ $$
 \hat{\omega}_{EU,t}^{T10}  = \hat{\omega}_{EU,t-1}^{T10} \cdot \exp \left( \Delta \log (\hat{\omega}_{EU,t}^{T10}) \right)
 $$ {#eq-ctf}
 
-Five scenarios are considered in the counterfactual simulations. (1) In the baseline scenario fitted values are calculated using the actual asset price paths observed in the Eurozone, with $\Delta p^h = \Delta p_{EU}^h$ and $\Delta p^s = \Delta p^s_{\text{Stoxx50}}$. (2) In the second scenario, stock prices are fixed to their initial value ($\Delta p^s = 0$), while house prices follow their observed path. (3) Conversely, the third scenario assumes stable housing prices throughout ($\Delta p^h = 0$), with stock prices equal to the actual price index. (4) In the fourth case, housing prices follow the trajectory observed in Greece ( $\Delta p^h = \Delta p^h_{GR}$ ). Finally, (5) housing prices evolve as in Estonia ( $\Delta p^h = \Delta p^h_{EE}$ ), representing the strongest observed housing boom in the Eurozone. 
+Five scenarios are considered in the counterfactual simulations. (1) In the baseline scenario fitted values are calculated using the actual asset price paths observed in the Eurozone, with $\Delta p^h = \Delta p_{EU}^h$ and $\Delta p^s = \Delta p^s_{\text{Stoxx50}}$. (2) In the second scenario, stock prices are fixed to their initial value ($\Delta p^s = 0$), while house prices follow their observed path. (3) Conversely, the third scenario assumes stable house prices throughout ($\Delta p^h = 0$), with stock prices equal to the actual price index. (4) In the fourth case, house prices follow the trajectory observed in Greece ( $\Delta p^h = \Delta p^h_{GR}$ ). Finally, (5) house prices evolve as in Estonia ( $\Delta p^h = \Delta p^h_{EE}$ ), representing the strongest observed housing boom in the Eurozone. 
 
 
 The fitted values in @fig-ctfT10 diverge slightly from actual values, particularly between 2013 and 2018, suggesting that there are factors not captured by the model. Over the full period from 2010 to 2022, the predicted as well as observed share of the top decile rises from 54.1% to 57.5%.
 
 In a scenario with flat stock prices, the share increases, albeit at a slower rate. This indicates the important role equities play in wealth portfolios, as the top decile predominantly holds stocks. Conversely, in a scenario where house prices plateau, the middle 40% and the bottom 50% experience minimal wealth growth, resulting in a relative loss and greater wealth concentration at the top.
 
-When housing prices follow Estonia's trajectory, which exhibited the steepest growth in the eurozone, the top decile's share is the lowest of all the scenarios. This suggests that rapid housing appreciation can benefit the rest of the population trough relatively higher asset gains. In contrast, when housing prices follow Greece's trajectory of decline since 2010, the estimated share reaches its highest level. In this case, financial assets, mainly held by the top decile, drive wealth growth, thereby reinforcing concentration.
+When house prices follow Estonia's trajectory, which exhibited the steepest growth in the Eurozone, the top decile's share is the lowest of all the scenarios. This suggests that rapid real estate appreciation can benefit the rest of the population trough relatively higher asset gains. In contrast, when prices follow Greece's trajectory of decline since 2010, the estimated share reaches its highest level. In this case, financial assets, mainly held by the top decile, drive wealth growth, thereby reinforcing concentration.
 
-The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share[^e2]. The estimated ratio to fulfill this condition equals 4.46. This implies that housing prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
+The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share[^e2]. The estimated ratio to fulfill this condition equals 4.46. This implies that house prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
 
 [^e2]: Starting from the regression equation $\Delta \log(\omega_{t}^{T10}) = \beta_h \Delta \log(p^h_t) + \beta_s \Delta \log({p^s_t}) + \epsilon_t$, the condition $\Delta \log(\omega_{t}^{T10}) = 0$ is imposed to keep the top 10% share constant. Solving for the ratio yields $\frac{\beta_h}{\beta_s}  = - \frac{\log({p^s})}{\log({p^h})}$. Substituting the estimated EU coefficients results in the reported value.
 
-This accounting exercise exemplifies the first order consequences of asset valuations in the wealth distribution. Rising house prices can to a certain extent compensate stock prices due to the differential distribution of gains among wealth segments. The estimated difference in top wealth shares between scenario (4) with low house price growth and (5) with high house price growth amounts to 6.8 percentage points. However, not even the highest house price growth in Estonia reaches the necessary ratio to keep the share stable.
+This accounting exercise exemplifies the first order consequences of asset valuations in the wealth distribution. Rising house prices can, to a certain extent, compensate stock prices due to the differential distribution of gains among wealth segments. The estimated difference in top wealth shares between scenario (4) with low house price growth and (5) with high house price growth amounts to 6.8 percentage points. However, even the highest house price growth in Estonia does not reach the necessary ratio to keep the top decile wealth share stable.
 
 ![Counterfactual Simulations of top decile wealth shares](../output/simulation/counterfactual_T10.png){#fig-ctfT10}
 
