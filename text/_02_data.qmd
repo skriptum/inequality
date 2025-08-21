@@ -20,7 +20,7 @@ Additionally, the wealth estimates for Deciles 6 to 9 are combined to form the m
 
 For house price data, the Residential Property Price Dataset from the Bank of International Settlement (BIS) is used [@scatignaResidentialPropertyPrice2014]. The dataset is widely employed in cross country comparisons [i.e. @runstlerBusinessHousingCredit2018] and includes quarterly house price indices for all countries covered in the analysis. 
 
-House prices in the eurozone plateaued until 2015 and then increased significantly, as shown in Fig. 1. However, there are significant differences among the individual member states. Southern European countries such as Spain, Italy, and Greece experienced a devaluation after 2010, while many Western and Eastern European countries showed strong increases in property price indices. Estonia and Luxembourg saw their price indices almost double during this period, while Greece's declined by 25 index points.
+House prices in the eurozone plateaued until 2015 and then increased significantly, as shown in @fig-prices. However, there are significant differences among the individual member states. Southern European countries such as Spain, Italy, and Greece experienced a devaluation after 2010, while many Western and Eastern European countries showed strong increases in property price indices. Estonia and Luxembourg saw their price indices almost double during this period, while Greece's declined by 25 index points.
 
 Stock prices are represented using the Euro Stoxx 50 index, which includes 50 large firms from 11 Eurozone countries, offering broad representation of the region’s equity markets. The index captures approximately 60% of total market capitalization and serves as a standard benchmark for European stock market performance [e.g @brechmannRiskManagementHighdimensional2013].
 
@@ -53,7 +53,7 @@ This sequence holds in all european countries, with the absolute numbers differi
 
 @fig-trends tracks the portfolios of the wealth groups over the observed time frame. The figure confirms the large heterogeneity of wealth portfolios in the literature and additionally adds a time dimension displaying the diffferent growth trends of net wealth.
 
-The lower half of the distribution have little wealth, with housing and deposits playing the largest role. They are highly leveraged and essentially did not increase their net wealth until 2015, after which it grew slowest of all groups. The portfolio of the Middle 40% is dominated by housing. Compared to the Bottom 50%, they exhibit much higher net wealth and much lower debt. In the top decile, Business as well as Financial Wealth play a larger role, while debt plays a smaller one. The net wealth of the top 10% grew fastest, from 539 thousand euros to 849 thousand euros per capita, a 57% increase in the span of 12 years.
+The lower half of the distribution have little wealth, with housing and deposits playing the largest role. They are highly leveraged and essentially did not increase their net wealth until 2015, after which it grew slowest of all groups. The portfolio of the middle 40% is dominated by housing. Compared to the bottom 50%, they exhibit much higher net wealth and much lower debt. In the top decile, Business as well as Financial Wealth play a larger role, while debt plays a smaller one. The net wealth of the top 10% grew fastest, from 539 thousand euros to 849 thousand euros per capita, a 57% increase in the span of 12 years.
 
 
 ![Differential Wealth Trends (Eurozone Average)](../output/desc/asset_distribution_over_time.png){#fig-trends}
