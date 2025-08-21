@@ -7,7 +7,7 @@
 /docs
 /final
 /text/_extensions/
-
+/text/.quarto/
 *.bst
 
 data/proc/dwa_full.csv
