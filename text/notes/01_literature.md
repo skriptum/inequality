@@ -86,9 +86,20 @@ HH Portfolio
 
 *importance of housing for whole economy*
 
-- long term data housing prices @knoll 
-- drivers of housgin prices = credit @jordaLeveragedBubbles2015
--  increasing importance of housing credit in overall debt @jordaGreatMortgagingHousing2016
+- builds on housing data
+  - long term data housing prices @knollNoPriceHome2017
+  - @badarinzaInternationalDimensionsHousing2025 cross country comparisons of housing markets
+
+- drivers of housgin prices = credit 
+  - @jordaLeveragedBubbles2015
+  - increasing importance of housing credit in overall debt @jordaGreatMortgagingHousing2016
+
+- @jordaRateReturnEverything2019
+  - return on housing = similar to equities
+  - less volatile
+
+
+
 
 
 
