@@ -6,11 +6,12 @@
 /renv
 /docs
 /final
+/text/_extensions/
+
+*.bst
 
 data/proc/dwa_full.csv
 data/raw/DWA_ECB.csv
 
 /expose
 bachelor.bib 
-
-/text/main.pdf
