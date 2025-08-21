@@ -183,6 +183,8 @@ $$ {#eq-ctf}
 
 Five scenarios are considered in the counterfactual simulations. (1) In the baseline scenario fitted values are calculated using the actual asset price paths observed in the Eurozone, with $\Delta p^h = \Delta p_{EU}^h$ and $\Delta p^s = \Delta p^s_{\text{Stoxx50}}$. (2) In the second scenario, stock prices are fixed to their initial value ($\Delta p^s = 0$), while house prices follow their observed path. (3) Conversely, the third scenario assumes stable house prices throughout ($\Delta p^h = 0$), with stock prices equal to the actual price index. (4) In the fourth case, house prices follow the trajectory observed in Greece ( $\Delta p^h = \Delta p^h_{GR}$ ). Finally, (5) house prices evolve as in Estonia ( $\Delta p^h = \Delta p^h_{EE}$ ), representing the strongest observed housing boom in the Eurozone. 
 
+![Counterfactual Simulations of top decile wealth shares](../output/simulation/counterfactual_T10.png){#fig-ctfT10}
+
 
 The fitted values in @fig-ctfT10 diverge slightly from actual values, particularly between 2013 and 2018, suggesting that there are factors not captured by the model. Over the full period from 2010 to 2022, the predicted as well as observed share of the top decile rises from 54.1% to 57.5%.
 
@@ -190,11 +192,11 @@ In a scenario with flat stock prices, the share increases, albeit at a slower ra
 
 When house prices follow Estonia's trajectory, which exhibited the steepest growth in the Eurozone, the top decile's share is the lowest of all the scenarios. This suggests that rapid real estate appreciation can benefit the rest of the population trough relatively higher asset gains. In contrast, when prices follow Greece's trajectory of decline since 2010, the estimated share reaches its highest level. In this case, financial assets, mainly held by the top decile, drive wealth growth, thereby reinforcing concentration.
 
-The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share[^e2]. The estimated ratio to fulfill this condition equals 4.46. This implies that house prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
+The results also enable the calculation of the approximate ratio of house price growth to stock price growth needed to maintain a stable top decile share[^e2]. The estimated ratio to fulfill this condition equals 4.07. This implies that house prices would need to grow more than four times as fast as stock prices to keep the top 10% wealth share constant. 
 
-[^e2]: Starting from the regression equation $\Delta \log(\omega_{t}^{T10}) = \beta_h \Delta \log(p^h_t) + \beta_s \Delta \log({p^s_t}) + \epsilon_t$, the condition $\Delta \log(\omega_{t}^{T10}) = 0$ is imposed to keep the top 10% share constant. Solving for the ratio yields $\frac{\beta_h}{\beta_s}  = - \frac{\log({p^s})}{\log({p^h})}$. Substituting the estimated EU coefficients results in the reported value.
+[^e2]: Starting from the regression equation $\Delta \log(\omega_{t}^{T10}) = \beta_h \Delta \log(p^h_t) + \beta_s \Delta \log({p^s_t}) + \epsilon_t$, the condition $\Delta \log(\omega_{t}^{T10}) = 0$ is imposed to keep the top 10% share constant. Solving for the ratio yields $\frac{\beta_h}{\beta_s}  = - \frac{\log({p^s})}{\log({p^h})}$. Substituting the estimated coefficients from @tbl-panelT10 results in the reported value.
 
 This accounting exercise exemplifies the first order consequences of asset valuations in the wealth distribution. Rising house prices can, to a certain extent, compensate stock prices due to the differential distribution of gains among wealth segments. The estimated difference in top wealth shares between scenario (4) with low house price growth and (5) with high house price growth amounts to 6.8 percentage points. However, even the highest house price growth in Estonia does not reach the necessary ratio to keep the top decile wealth share stable.
 
-![Counterfactual Simulations of top decile wealth shares](../output/simulation/counterfactual_T10.png){#fig-ctfT10}
+
 

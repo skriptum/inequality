@@ -8,7 +8,7 @@ The exact methodology to derive quarterly distributional accounts as well as a  
 
 The authors perform a wide range of sensitivity and robustness checks for the DWA, but it is important to stress that it is still an experimental dataset, which can not guarantee the same accuracy as data obtained by wealth taxation or other methods.
 
-This analysis draws on the DWA for the time until 2022. Potential extrapolation errors after the last HFCS wave and lagged effects of the Covid shock on the housing market are therefore not included in the dataset. The full range of countries is used, including Hungary, which is not part of the Eurozone, but increases the reliability of the results. The countries are abbreviated in Figures and Tables by ther ISO 2-digit country codes. A table with descriptive statistics and their respective full name is provided in @tbl-descriptive in Appendix B. 
+This analysis draws on the DWA data until 2022. Potential extrapolation errors after the last HFCS wave and lagged effects of the Covid shock on the housing market are therefore not included in the dataset. The full range of countries is used, including Hungary, which is not part of the Eurozone, but increases the reliability of the results. The countries are abbreviated in Figures and Tables by their ISO 2-digit country codes. A table with descriptive statistics and their respective full name is provided in @tbl-descriptive in Appendix B. 
 
 Furthermore, assets are combined to simplify and ease the interpretation of results [as in @kaasWealthInequalityHomeownership2019]. Unlisted shares and non-financial business wealth are combined to form business wealth. Debt securities, listed shares, investment fund shares, and life insurance entitlements form financial wealth. Debt is composed of mortgage loans and other loans.
 
@@ -30,7 +30,8 @@ After presenting the data sources used in the analysis, the next section provide
 
 ## Stylized Facts about the Wealth Distribution {#sec-descriptive}
 
-Before turning to the econometric results, it is useful to highlight some stylized facts on the distribution of wealth across Europe. These descriptive patterns provide context for the regression analysis by showing how assets are distributed across groups and countries, and why similar price shocks may have very different consequences.
+Wealth inequality reflects not only differences in levels but also in portfolio composition. The following descriptive evidence shows how assets are distributed across groups in the euro area, highlighting the structural differences that shape responses to price shocks.
+
 
 ::: {layout-ncol=2}
 ![Asset distribution among wealth groups](../output/desc/asset_distribution_decile.png){#fig-distribution}
@@ -50,15 +51,12 @@ This sequence holds in all european countries, with the absolute numbers differi
 
 [^d2]: The expanded version of @fig-distribution with country-specific distributions is available as @fig-distribution-indiv in Appendix C
 
-
 @fig-trends tracks the portfolios of the wealth groups over the observed time frame. The figure confirms the large heterogeneity of wealth portfolios in the literature and additionally adds a time dimension displaying the diffferent growth trends of net wealth.
 
 The lower half of the distribution have little wealth, with housing and deposits playing the largest role. They are highly leveraged and essentially did not increase their net wealth until 2015, after which it grew slowest of all groups. The portfolio of the Middle 40% is dominated by housing. Compared to the Bottom 50%, they exhibit much higher net wealth and much lower debt. In the top decile, Business as well as Financial Wealth play a larger role, while debt plays a smaller one. The net wealth of the top 10% grew fastest, from 539 thousand euros to 849 thousand euros per capita, a 57% increase in the span of 12 years.
 
 
 ![Differential Wealth Trends (Eurozone Average)](../output/desc/asset_distribution_over_time.png){#fig-trends}
-
-
 
 These differences in portfolio size and composition suggest that changes in asset prices are likely to affect each segment of the distribution in distinct ways. The next section sets out the econometric framework used to quantify these effects.
 
