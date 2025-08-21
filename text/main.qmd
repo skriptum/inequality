@@ -1,10 +1,13 @@
 ---
-title: "Cementing the Divide?"
-subtitle: "Housing and Wealth Inequality across Europe"
+title: "Housing and Wealth Inequality across Europe"
 abstract: |
-  Sint adipisci eveniet aperiam consequatur. Et veritatis voluptas neque placeat id voluptas dolores et. Odit tenetur eligendi deserunt vel et aperiam enim. Ad ipsam facilis omnis deleniti labore quia et perferendis. Officiis est ipsa accusamus recusandae maiores nesciunt earum. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. Adipisci neque saepe dolorum nam eum omnis architecto. Eos fugit sed qui quaerat omnis. Adipisci neque saepe dolorum nam eum omnis architecto. \newpage
+  What role do asset prices play in shaping wealth inequality? Motivated by the different trajectories of European housing markets after the financial crisis, this thesis examines how capital gains, particularly in housing, influence wealth inequality in Europe. The analysis uses the ECB’s new Distributional Wealth Accounts and panel regressions that exploit cross-country variation in housing markets and portfolio structures. The results show that shifts in asset values have first-order consequences on the wealth distribution, driven by differences in portfolio composition across population groups. Rising house prices increase the shares of the middle 40% and especially the bottom 50%, while a booming stock market mainly benefits the top 10%. These effects are robust across specifications but vary substantially across countries, reflecting institutional and portfolio differences. Simulations of alternative price scenarios demonstrate that, while housing booms can slow concentration, no European housing market experienced sufficient growth to halt the rise of the top 10% share. Together, the results provide detailed insights into the distributional consequences of asset prices in Europe, with clear implications for both monetary and housing policy. 
 author: 
   - name: Marten Walk
+    affiliations:
+      - name: University of Halle 
+keywords: Wealth inequality, Housing Prices, Distributional Wealth Accounts, Portfolio heterogeneity
+date: last-modified
 toc: true
 lof: false
 lot: false
@@ -13,24 +16,24 @@ csl: harvard-halle.csl
 link-citations: true
 number-sections: true
 
+include-in-header: 
+  text: |
+    \usepackage{lscape}
+    \pagenumbering{gobble}
 format: 
   pdf: 
     documentclass: scrartcl
     fontfamily: newtxtext
     indent: "0.5cm"
     keep-tex: false
-    linestretch: "1.5"
-    geometry:
-      - top=20mm
-      - bottom=20mm
-      - left=20mm
-      - right=20mm
+    #linestretch: "1.5"
+    #geometry:
+    #  - top=20mm
+    #  - bottom=20mm
+    #  - left=20mm
+    #  - right=20mm
     papersize: a4
     fig-pos: 'h'
-    include-in-header: 
-      text: |
-        \usepackage{lscape}
-        \pagenumbering{gobble}
   html:
     toc: true
     toc-location: left
@@ -46,6 +49,19 @@ format:
 execute:
   echo: false
 ---
+
+
+
+
+{{< pagebreak >}}
+
+```{=latex}
+\listoffigures
+```
+
+```{=latex}
+\listoftables
+```
 
 ::: {.content-visible when-format="pdf"}
 
@@ -63,17 +79,6 @@ execute:
 | MGE          | Mean Group Estimator                                   |
 
 :::
-
-{{< pagebreak >}}
-
-```{=latex}
-\listoffigures
-```
-
-```{=latex}
-\listoftables
-```
-
 
 
 {{< pagebreak >}}
