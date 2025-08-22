@@ -8,8 +8,7 @@ This repository contains the data, code, and documentation for my Bachelor's the
 
 ## Abstract
 
-This project investigates the connection between wealth inequality and housing prices in Europe. It focuses on the short run reactions of wealth distribution to changes in housing prices. It uses the novel experimantel Distributional Wealth Accounts (DWA) from the ECB.
-
+What role do asset prices play in shaping wealth inequality? Motivated by the different trajectories of European housing markets after the financial crisis, this thesis examines how capital gains, particularly in housing, influence wealth inequality in Europe. The analysis uses the ECB’s new Distributional Wealth Accounts and panel regressions that exploit cross-country variation in housing markets and portfolio structures. The results show that shifts in asset values have first-order consequences on the wealth distribution, driven by differences in portfolio composition across population groups. Rising house prices increase the shares of the middle 40% and especially the bottom 50%, while a booming stock market mainly benefits the top 10%. These effects are robust across specifications but vary substantially across countries, reflecting institutional and portfolio differences. Simulations of alternative price scenarios demonstrate that, while housing booms can slow concentration, no European housing market experienced sufficient growth to halt the rise of the top 10% share. Together, the results provide detailed insights into the distributional consequences of asset prices in Europe, with clear implications for both monetary and housing policy.
 
 
 ## Project Structure
@@ -32,7 +31,7 @@ This project investigates the connection between wealth inequality and housing p
 │   ├── simulation/
 │   └── ts_tables/
 ├── text/               # final text files
-│   └── notes/          # notes
+│   └── notes/          
 ├── docs/               # Methodological references
 ├── renv/               # R package environment
 ├── renv.lock           # Reproducible package snapshot

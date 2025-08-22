@@ -72,7 +72,34 @@ Descriptive Table with ISO 2 Codes
 
 ![Portfolio Composition of Deciles](../output/appendix/portfolios.png){#fig-portfolio-indiv fig-pos="H"}
 
-### Appendix D: Individual regressions results {.unnumbered}
+{{< pagebreak >}}
+
+### Appendix D: Dynamic Panel Regression {.unnumbered}
+
+:::: {#tbl-dynamic tbl-pos="h" layout-ncol="1"}
+
+::: {.content-visible when-format="pdf"}
+
+```{=latex}
+{{< include ../output/paneltables/dynamic.tex >}}
+```
+
+:::
+
+::: {.content-visible when-format="html"}
+
+```{=html}
+{{< include ../output/paneltables/dynamic.html >}}
+```
+
+:::
+
+Dynamic Panel Regression
+::::
+
+@tbl-dynamic reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.
+
+### Appendix E: Individual regressions results {.unnumbered}
 
 ::: {.content-visible when-format="pdf"}
 ```{=latex}
@@ -135,28 +162,7 @@ Descriptive Table with ISO 2 Codes
 
 {{< pagebreak >}}
 
-### Appendix E: Dynamic Panel Regression {.unnumbered}
 
-:::: {#tbl-dynamic tbl-pos="h" layout-ncol="1"}
-
-::: {.content-visible when-format="pdf"}
-```{=latex}
-{{< include ../output/paneltables/dynamic.tex >}}
-```
-:::
-
-::: {.content-visible when-format="html"}
-```{=html}
-{{< include ../output/paneltables/dynamic.html >}}
-```
-:::
-
-Dynamic Panel Regression
-::::
-
-@tbl-dynamic reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.
-
-{{< pagebreak >}}
 
 ### Appendix F: Stock Prices Coefficient Plot {.unnumbered}
 
@@ -169,8 +175,6 @@ Dynamic Panel Regression
 
 @fig-reverse plots the relationship between the Gini coefficient at the beginning of a five-year period and the cumulative growth in real house prices during that period. Two periods are shown: 2014–2019 (red) and 2019–2024 (blue). The year 2014 is used as the starting point because it maximizes country coverage in the ECB DWA dataset. The periods are split to account for potential structural breaks around the COVID-19 pandemic and related policy interventions. Each point represents a country, and linear fits are shown separately for each period. The absence of a clear or consistent slope suggests that higher initial inequality does not robustly predict stronger house price growth.
 
-{{< pagebreak >}}
-
-### Appendix E: Data and Code {.unnumbered}
+### Appendix H: Data and Code {.unnumbered}
 
 Data and code used in this thesis are available online at [https://doi.org/10.5281/zenodo.15856334](https://doi.org/10.5281/zenodo.15856334) or as a [GitHub Repository](https://github.com/skriptum/inequality). A

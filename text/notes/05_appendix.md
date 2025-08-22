@@ -56,7 +56,7 @@ Full Results of the individual Time Series Regressions
 ### D: Inequality Housing Prices
 
 - relationship between housing prices and inequality
-- higher net wealth inequality in 2011 -> higher housing price growth in subsequent decade
+- higher net wealth inequality in 2009 -> higher housing price growth in subsequent decade
 
 Regression
 

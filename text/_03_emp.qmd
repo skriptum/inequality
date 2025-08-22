@@ -1,6 +1,6 @@
 ## Empirical Strategy {#sec-strategy}
 
-As described above, different segments of the wealth distribution hold different portfolios, in size as well as in composition of asset classes. Their net wealth therefore reacts in distinct ways to identical changes in valuation of assets. This has a direct effect on the share of overall wealth held by the segment and consequently on general wealth inequality.
+As described above, different segments of the wealth distribution hold different portfolios, in size as well as in amounts of asset classes. Their net wealth therefore reacts in distinct ways to identical changes in valuation of assets. This has a direct effect on the share of overall wealth held by the segment and consequently on general wealth inequality.
 
 To estimate this response, a panel regression outlined in @eq-regression is estimated:
 
@@ -10,11 +10,11 @@ $$ {#eq-regression}
 
 The resulting coefficients can be interpreted as elasticities, capturing the percentage change in a group’s wealth share associated with a one percent change in asset prices [@wooldridgeIntroductoryEconometricsModern2013, p. 44]. This makes the effects directly comparable across groups and asset classes. $\Delta \log$ is the first difference of the log, as in $\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})$. $\omega_{i,t}^g$ is the wealth share of a wealth group $g$ (bottom 50%, middle 40%, top 10%) in country $i$ in quarter $t$. $p^h$ describes the house price index and $p^s$ the stock market index. $\epsilon_t$ is an error term. 
 
-Some regressions are extended to include country and time fixed effects. To control for seasonal patterns and macroeconomic shocks, one specification also includes separate fixed effects for each quarter and each year. Quarter fixed effects are defined as categorical indicators for Q1 to Q4, while year fixed effects cover the years 2011 to 2022, capturing annual shocks common across countries.
+Some regressions are extended to include country and time fixed effects. To control for seasonal patterns and macroeconomic shocks, one specification also includes separate fixed effects for each quarter and each year. Quarter fixed effects are defined as categorical indicators for Q1 to Q4, while year fixed effects cover the years 2009 to 2022, capturing annual shocks common across countries.
 
 A potential concern with this type of panel structure is spatial dependence. As the cross-section of countries is not randomly sampled, they are subject to common unobserved and observed disturbances, which potentially bias the standard errors of the parameter estimations. To adress this issue, the standard errors are computed using the spatial correlation consistent (SCC) method by @driscollConsistentCovarianceMatrix1998. This estimator adjusts the covariance matrix to remain consistent in the presence of cross-sectional and temporal dependence.
 
-Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, $\beta_h$ and $\beta_s$ will not have the same slope in all countries and their estimates will not be able to explain the large variation.
+Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, $\beta_h$ and $\beta_s$ will not have the same slope in all countries and the aggregate estimates will not be able to explain the large variation.
 
 To adress this, the estimates are additionally calculated with the mean group estimator (MGE) proposed by @pesaranEstimatingLongrunRelationships1995. This estimator allows for heterogeneity in individual coefficients and error terms by running separate regressions for each unit. Resulting estimates are averaged as $\hat{\beta}^{MG} = 1/N \sum_{i=1}^N \hat{\beta}_i$ [@milloPanelTimeSeries2018, p. 190]. 
 
@@ -49,9 +49,9 @@ The following section applies this framework to estimate the relationship betwee
 Top 10% Panel Regression
 ::::
 
-@tbl-panelT10 reports the results of the panel regression for the share of the top 10%. The first column includes time fixed effects, which absorb the stock price variation since the index is identical across all countries. Column 2 drops the time fixed effects and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 presents estimates using the demeaned MGE, which again absorbs the stock price index, and Column 5 reports the standard MGE. A separate regression combining year and quarter fixed effects with the standard MGE is not reported, as its results are identical to Column 5 due to the nature of the estimator. Including lags of the dependent variable does not materially alter the estimated effects; full results with lags are provided in @tbl-dynamic in Appendix E.
+@tbl-panelT10 reports the results of the panel regression for the share of the top 10%. The first column includes time fixed effects, which absorb the stock price variation since the index is identical across all countries. Column (2) drops the time fixed effects and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column (4) presents estimates using the demeaned MGE, which again absorbs the stock price index, and Column (5) reports the standard MGE. A separate regression combining year and quarter fixed effects with the standard MGE is not reported, as its results are identical to Column (5) due to the nature of the estimator. Including lags of the dependent variable does not materially alter the estimated effects; full results with lags are provided in @tbl-dynamic in Appendix C.
 
-The top 10% wealth share decreases in response to house price increases. Across all specifications the coefficients are negative, with estimates ranging from –0.091 in Column (1) to –0.057 in the preferred Mean Group Estimator (Column 5). The effect is statistically significant in all but one specification, and robust to the inclusion of different fixed effects. The preferred specification is the standard MGE, as it allows for heterogeneous slopes across countries and avoids the bias of imposing a common response. The magnitude is economically meaningful: a 10% increase in house prices reduces the wealth share of the top decile by about half a percentage point, broadly consistent with evidence from @kuhnIncomeWealthInequality2020 for the US.
+The top 10% wealth share decreases in response to house price increases. Across all specifications the coefficients are negative, with estimates ranging from –0.091 in Column (1) to –0.057 in Column (5). The effect is statistically significant in all but one specification, and robust to the inclusion of different fixed effects. The preferred specification is the standard MGE, as it allows for heterogeneous slopes across countries and avoids the bias of imposing a common response. The magnitude is economically meaningful: a 10% increase in house prices reduces the wealth share of the top decile by about half a percentage point, broadly consistent with evidence from @kuhnIncomeWealthInequality2020 for the US.
 
 Rising stock prices are found to have an effect in the opposite direction. Estimates for the elasticity of the top decile wealth share range from 0.027 in the third specification and 0.014 in the last. An increase in stock prices increase the share of wealth hold by the top 10%, while an increase in house prices compresses the share.
 
@@ -80,11 +80,11 @@ Middle 40% Panel Regression
 
 
 
-Contrasting effects to those of the top decile are identified for the middle 40% (@tbl-panelM40). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Model (1) to 0.031 in the preferred Model (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.
+Contrasting effects to those of the top decile are identified for the middle 40% (@tbl-panelM40). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Column (1) to 0.031 in the preferred Column (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.
 
-The bottom half of the wealth distribution responds similarly to the middle 40%, albeit with a greater magnitude. Estimates for house price elasticity range from 0.189 to 0.481. Conversely, increasing stock prices by 10% decreases the group's share by 0.28 to 0.51 percentage points.
+The bottom half of the wealth distribution responds similarly to the middle 40%, albeit with a greater magnitude (@tbl-panelB50). Estimates for house price elasticity range from 0.189 to 0.481. Conversely, increasing stock prices by 10% decreases the group's share by 0.28 to 0.51 percentage points.
 
-This group is notable for its lack of statistical significance for most coefficient values, particularly in specifications that use the mean group estimator. As outlined above, it is the lower half that exhibits the most variation in their wealth portfolio and positions. Therefore, they will display the most variation in their response to price movements of their assets, which cannot be averaged without substantial standard errors.
+This group is notable for its lack of statistical significance for most coefficient values, particularly in specifications that use the mean group estimator. As outlined above, it is the lower half that exhibits the most variation in their wealth portfolio and positions. Therefore, they will display the most variation in their response to price movements of their assets, which cannot be averaged without substantial standard errors in the MGE.
 
 ::: {#tbl-panelB50}
 
@@ -111,7 +111,7 @@ Bottom 50% Panel Regression
 
 ## Country-Level Variation {#sec-indiv}
 
-To examine these heterogeneous effects across countries, the regression is re-estimated separately for each country following @eq-indiv. As mentioned above, the standard errors are heteroskedasticity and autocorrelation consistent by use of the method of @neweyHypothesisTestingEfficient1987.
+To examine these heterogeneous effects across countries, the regression is estimated separately for each country following @eq-indiv. As mentioned above, the standard errors are heteroskedasticity and autocorrelation consistent by use of the method of @neweyHypothesisTestingEfficient1987.
 
 $$
 \Delta \log (\omega_{t}^g) = \beta_0 + \beta_h \Delta \log (p_{t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
@@ -119,7 +119,7 @@ $$ {#eq-indiv}
 
 @fig-coeffplot displays the resulting country-level coefficients for house prices for each segment of the wealth distribution[^e0]. Estimates are ordered by magnitude and colored by statistical significance, with their standard errors represented by the error bars[^e1].
 
-[^e0]: Full regression tables are presented in Appendix D
+[^e0]: Full regression tables are presented in Appendix E
 
 [^e1]: A corresponding stock price coefficient plot is available in Appendix F.
 
@@ -130,11 +130,13 @@ Visible in the panels is the large heterogeneity in all wealth segments. Estimat
 
 ![House Price Coefficient Plots](../output/ts_tables/HP_coeff.png){#fig-coeffplot}
 
-In general, the individual regressions support the panel model results. Accelerating stock prices profits the upper decile of the wealth distribution, at the expense of the rest of the population. House prices have a contrary effect, increasing the share of the bottom 50% and middle 40%. Statistical significance as well as $R^2$ varies due to heterogeneity in the responses in european countries.
+In general, the individual regressions support the panel model results. Accelerating stock prices profits the upper decile of the wealth distribution, at the expense of the rest of the population. House prices have a contrary effect, increasing the share of the bottom 50% and middle 40%. Statistical significance as well as $R^2$ varies in the individual regressions.
 
-To address the outlier effect of the Netherlands, the panel regressions are re-estimated excluding this country. @tbl-panelNL compares the results of the preferred specification using the standard mean group estimator with and without the Dutch data.
+However, the country-level estimates also reveal important deviations. In every wealth group, there are countries with statistically significant coefficients that go in the opposite direction of the mean group estimator (especially evident in the Netherlands). These opposite signs highlight the extent of cross-country heterogeneity and underline that identical house price shocks can redistribute wealth very differently depending on national institutions and portfolio structures.
 
-Excluding the Netherlands slightly reduces the magnitude of the coefficients for house prices in the upper half of the distribution, but the signs and significance remain stable. For the top 10%, the negative effect of house prices weakens from -0.057 to -0.069, while for the middle 40%, the positive effect increases slightly and becomes more statistically significant.
+To address the outlier effect of the Netherlands, the panel regressions are re-estimated excluding this country. @tbl-panelNL compares the results of the preferred specification using the standard mean group estimator with and without the dutch data.
+
+Excluding the Netherlands slightly increases the magnitude of the coefficients for house prices in the upper half of the distribution, and the signs and significance remain stable. For the top 10%, the negative effect of house prices increases from -0.057 to -0.069, with standard errors being reduced. The house price coefficient for the middle 40% increases slightly and becomes more statistically significant.
 
 The most notable change is for the bottom 50%. The coefficient on house prices increases from 0.253 to 0.395 and becomes statistically significant at the 1% level. This suggests that, once the outlier is removed, the effect of house prices on the lower half of the distribution becomes clearer and more robust.
 

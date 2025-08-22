@@ -1,5 +1,35 @@
 # Literature
 
+housing as central
+
+
+
+
+
+
+
+
+
+- @jorda leveraged bubbles
+  - asset price bubbles + macroeconomic stability
+  - only risky in combination with credit = deeper recessions
+  - 
+- @jorda mortgaging :
+  - housing finance central to debt etc
+  - financial instablity 
+- @knoll long run prices
+  - "hockey stick pattern" of prices
+  - driven by land value
+- @schularick rate of return on everything
+  - housign = equal returns to equities, less volatile
+  - real estate 
+  - housing = almost half of all capital stock in developed economies 
+- 
+
+
+
+
+
 
 
 general inequality data effort
