@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Marten Walk">
+<meta name="keywords" content="Wealth inequality, Housing Prices, Distributional Wealth Accounts, Portfolio heterogeneity">
 
 <title>Housing and Wealth Inequality across Europe</title>
 <style>
@@ -55,6 +56,8 @@ div.csl-indent {
 <script src="main_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="main_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="main_files/libs/bootstrap/bootstrap-a1060c1fe88f38477acde3018a4586ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+</head><body class="quarto-light">\usepackage{lscape}
+\pagenumbering{gobble}
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -100,9 +103,9 @@ window.Quarto = {
 };
 </script>
 
-</head>
 
-<body class="quarto-light">
+
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
@@ -130,15 +133,15 @@ window.Quarto = {
   <li><a href="#appendix-a-housing-wealth-across-europe" id="toc-appendix-a-housing-wealth-across-europe" class="nav-link" data-scroll-target="#appendix-a-housing-wealth-across-europe">Appendix A: Housing Wealth across Europe</a></li>
   <li><a href="#appendix-b-descriptive-table" id="toc-appendix-b-descriptive-table" class="nav-link" data-scroll-target="#appendix-b-descriptive-table">Appendix B: Descriptive Table</a></li>
   <li><a href="#appendix-c-portfolio-and-asset-distribution-across-europe" id="toc-appendix-c-portfolio-and-asset-distribution-across-europe" class="nav-link" data-scroll-target="#appendix-c-portfolio-and-asset-distribution-across-europe">Appendix C: Portfolio and Asset Distribution across Europe</a></li>
-  <li><a href="#appendix-d-individual-regressions-results" id="toc-appendix-d-individual-regressions-results" class="nav-link" data-scroll-target="#appendix-d-individual-regressions-results">Appendix D: Individual regressions results</a></li>
-  <li><a href="#appendix-e-dynamic-panel-regression" id="toc-appendix-e-dynamic-panel-regression" class="nav-link" data-scroll-target="#appendix-e-dynamic-panel-regression">Appendix E: Dynamic Panel Regression</a></li>
+  <li><a href="#appendix-d-dynamic-panel-regression" id="toc-appendix-d-dynamic-panel-regression" class="nav-link" data-scroll-target="#appendix-d-dynamic-panel-regression">Appendix D: Dynamic Panel Regression</a></li>
+  <li><a href="#appendix-e-individual-regressions-results" id="toc-appendix-e-individual-regressions-results" class="nav-link" data-scroll-target="#appendix-e-individual-regressions-results">Appendix E: Individual regressions results</a></li>
   <li><a href="#appendix-f-stock-prices-coefficient-plot" id="toc-appendix-f-stock-prices-coefficient-plot" class="nav-link" data-scroll-target="#appendix-f-stock-prices-coefficient-plot">Appendix F: Stock Prices Coefficient Plot</a></li>
   <li><a href="#appendix-g-reverse-causality" id="toc-appendix-g-reverse-causality" class="nav-link" data-scroll-target="#appendix-g-reverse-causality">Appendix G: Reverse Causality</a></li>
-  <li><a href="#appendix-e-data-and-code" id="toc-appendix-e-data-and-code" class="nav-link" data-scroll-target="#appendix-e-data-and-code">Appendix E: Data and Code</a></li>
+  <li><a href="#appendix-h-data-and-code" id="toc-appendix-h-data-and-code" class="nav-link" data-scroll-target="#appendix-h-data-and-code">Appendix H: Data and Code</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/skriptum/inequality/"><i class="bi bi-link-45deg"></i>Code (GitHub)</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF (aea)</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/skriptum/inequality/"><i class="bi bi-link-45deg"></i>Code (GitHub)</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -150,16 +153,23 @@ window.Quarto = {
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Marten Walk </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of Halle
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Marten Walk </p>
-          </div>
-  </div>
-    
+      
   
     
   </div>
@@ -167,10 +177,16 @@ window.Quarto = {
 <div>
   <div class="abstract">
     <div class="block-title">Abstract</div>
-    <p>What role do asset prices play in shaping wealth inequality? Motivated by the different trajectories of European housing markets after the financial crisis, this thesis examines how capital gains, particularly in housing, influence wealth inequality in Europe. The analysis uses the ECB’s new Distributional Wealth Accounts and panel regressions that exploit cross-country variation in housing markets and portfolio structures. The results show that shifts in asset values have first-order consequences on the wealth distribution, driven by differences in portfolio composition across population groups. Rising house prices increase the shares of the middle 40% and especially the bottom 50%, while a booming stock market mainly benefits the top 10%. These effects are robust across specifications but vary substantially across countries, reflecting institutional and portfolio differences. Simulations of alternative price scenarios demonstrate that, while housing booms can slow concentration, no European housing market experienced sufficient growth to halt the rise of the top 10% share. Together, the results provide detailed insights into the distributional consequences of asset prices in Europe, with clear implications for both monetary and housing policy. </p>
+    <p>How do asset prices shape the wealth distribution? Motivated by the different trajectories of European housing markets after the financial crisis, this thesis examines how capital gains, particularly in housing, influence wealth inequality in Europe. Drawing on the ECB’s new Distributional Wealth Accounts, the analysis uses panel regressions that exploit cross-country variation in housing markets. The results show that asset prices have first-order consequences on the wealth distribution, driven by differences in portfolio composition across population groups. Rising house prices increase the shares of the middle 40% and especially the bottom 50%, while a booming stock market mainly benefits the top 10%. These effects are robust across specifications but vary substantially across countries, reflecting institutional and portfolio differences. Simulations of alternative price scenarios show that housing booms can slow concentration. However, no country saw house prices grow fast enough to reverse the upward trend in top wealth shares. Together, the results provide detailed insights into the distributional effects of asset prices in Europe, with implications for both monetary and housing policy. </p>
   </div>
 </div>
 
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>Wealth inequality, Housing Prices, Distributional Wealth Accounts, Portfolio heterogeneity</p>
+  </div>
+</div>
 
 </header>
 
@@ -183,20 +199,22 @@ window.Quarto = {
 <section id="introduction" class="level2 page-columns page-full" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
 <p>Housing is Europe’s largest asset<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Its value is central to both household finances and the macroeconomy. Yet despite advances in the literature, there is still limited comparative evidence on the distributional consequences of housing wealth accumulation in Europe. This thesis draws on recent improvements in distributional data <span class="citation" data-cites="blatnikIntroducingDistributionalWealth2024">(<a href="#ref-blatnikIntroducingDistributionalWealth2024" role="doc-biblioref">Blatnik et al. 2024</a>)</span> and methodological approaches developed for the United States <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">Kuhn et al. 2020</a>)</span> to examine how the wealth distribution reacts to changes in house prices.</p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;In all Eurozone countries, housing wealth represents more than 50% of net wealth (see <a href="#fig-map" class="quarto-xref">Figure&nbsp;8</a> in Appendix A) ↩︎</p></div></div><p>The importance of housing for the modern economy cannot be overstated: houses are the primary item on household balance sheets; mortgages make up the largest share of debt in developed economies <span class="citation" data-cites="jordaGreatMortgagingHousing2016">(<a href="#ref-jordaGreatMortgagingHousing2016" role="doc-biblioref">Jordà et al. 2016</a>)</span>; and housing cycles play a central role in macroeconomic fluctuations <span class="citation" data-cites="cesa-bianchiHousingCyclesMacroeconomic2013">(<a href="#ref-cesa-bianchiHousingCyclesMacroeconomic2013" role="doc-biblioref">Cesa-Bianchi 2013</a>)</span>, particularly apparent during and after the financial crisis of 2008.</p>
-<p>At the same time, inequality has returned to the forefront of economic debate. Since Piketty’s <em>Capital in the Twenty-First Century</em> <span class="citation" data-cites="pikettyCapitalTwentyFirstCentury2014">(<a href="#ref-pikettyCapitalTwentyFirstCentury2014" role="doc-biblioref">Piketty 2014</a>)</span>, research on the distribution of wealth and income has expanded rapidly, supported by large-scale data initiatives such as WID.world <span class="citation" data-cites="alvaredoGlobalInequalityDynamics2017">(<a href="#ref-alvaredoGlobalInequalityDynamics2017" role="doc-biblioref">Alvaredo et al. 2017</a>)</span> and the creation of official distributional accounts in developed economies <span class="citation" data-cites="battyDistributionalFinancialAccounts2022">(e.g. <a href="#ref-battyDistributionalFinancialAccounts2022" role="doc-biblioref">Batty et al. 2022</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;In all Eurozone countries, housing wealth represents more than 50% of net wealth (see <a href="#fig-map" class="quarto-xref">Figure&nbsp;8</a> in Appendix A)</p></div></div><p>The importance of housing for the modern economy cannot be overstated: houses are the primary item on household balance sheets; mortgages make up the largest share of debt in developed economies <span class="citation" data-cites="jordaGreatMortgagingHousing2016">(<a href="#ref-jordaGreatMortgagingHousing2016" role="doc-biblioref">Jordà et al. 2016</a>)</span>; and housing cycles play a central role in macroeconomic fluctuations <span class="citation" data-cites="cesa-bianchiHousingCyclesMacroeconomic2013">(<a href="#ref-cesa-bianchiHousingCyclesMacroeconomic2013" role="doc-biblioref">Cesa-Bianchi 2013</a>)</span>, particularly apparent during and after the financial crisis of 2008.</p>
+<p>At the same time, inequality has returned to the forefront of economic debate. Since Piketty’s Capital in the Twenty-First Century <span class="citation" data-cites="pikettyCapitalTwentyFirstCentury2014">(<a href="#ref-pikettyCapitalTwentyFirstCentury2014" role="doc-biblioref">Piketty 2014</a>)</span>, research on the distribution of wealth and income has expanded rapidly, supported by large-scale data initiatives such as WID.world <span class="citation" data-cites="alvaredoGlobalInequalityDynamics2017">(<a href="#ref-alvaredoGlobalInequalityDynamics2017" role="doc-biblioref">Alvaredo et al. 2017</a>)</span> and the creation of official distributional accounts in developed economies <span class="citation" data-cites="battyDistributionalFinancialAccounts2022">(e.g. <a href="#ref-battyDistributionalFinancialAccounts2022" role="doc-biblioref">Batty et al. 2022</a>)</span>.</p>
 <p>Bringing these two strands together, this thesis investigates how changes in asset prices, particularly housing, affect the distribution of wealth in Europe. Because the composition of household portfolios differs across the population, identical price movements can have vastly different distributional consequences. While high-wealth households tend to hold more business and financial assets tied to stock market performance, middle- and lower-wealth households primarily own housing and often carry more leverage, making them more exposed to house price movements <span class="citation" data-cites="adamDistributionalConsequencesAsset2016">(<a href="#ref-adamDistributionalConsequencesAsset2016" role="doc-biblioref">Adam &amp; Tzamourani 2016</a>)</span>.</p>
 <p>This analysis relies on newly released Distributional Wealth Accounts (DWA) from the European Central Bank <span class="citation" data-cites="blatnikIntroducingDistributionalWealth2024">(<a href="#ref-blatnikIntroducingDistributionalWealth2024" role="doc-biblioref">Blatnik et al. 2024</a>)</span>. The DWA combine detailed micro-level survey’s of households balance sheets with data from national accounts, ensuring macro-consistent estimates while preserving detailed information about the distribution of assets. The result is a harmonised, cross-country dataset for the Eurozone that captures changes in the wealth distribution at a much higher frequency than traditional surveys, making it well-suited for analysing the distributional effects of asset price movements.</p>
-<p>Building on the regression framework of <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span>, who relate triennial changes in US wealth shares to asset price movements using broad survey data over several decades, this thesis applies a higher-frequency and cross-country approach. Using the quarterly data from the DWA for all euro area countries from 2011–2022, it estimates panel models linking changes in the wealth shares of the bottom 50%, middle 40%, and top 10% respectively to movements in housing and equity prices.</p>
+<p>Building on the regression framework of <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span>, who relate changes in US wealth shares to asset price movements using broad survey data over several decades, this thesis applies a higher-frequency and cross-country approach. Using the quarterly data from the DWA for all euro area countries from 2009–2022, it estimates panel models linking changes in the wealth shares of the bottom 50%, middle 40%, and top 10% respectively to movements in housing and equity prices.</p>
 <p>The results demonstrate the central role asset prices play in the evolution of wealth inequality. Rising House prices increase the share of the middle 40% and particularly the bottom 50% at the expense of the top decile. Conversely, increasing stock prices are found to benefit the top 10%, to the detriment of the rest of the population. Notably, these results vary strongly across european countries, reflecting differences in portfolio structures and institutional settings.</p>
 <p>To further analyze the effects, counterfactual simulations explore how alternative asset price paths would have affected wealth shares in Europe. Scenarios with strong housing growth shift wealth away from the top 10% toward the middle and lower segments, while weak or falling house prices have the opposite effect. However, even in the most extreme housing boom observed, these appreciations cannot offset the gains of rising stock prices for the top decile. In no counterfactual scenario does the share of the top 10% decrease over the observed timeframe.</p>
 <p>The rest of thesis is structured as follows. <a href="#sec-literature" class="quarto-xref">Section&nbsp;2</a> reviews the relevant research on wealth inequality, asset prices, and portfolio choice. <a href="#sec-data" class="quarto-xref">Section&nbsp;3</a> describes the Distributional Wealth Accounts and complementary data sources, while <a href="#sec-descriptive" class="quarto-xref">Section&nbsp;4</a> presents stylized facts and descriptive statistics derived from them, followed by the empirical strategy outlined in <a href="#sec-strategy" class="quarto-xref">Section&nbsp;5</a>. The main results are presented in two steps: <a href="#sec-panel" class="quarto-xref">Section&nbsp;6</a> reports panel regression results, while <a href="#sec-indiv" class="quarto-xref">Section&nbsp;7</a> explores national heterogeneity. Counterfactual scenarios are presented in <a href="#sec-simulation" class="quarto-xref">Section&nbsp;8</a>. <a href="#sec-discussion" class="quarto-xref">Section&nbsp;9</a> interprets the findings in the context of existing literature and policy debates, and <a href="#sec-conclusion" class="quarto-xref">Section&nbsp;10</a> concludes.</p>
 </section>
 <section id="sec-literature" class="level2 page-columns page-full" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="sec-literature"><span class="header-section-number">2</span> Related Literature</h2>
-<p>The recent surge of research on inequality, most prominently initiated by <span class="citation" data-cites="pikettyCapitalBackWealthIncome2014a">Piketty &amp; Zucman (<a href="#ref-pikettyCapitalBackWealthIncome2014a" role="doc-biblioref">2014</a>)</span>, has highlighted the long-run rise of wealth inequality and wealth-to-income ratios in advanced economies. This renewed focus has advanced two related strands of literature.</p>
-<p>One stresses the central role of housing in shaping wealth dynamics and the macroeconomy <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. <span class="citation" data-cites="knollNoPriceHome2017">Knoll et al. (<a href="#ref-knollNoPriceHome2017" role="doc-biblioref">2017</a>)</span> documented the long run evolution of housing prices and the increasing share of land value in total value. The authors highlight the implications of house prices for both wealth inequality and the business cycle <span class="citation" data-cites="knollNoPriceHome2017">(<a href="#ref-knollNoPriceHome2017" role="doc-biblioref">ibid. p. 350</a>)</span>. <span class="citation" data-cites="jordaGreatMortgagingHousing2016">Jordà et al. (<a href="#ref-jordaGreatMortgagingHousing2016" role="doc-biblioref">2016</a>)</span> focus on the financing aspect, finding that the share of mortgages in total debt has risen, from 30% in 1900 to 60% today. Additionally, they find that housing finance is increasingly associated with financial instability and leads to stronger and longer recessions.</p>
-<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;The measurement of capital by Piketty was criticised by <span class="citation" data-cites="bonnetDoesHousingCapital2014">Bonnet, O. et al. (<a href="#ref-bonnetDoesHousingCapital2014" role="doc-biblioref">2014</a>)</span>, who find that using (imputed) rent as housing valuation, Piketty’s fast rising capital-income ratios are actually stable. <span class="citation" data-cites="allegreDoesHousingWealth2015">Allègre &amp; Timbeau (<a href="#ref-allegreDoesHousingWealth2015" role="doc-biblioref">2015</a>)</span> outline internal incosistencies in their subsequent response while emphasizing the central contribution of housing in explaining the wealth dynamics. A summary of the role of housing in the debate around Piketty’s work is provided by <span class="citation" data-cites="stephensPikettyInequalityHousing2017">Stephens (<a href="#ref-stephensPikettyInequalityHousing2017" role="doc-biblioref">2017</a>)</span>.</p></div></div><p>The second strand has focused on improving measurement, leading to the development of distributional national accounts. These new datasets aim to link national accounts with survey data to generate macroeconomically consistent estimates of the distribution of different assets like housing. First presented for the US Income Distribution by <span class="citation" data-cites="pikettyDistributionalNationalAccounts2018">Piketty et al. (<a href="#ref-pikettyDistributionalNationalAccounts2018" role="doc-biblioref">2018</a>)</span> and Wealth Distribution by <span class="citation" data-cites="battyDistributionalFinancialAccounts2022">Batty et al. (<a href="#ref-battyDistributionalFinancialAccounts2022" role="doc-biblioref">2022</a>)</span>, they are now available as well for european income distributions <span class="citation" data-cites="blanchetHowUnequalEurope2019">(<a href="#ref-blanchetHowUnequalEurope2019" role="doc-biblioref">Blanchet et al. 2019</a>)</span> and european wealth distributions <span class="citation" data-cites="blatnikIntroducingDistributionalWealth2024">(<a href="#ref-blatnikIntroducingDistributionalWealth2024" role="doc-biblioref">Blatnik et al. 2024</a>)</span>. The latter is the main dataset used in this thesis, further explored in <a href="#sec-data" class="quarto-xref">Section&nbsp;3</a>.</p>
+<p>Housing occupies a central place in the literature on both the macroeconomy and the distribution of wealth.</p>
+<p>In the wake of the financial crisis of 2008, research has focused on the role of asset price bubbles, particularly real estate, in the business cycle. <span class="citation" data-cites="jordaLeveragedBubbles2015">Jordà et al. (<a href="#ref-jordaLeveragedBubbles2015" role="doc-biblioref">2015</a>)</span> analyze the last 140 years to show that bubbles associated with a credit boom pose the greatest risk for macroeconomic stability. Subsequent recessions are deeper and longer than ones with low credit growth. In a related paper, <span class="citation" data-cites="jordaGreatMortgagingHousing2016">Jordà et al. (<a href="#ref-jordaGreatMortgagingHousing2016" role="doc-biblioref">2016</a>)</span> focus on the role of real estate finance. Using a newly constructed dataset, they document that the share of mortgages in total debt has risen, from 30% in 1900 to 60% today. Furthermore, they emphasise the associated risks with mortgage lending booms. They are increasingly linked to recessions and have deep repercussions for the business cycle.</p>
+<p>Other contributions take a long-run view on housing as an asset class. <span class="citation" data-cites="knollNoPriceHome2017">Knoll et al. (<a href="#ref-knollNoPriceHome2017" role="doc-biblioref">2017</a>)</span> document the evolution of housing prices since 1870 to find a “hockey stick pattern” <span class="citation" data-cites="knollNoPriceHome2017">(<a href="#ref-knollNoPriceHome2017" role="doc-biblioref">ibid. p. 332</a>)</span> of fast rising prices after World War II. They show that it is to 80% made up by the underlying value of land, with substantial heterogeneity across countries. <span class="citation" data-cites="jordaRateReturnEverything2019">Jordà et al. (<a href="#ref-jordaRateReturnEverything2019" role="doc-biblioref">2019</a>)</span> analyse the same time frame and document that total returns on housing are historically similar to equity returns, even though the latter is associated with more risk. Additionally, they show that almost half of all capital stock in developed economies is made up of housing <span class="citation" data-cites="jordaRateReturnEverything2019">(<a href="#ref-jordaRateReturnEverything2019" role="doc-biblioref">ibid. p. 8</a>)</span>.</p>
+<p>Beyond its macroeconomic role, housing is also a core driver of wealth inequality. The surge of research on long-run inequality, most prominently initiated by <span class="citation" data-cites="pikettyCapitalBackWealthIncome2014a">Piketty &amp; Zucman (<a href="#ref-pikettyCapitalBackWealthIncome2014a" role="doc-biblioref">2014</a>)</span>, has emphasized the post-war rise of wealth inequality and wealth-to-income ratios in advanced economies. A large part of this increase is attributed to housing assets, which play a decisive role in shaping modern wealth dynamics<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;The measurement of capital by Piketty was criticised by <span class="citation" data-cites="bonnetDoesHousingCapital2014">Bonnet, O. et al. (<a href="#ref-bonnetDoesHousingCapital2014" role="doc-biblioref">2014</a>)</span>, who find that using (imputed) rent as housing valuation, Piketty’s fast rising capital-income ratios are actually stable. <span class="citation" data-cites="allegreDoesHousingWealth2015">Allègre &amp; Timbeau (<a href="#ref-allegreDoesHousingWealth2015" role="doc-biblioref">2015</a>)</span> outline internal incosistencies in their subsequent response while emphasizing the central contribution of housing in explaining the wealth dynamics. A summary of the role of housing in the debate around Piketty’s work is provided by <span class="citation" data-cites="stephensPikettyInequalityHousing2017">Stephens (<a href="#ref-stephensPikettyInequalityHousing2017" role="doc-biblioref">2017</a>)</span>.</p></div></div><p>The renewed interest in inequality and its measurement inspired the development of distributional national accounts. These new datasets aim to link national accounts with survey data to generate macroeconomically consistent estimates of the wealth / income distribution. First presented for the US income distribution by <span class="citation" data-cites="pikettyDistributionalNationalAccounts2018">Piketty et al. (<a href="#ref-pikettyDistributionalNationalAccounts2018" role="doc-biblioref">2018</a>)</span> and wealth distribution by <span class="citation" data-cites="battyDistributionalFinancialAccounts2022">Batty et al. (<a href="#ref-battyDistributionalFinancialAccounts2022" role="doc-biblioref">2022</a>)</span>, they are now available as well for european income <span class="citation" data-cites="blanchetHowUnequalEurope2019">(<a href="#ref-blanchetHowUnequalEurope2019" role="doc-biblioref">Blanchet et al. 2019</a>)</span> and wealth distributions <span class="citation" data-cites="blatnikIntroducingDistributionalWealth2024">(<a href="#ref-blatnikIntroducingDistributionalWealth2024" role="doc-biblioref">Blatnik et al. 2024</a>)</span>. The latter is the main dataset used in this thesis, further explored in <a href="#sec-data" class="quarto-xref">Section&nbsp;3</a>.</p>
 <p>Wealth accumulation is shaped by three main drivers: labor income, savings rates, and capital gains <span class="citation" data-cites="saezWealthInequalityUnited2016">(<a href="#ref-saezWealthInequalityUnited2016" role="doc-biblioref">Saez &amp; Zucman 2016, p. 28</a>)</span>. The first two combine into the savings effect, while the latter reflects the valuation effect. Inequality in any of these channels across different parts of the population translates into increased wealth inequality. For instance, higher income inequality, ceteris paribus, leads to higher wealth inequality because households at the top receive a larger flow of income, which, even under identical savings rates, allows them to accumulate wealth at a faster pace. Likewise, differential capital gains from rising asset prices can increase wealth inequality even when income and savings rates remain unchanged.</p>
 <p><span class="citation" data-cites="blanchetWealthInequalityDynamics2023">Blanchet &amp; Martínez-Toledano (<a href="#ref-blanchetWealthInequalityDynamics2023" role="doc-biblioref">2023</a>)</span> research these drivers empirically, comparing the dynamics of wealth inequality in the US and Europe. The authors employ decomposition techniques to show that the higher income inequality as well as the decline in house prices after the financial crisis are responsible for the stronger increase in US wealth inequality compared to Europe. In the latter, valuation effects were more important, while in the former savings effects played a larger role in explaining inequality. This highlights that the relative role of savings and valuation channels differs across regions, and that capital gains deserve closer attention in inequality research.</p>
 <p>A growing line of literature therefore focuses explicitly on asset prices as a central driver of wealth inequality. <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> use the newly constructed Historical Survey of Consumer Finances ranging back to 1948 to document the reactions of the top 10% of the US wealth distribution to stock and house prices <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">ibid. p. 37</a>)</span>. They find that the share of the top decile of the wealth distribution reacts negatively to increases in house prices and the opposite with respect to stock prices, mostly due to differential exposure in Household portfolios <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">ibid. p. 34</a>)</span>. Additionally, they find that the valuation channel is predominantly responsible for shifts in the wealth distribution, especially in the lower half of the population <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">ibid. p. 42</a>)</span>.</p>
@@ -204,17 +222,18 @@ window.Quarto = {
 <p><span class="citation" data-cites="martinez-toledanoHousePriceCycles2020">Martínez-Toledano (<a href="#ref-martinez-toledanoHousePriceCycles2020" role="doc-biblioref">2020</a>)</span> focuses specifically on the effects of house price cycles on wealth inequality in Spain. She puts a special emphasis on the role of portfolio reshuffling in different phases of a house price cycle. In booms, the share of the top decile decreases to the benefit of the bottom 50% and especially the middle 40%, while in busts that effect reverses. The top wealth holders are faster in adjusting their portfolio towards other assets in downturns, while the rest of the population faces portfolio adjustment frictions in the form of moving costs and mortgage commitments.</p>
 <p>While these studies establish asset prices as a key driver of wealth inequality, they are limited by either long-run survey data or a single-country focus. This thesis takes a different approach by using the ECB’s official Distributional Wealth Accounts, which provide macro-consistent quarterly data for countries in the euro area. This allows for a closer empirical look at short-term valuation effects in recent years and a systematic comparison of heterogeneity across national contexts.</p>
 <p>Since exposure to asset prices depends on portfolios, theory and empirical evidence on portfolio choice are crucial. <span class="citation" data-cites="coccoPortfolioChoicePresence2005">Cocco (<a href="#ref-coccoPortfolioChoicePresence2005" role="doc-biblioref">2005</a>)</span> presents a theoretical model of optimal portfolio allocation to explain the different choices along the age and income distribution. The author highlights the cost of participating in the equity market, which presents a barrier for poorer and younter households, especially after investment in housing. Additionally, risks associated with house price cycles reduces risk appetite, and in turn exposure to stock markets. This effect is especially pronounced for lower parts of the wealth distribution.</p>
-<p><span class="citation" data-cites="sierminskaOwnNotOwn2013">Sierminska &amp; Doorley (<a href="#ref-sierminskaOwnNotOwn2013" role="doc-biblioref">2013</a>)</span> document these differences for age cohorts empirically across Europe and North America, highlighting the role of institutions in portfolio choices. A description of household balance sheets across socio-economic groups is provided by <span class="citation" data-cites="causaHousingWealthAccumulation2019">Causa et al. (<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">2019</a>)</span> for OECD Countries. They highlight housing as the most important asset, especially for the middle class, but document pronounced variations in countries at the bottom of the wealth distribution <span class="citation" data-cites="causaHousingWealthAccumulation2019">(<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">ibid. p. 22</a>)</span>. Additionally, they stress the importance of mortages, due to the increased vulnerability in housing price busts or elevated interest rate periods for leveraged households <span class="citation" data-cites="causaHousingWealthAccumulation2019">(<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">ibid. p. 30</a>)</span>.</p>
-<p>Another explanation for differential gains from assets along the distribution are heterogeneous rates of return. Richer households have higher profits than poorer households and this holds true even when controlling for portfolio differences. This relationship is documented by <span class="citation" data-cites="fagerengHeterogeneityPersistenceReturns2020">Fagereng et al. (<a href="#ref-fagerengHeterogeneityPersistenceReturns2020" role="doc-biblioref">2020</a>)</span> using detailed norwegian individual tax records, who find that this effect is persistent even across generations. Similar heterogenous patterns are found by <span class="citation" data-cites="bachRichPickingsRisk2020">Bach et al. (<a href="#ref-bachRichPickingsRisk2020" role="doc-biblioref">2020</a>)</span> in swedish tax data and by <span class="citation" data-cites="wolffHeterogenousRatesReturn2025">Wolff (<a href="#ref-wolffHeterogenousRatesReturn2025" role="doc-biblioref">2025</a>)</span> for housing investments in the US.</p>
-<p>The thesis relates closely to the literature examining the cross-country wealth differences in the European Union. The central role of housing is highlighted by <span class="citation" data-cites="biewenShapeWealthDistribution2025">Biewen et al. (<a href="#ref-biewenShapeWealthDistribution2025" role="doc-biblioref">2025</a>)</span>, who find that homeownership is the main household characteristic that explains these differences. Similarly, <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">Kaas et al. (<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">2019</a>)</span> emphasize that homeownership is the channel to explain the differences, and that a large part can be accounted for by distinct home ownership rates in the bottom half of the wealth distribution. Furthermore they decompose inequality into inequality between owners and renters and intra-group inequalities and find that the the former is primarily responsible for the relationship between inequality and homeownership. <span class="citation" data-cites="mathaHouseholdWealthEuro2017">Mathä et al. (<a href="#ref-mathaHouseholdWealthEuro2017" role="doc-biblioref">2017</a>)</span> adds to this the role of diverse housing price dynamics to explain the variations in net wealth accumulated across Europe.</p>
-<p>A methodology similar to the one in this thesis was first used by <span class="citation" data-cites="wolffTopHeavyStudy1995">Wolff (<a href="#ref-wolffTopHeavyStudy1995" role="doc-biblioref">1995, p. 77</a>)</span> for US wealth inequality between 1922 and 1989. The author regressed the wealth share of the top 1% on the share of income accrued by the group and the ratio of stock prices to housing prices. Both factors are statistically significant, with the Prices Ratio explaining most of the divergence of wealth and income inequality between 1945 and 1979. Most recently, <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> use a similar regression to describe the “race between the stock market and the housing market” <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">ibid. p. 37</a>)</span>. They regress the first differences of the wealth share hold by the top 10% of the US american wealth distribution on the first differences in housing prices, stock prices (proxied by the S&amp;P 500) and the share of income going to the top 10%. The results indicate a negative reaction of the wealth share to Housing Prices and a positive one to Stock Prices, although with limited statistical significance due to small sample size. <span class="citation" data-cites="fullerHousingPricesWealth2020">Fuller et al. (<a href="#ref-fullerHousingPricesWealth2020" role="doc-biblioref">2020</a>)</span> use similar explanatory variables in a panel regression of OECD countries to explain the rising wealth-to-income ratios by <span class="citation" data-cites="pikettyCapitalBackWealthIncome2014a">Piketty &amp; Zucman (<a href="#ref-pikettyCapitalBackWealthIncome2014a" role="doc-biblioref">2014</a>)</span>. The authors find that the increase is explained by rising house prices as well as to a lesser extent prices of other assets.</p>
+<p><span class="citation" data-cites="sierminskaOwnNotOwn2013">Sierminska &amp; Doorley (<a href="#ref-sierminskaOwnNotOwn2013" role="doc-biblioref">2013</a>)</span> document these portfolio differences for age cohorts empirically across Europe and North America, highlighting the role of institutions in portfolio choices. A description of household balance sheets across socio-economic groups is provided by <span class="citation" data-cites="causaHousingWealthAccumulation2019">Causa et al. (<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">2019</a>)</span> for OECD Countries. They highlight housing as the most important asset, especially for the middle class, but document pronounced variations in countries at the bottom of the wealth distribution <span class="citation" data-cites="causaHousingWealthAccumulation2019">(<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">ibid. p. 22</a>)</span>. Additionally, they stress the importance of mortages, due to the increased vulnerability in housing price busts or elevated interest rate periods for leveraged households <span class="citation" data-cites="causaHousingWealthAccumulation2019">(<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">ibid. p. 30</a>)</span>.</p>
+<p>Another explanation for differential gains from assets along the distribution are heterogeneous rates of return on assets. Richer households have higher profits than poorer households even when controlling for portfolio differences. This relationship is documented by <span class="citation" data-cites="fagerengHeterogeneityPersistenceReturns2020">Fagereng et al. (<a href="#ref-fagerengHeterogeneityPersistenceReturns2020" role="doc-biblioref">2020</a>)</span> using detailed norwegian individual tax records, who find that this effect is persistent across generations. Similar heterogenous patterns are found by <span class="citation" data-cites="bachRichPickingsRisk2020">Bach et al. (<a href="#ref-bachRichPickingsRisk2020" role="doc-biblioref">2020</a>)</span> in swedish tax data. <span class="citation" data-cites="wolffHeterogenousRatesReturn2025">Wolff (<a href="#ref-wolffHeterogenousRatesReturn2025" role="doc-biblioref">2025</a>)</span> looks specifically at rates of returns on real estate in the US, and finds that rich households earn significantly more on their investments. Counter-intuitively, the author finds that increasing rates of return on housing still decreases wealth inequality, due to the larger share of the asset in portfolios of poorer households.</p>
+<p>The thesis relates closely to the literature examining the cross-country wealth differences in the European Union. The central role of housing is highlighted by <span class="citation" data-cites="biewenShapeWealthDistribution2025">Biewen et al. (<a href="#ref-biewenShapeWealthDistribution2025" role="doc-biblioref">2025</a>)</span>, who find that homeownership is the main household characteristic that explains these differences. Similarly, <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">Kaas et al. (<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">2019</a>)</span> emphasize that homeownership is the channel to explain the differences, with home ownership rates strongly negatively related to wealth inequality in the 9 largest european countries. A large part of these differences can be accounted for by distinct home ownership rates in the bottom half of the wealth distribution. Furthermore, they decompose inequality into inequality between owners and renters and intra-group inequalities and find that the the former is primarily responsible for the relationship between inequality and homeownership. <span class="citation" data-cites="mathaHouseholdWealthEuro2017">Mathä et al. (<a href="#ref-mathaHouseholdWealthEuro2017" role="doc-biblioref">2017</a>)</span> adds to this the role of diverse housing price dynamics to explain the variations in net wealth accumulated across Europe. Both factors together can explan more than 50% of the wealth differences in Europe.</p>
+<p>A methodology similar to the one in this thesis was first used by <span class="citation" data-cites="wolffTopHeavyStudy1995">Wolff (<a href="#ref-wolffTopHeavyStudy1995" role="doc-biblioref">1995, p. 77</a>)</span> for US wealth inequality between 1922 and 1989. The author regressed the wealth share of the top 1% on the share of income accrued by the group and the ratio of stock prices to housing prices. Both factors are statistically significant, with the prices ratio explaining most of the divergence of wealth and income inequality between 1945 and 1979. Most recently, <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> use a similar regression to describe the “race between the stock market and the housing market” <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">ibid. p. 37</a>)</span>. They regress the first differences of the wealth share hold by the top 10% of the US american wealth distribution on the first differences in housing prices, stock prices (proxied by the S&amp;P 500) and the share of income going to the top 10%. The results indicate a negative reaction of the wealth share to house prices and a positive one to stock prices, although with limited statistical significance due to small sample size. <span class="citation" data-cites="fullerHousingPricesWealth2020">Fuller et al. (<a href="#ref-fullerHousingPricesWealth2020" role="doc-biblioref">2020</a>)</span> use similar explanatory variables in a panel regression of OECD countries to explain the rising wealth-to-income ratios by <span class="citation" data-cites="pikettyCapitalBackWealthIncome2014a">Piketty &amp; Zucman (<a href="#ref-pikettyCapitalBackWealthIncome2014a" role="doc-biblioref">2014</a>)</span>. The authors find that the increase is mostly explained by rising house prices as well as to a lesser extent prices of other assets.</p>
 <p>This thesis contributes by examining how different segments of the wealth distribution respond to changes in stock and housing prices. In addition to estimates for the euro area as a whole, it provides country-level evidence that highlights the heterogeneity of these effects. The next section introduces the dataset underpinning this analysis and outlines its key features.</p>
 </section>
 <section id="sec-data" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">3</span> The Distributional Wealth Accounts</h2>
-<p>To understand the wealth dynamics, the analysis employs a variety of different datasets, the main being the Distributional Wealth Accounts (henceforth DWA) compiled by the European Central Bank <span class="citation" data-cites="blatnikIntroducingDistributionalWealth2024">(<a href="#ref-blatnikIntroducingDistributionalWealth2024" role="doc-biblioref">Blatnik et al. 2024</a>)</span>. The DWA provides quarterly wealth positions of different deciles of the wealth distribution for 21 european countries from 2011 until 2025, splitting up the net wealth according to the amount hold in different asset classes (Housing Wealth, Mortages etc.).</p>
-<p>A novelty of the DWA is their consistency with macroeconomic estimates of wealth from the quarterly financial accounts. A limitation of existing distributional data based only on surveys is the underreporting of wealth, which is adressed in the DWA following the US example by <span class="citation" data-cites="battyDistributionalFinancialAccounts2022">Batty et al. (<a href="#ref-battyDistributionalFinancialAccounts2022" role="doc-biblioref">2022</a>)</span> for the Federal Reserve.</p>
-<p>The exact methodology to derive quarterly distributional accounts as well as a first analysis of the dataset is described by <span class="citation" data-cites="engelDevelopingReconciledQuarterly2022">Engel et al. (<a href="#ref-engelDevelopingReconciledQuarterly2022" role="doc-biblioref">2022</a>)</span>. They distribute the wealth estimates from the quarterly sectoral financial accounts (QSA) according to the distribution in the Household Finance and Consumption Surveys (HFCS), which are carried out by Eurozone member banks every 3-4 years <span class="citation" data-cites="eurosystemhouseholdfinanceandconsumptionnetworkEurosystemHouseholdFinance2013">(<a href="#ref-eurosystemhouseholdfinanceandconsumptionnetworkEurosystemHouseholdFinance2013" role="doc-biblioref">Eurosystem Household Finance and Consumption Network 2013</a>)</span>. To overcome the problems of differential nonresponse (richer Households are underrepresented in the surveys) and the differential underreporting (richer Households undervalue their assets) they use the method proposed by <span class="citation" data-cites="vermeulenEstimatingTopTail2016">Vermeulen (<a href="#ref-vermeulenEstimatingTopTail2016" role="doc-biblioref">2016</a>)</span>. He builds on the finding that the upper tail of the wealth distribution follows a Pareto distribution, which can be used to create synthetic rich Households on a Curve fitted to the HFCS data and Households from external rich lists (e.g. <span class="citation" data-cites="nesshoeferRanglisteGroesstenVermoegen2024">Neßhöfer &amp; Bornefeld (<a href="#ref-nesshoeferRanglisteGroesstenVermoegen2024" role="doc-biblioref">2024</a>)</span> for Germany). After this step, <span class="citation" data-cites="engelDevelopingReconciledQuarterly2022">Engel et al. (<a href="#ref-engelDevelopingReconciledQuarterly2022" role="doc-biblioref">2022</a>)</span> use linear interpolation to distribute the QSA between HFCS survey waves and extrapolate after the most recent HFCS wave in 2022.</p>
+<p>To understand the wealth dynamics, the analysis employs a variety of different datasets, the main being the Distributional Wealth Accounts (DWA) compiled by the European Central Bank <span class="citation" data-cites="blatnikIntroducingDistributionalWealth2024">(<a href="#ref-blatnikIntroducingDistributionalWealth2024" role="doc-biblioref">Blatnik et al. 2024</a>)</span>. The DWA provides quarterly household balance sheets, disaggregated into major asset classes, of different deciles of the wealth distribution. It contains data for 21 countries, with coverage beginning in 2009 for the earliest countries and extending until 2025.</p>
+<p>A novelty of the DWA is their consistency with macroeconomic estimates of wealth from the quarterly financial accounts. A limitation of existing distributional data based only on surveys is the underreporting of wealth, which is adressed in the DWA following the US example by <span class="citation" data-cites="battyDistributionalFinancialAccounts2022">Batty et al. (<a href="#ref-battyDistributionalFinancialAccounts2022" role="doc-biblioref">2022</a>)</span> for the Federal Reserve. Essentially, the approach is to correct for missing top households by oversampling at the upper end of the distribution, a point further explained below.</p>
+<p>The exact methodology to derive quarterly distributional accounts is described by <span class="citation" data-cites="engelDevelopingReconciledQuarterly2022">Engel et al. (<a href="#ref-engelDevelopingReconciledQuarterly2022" role="doc-biblioref">2022</a>)</span>. They distribute the wealth estimates from the quarterly sectoral financial accounts (QSA) according to the distribution in the Household Finance and Consumption Surveys (HFCS), which are carried out by Eurozone member banks every 3-4 years <span class="citation" data-cites="eurosystemhouseholdfinanceandconsumptionnetworkEurosystemHouseholdFinance2013">(<a href="#ref-eurosystemhouseholdfinanceandconsumptionnetworkEurosystemHouseholdFinance2013" role="doc-biblioref">Eurosystem Household Finance and Consumption Network 2013</a>)</span>. To overcome the problems of differential nonresponse (richer Households are underrepresented in the surveys) and the differential underreporting (richer Households undervalue their assets) they use the method proposed by <span class="citation" data-cites="vermeulenEstimatingTopTail2016">Vermeulen (<a href="#ref-vermeulenEstimatingTopTail2016" role="doc-biblioref">2016</a>)</span>. He builds on the finding that the upper tail of the wealth distribution follows a Pareto distribution, which can be used to create synthetic rich Households on a curve fitted to the HFCS data and Households from external rich lists (e.g. <span class="citation" data-cites="nesshoeferRanglisteGroesstenVermoegen2024">Neßhöfer &amp; Bornefeld (<a href="#ref-nesshoeferRanglisteGroesstenVermoegen2024" role="doc-biblioref">2024</a>)</span> for Germany).</p>
+<p>To compile quarterly time series in between the HFCS survey waves, <span class="citation" data-cites="engelDevelopingReconciledQuarterly2022">Engel et al. (<a href="#ref-engelDevelopingReconciledQuarterly2022" role="doc-biblioref">2022</a>)</span> use the linear interpolation developed by <span class="citation" data-cites="kavoniusDerivingHouseholdIndebtedness2016">Kavonius &amp; Honkkila (<a href="#ref-kavoniusDerivingHouseholdIndebtedness2016" role="doc-biblioref">2016</a>)</span>. Additionally, they extrapolate the national accounts data after the most recent HFCS wave in 2022.</p>
 <p>The authors perform a wide range of sensitivity and robustness checks for the DWA, but it is important to stress that it is still an experimental dataset, which can not guarantee the same accuracy as data obtained by wealth taxation or other methods.</p>
 <p>This analysis draws on the DWA data until 2022. Potential extrapolation errors after the last HFCS wave and lagged effects of the Covid shock on the housing market are therefore not included in the dataset. The full range of countries is used, including Hungary, which is not part of the Eurozone, but increases the reliability of the results. The countries are abbreviated in Figures and Tables by their ISO 2-digit country codes. A table with descriptive statistics and their respective full name is provided in <a href="#tbl-descriptive" class="quarto-xref">Table&nbsp;5</a> in Appendix B.</p>
 <p>Furthermore, assets are combined to simplify and ease the interpretation of results <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">(as in <a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">Kaas et al. 2019</a>)</span>. Unlisted shares and non-financial business wealth are combined to form business wealth. Debt securities, listed shares, investment fund shares, and life insurance entitlements form financial wealth. Debt is composed of mortgage loans and other loans.</p>
@@ -230,9 +249,9 @@ Figure&nbsp;1: Residential Property Price Index
 </figure>
 </div>
 <p>For house price data, the Residential Property Price Dataset from the Bank of International Settlement (BIS) is used <span class="citation" data-cites="scatignaResidentialPropertyPrice2014">(<a href="#ref-scatignaResidentialPropertyPrice2014" role="doc-biblioref">Scatigna et al. 2014</a>)</span>. The dataset is widely employed in cross country comparisons <span class="citation" data-cites="runstlerBusinessHousingCredit2018">(i.e. <a href="#ref-runstlerBusinessHousingCredit2018" role="doc-biblioref">Rünstler &amp; Vlekke 2018</a>)</span> and includes quarterly house price indices for all countries covered in the analysis.</p>
-<p>House prices in the eurozone plateaued until 2015 and then increased significantly, as shown in Fig. 1. However, there are significant differences among the individual member states. Southern European countries such as Spain, Italy, and Greece experienced a devaluation after 2010, while many Western and Eastern European countries showed strong increases in property price indices. Estonia and Luxembourg saw their price indices almost double during this period, while Greece’s declined by 25 index points.</p>
-<p>Stock prices are represented using the Euro Stoxx 50 index, which includes 50 large firms from 11 Eurozone countries, offering broad representation of the region’s equity markets. The index captures approximately 60% of total market capitalization and serves as a standard benchmark for European stock market performance <span class="citation" data-cites="brechmannRiskManagementHighdimensional2013">(e.g <a href="#ref-brechmannRiskManagementHighdimensional2013" role="doc-biblioref">Brechmann &amp; Czado 2013</a>)</span>.</p>
-<p>The final panel dataset includes asset holdings for the three wealth groups in 21 countries as well as the Eurozone as an aggregate, measured in nominal values. The number of observations per country ranges from 17 in Latvia to 49 in Greece, totaling 860 observations. This is complemented by housing price indices for all countries over the observed time frames and the European stock price index for the entire time period.</p>
+<p>House prices in the eurozone plateaued until 2015 and then increased significantly, as shown in <a href="#fig-prices" class="quarto-xref">Figure&nbsp;1</a>. However, there are significant differences among the individual member states. Southern European countries such as Spain, Italy, and Greece experienced a devaluation after 2010, while many Western and Eastern European countries showed strong increases. Estonia and Luxembourg saw their price indices almost double during this period, while Greece’s declined by 25 index points.</p>
+<p>Stock prices are represented using the Euro Stoxx 50 index, which includes the 50 largest firms in the Eurozone. They stem from 11 Eurozone countries, offering broad representation of the region’s equity markets. The index captures approximately 60% of total market capitalization and serves as a standard benchmark for European stock market performance <span class="citation" data-cites="brechmannRiskManagementHighdimensional2013">(e.g <a href="#ref-brechmannRiskManagementHighdimensional2013" role="doc-biblioref">Brechmann &amp; Czado 2013</a>)</span>.</p>
+<p>The final panel dataset includes asset holdings for the three wealth groups in 21 countries as well as the Eurozone as an aggregate, measured in nominal values. The number of observations per country ranges from 17 in Latvia to 49 in Greece, totaling 860 observations. This is complemented by house price indices for all countries over the observed time frames and the European stock price index.</p>
 <p>After presenting the data sources used in the analysis, the next section provides some stylized facts and descriptive statistics drawn from the DWA.</p>
 </section>
 <section id="sec-descriptive" class="level2 page-columns page-full" data-number="4">
@@ -266,12 +285,12 @@ Figure&nbsp;3: Portfolio Composition of Deciles
 </div>
 </div>
 </div>
-<p>At the Eurozone level, portfolios differ markedly across the wealth distribution. As shown in <a href="#fig-portfolio" class="quarto-xref">Figure&nbsp;3</a>, housing dominates the balance sheets of the middle 40% and the bottom 50%, while the top 10% hold a much larger share of financial and business assets. Debt is most pronounced in the lower half, consistent with their reliance on mortgages to finance housing wealth.</p>
+<p><a href="#fig-portfolio" class="quarto-xref">Figure&nbsp;3</a> shows the composition of household portfolios across the wealth distribution. Housing dominates for all but the top decile, making up around two-thirds to three-quarters of total wealth. The middle 40% in particular (deciles 6–9) display very similar portfolios, heavily concentrated in housing with modest holdings in deposits and only limited exposure to financial or business assets. As wealth rises, however, other asset classes gradually gain weight: deposits and financial assets increase in the upper deciles, and business wealth becomes substantial only for the top 10%.</p>
 <p>These aggregate patterns mask considerable heterogeneity across countries. The portfolios of the bottom 50% display the greatest variation in composition<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. In many cases, their holdings resemble those of the middle class, with housing as the main asset (e.g., Italy, Ireland, and Finland). In others, such as Germany, Austria, and the Netherlands, housing plays a far smaller role, contributing less than half of total wealth.</p>
-<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;The complete breakdown for all european countries is provided in <a href="#fig-portfolio-indiv" class="quarto-xref">Figure&nbsp;10</a> in Appendix C.</p></div></div><p>The distribution of the different asset classes among the wealth groups in the Eurozone is described in <a href="#fig-distribution" class="quarto-xref">Figure&nbsp;2</a>. As visible, Housing is distributed most equally of the wealth categories, with the Top Decile owning 47% of the total Housing Wealth. It is followed by Net Wealth with 57%, and Financial Wealth and Business Wealth with 72% and 85% respectively.</p>
-<p>This sequence holds in all european countries, with the absolute numbers differing considerably<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. While almost all financial wealth is owned by the top decile in Croatia and Greece, it is less than half in the Netherlands and Malta. For business wealth, the most significant share held by the top 10% is in Austria and Germany, while Greece and Cyprus feature the most equal distribution. In Housing Wealth, it is not the share of the top 10% that varies much, but the bottom 50%. In Germany, Austria and the Netherlands they possess below 2% of the asset, while their counterparts in Slovakia and Lithuania own more than 15%.</p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;The complete breakdown for all european countries is provided in <a href="#fig-portfolio-indiv" class="quarto-xref">Figure&nbsp;10</a> in Appendix C.</p></div></div><p>shows how different asset classes are distributed across the wealth groups in the Eurozone. Housing wealth is the most evenly distributed, with the top 10% holding 47% of the total. Net wealth as a whole is somewhat more concentrated, with 57% in the top decile. The concentration is much stronger for financial wealth and business wealth, where the top decile controls 72% and 85% respectively. This highlights that while housing provides a broader base of wealth across the population, financial and business assets are largely restricted to the very top of the distribution.</p>
+<p>This sequence holds in all european countries, with the absolute numbers differing considerably<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. While almost all financial wealth is owned by the top decile in Croatia and Greece, it is less than half in the Netherlands and Malta. For business wealth, the most significant share held by the top 10% is in Austria and Germany, while Greece and Cyprus feature the most equal distribution. In housing wealth, it is not the share of the top 10% that varies much, but the bottom 50%. In Germany, Austria and the Netherlands they possess below 2% of the asset, while their counterparts in Slovakia and Lithuania own more than 15%.</p>
 <div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;The expanded version of <a href="#fig-distribution" class="quarto-xref">Figure&nbsp;2</a> with country-specific distributions is available as <a href="#fig-distribution-indiv" class="quarto-xref">Figure&nbsp;9</a> in Appendix C</p></div></div><p><a href="#fig-trends" class="quarto-xref">Figure&nbsp;4</a> tracks the portfolios of the wealth groups over the observed time frame. The figure confirms the large heterogeneity of wealth portfolios in the literature and additionally adds a time dimension displaying the diffferent growth trends of net wealth.</p>
-<p>The lower half of the distribution have little wealth, with housing and deposits playing the largest role. They are highly leveraged and essentially did not increase their net wealth until 2015, after which it grew slowest of all groups. The portfolio of the Middle 40% is dominated by housing. Compared to the Bottom 50%, they exhibit much higher net wealth and much lower debt. In the top decile, Business as well as Financial Wealth play a larger role, while debt plays a smaller one. The net wealth of the top 10% grew fastest, from 539 thousand euros to 849 thousand euros per capita, a 57% increase in the span of 12 years.</p>
+<p>The lower half of the distribution have little wealth, with housing and deposits playing the largest role. They are highly leveraged and essentially did not increase their net wealth until 2015, after which it grew slowest of all groups. The portfolio of the middle 40% is dominated by housing. Compared to the bottom 50%, they exhibit much higher net wealth and much lower debt. In the top decile, Business as well as Financial Wealth play a larger role, while debt plays a smaller one. The net wealth of the top 10% grew fastest, from 539 thousand euros to 849 thousand euros per capita, a 57% increase in the span of 12 years.</p>
 <div id="fig-trends" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -282,19 +301,19 @@ Figure&nbsp;4: Differential Wealth Trends (Eurozone Average)
 </figcaption>
 </figure>
 </div>
-<p>These differences in portfolio size and composition suggest that changes in asset prices are likely to affect each segment of the distribution in distinct ways. The next section sets out the econometric framework used to quantify these effects.</p>
+<p>These differences in portfolio size and composition suggest that changes in asset prices are likely to affect each segment of the distribution differently. The next section sets out the econometric framework used to quantify these effects.</p>
 </section>
 <section id="sec-strategy" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="sec-strategy"><span class="header-section-number">5</span> Empirical Strategy</h2>
-<p>As described above, different segments of the wealth distribution hold different portfolios, in size as well as in composition of asset classes. Their net wealth therefore reacts in distinct ways to identical changes in valuation of assets. This has a direct effect on the share of overall wealth held by the segment and consequently on general wealth inequality.</p>
+<p>As described above, different segments of the wealth distribution hold different portfolios, in size as well as in amounts of asset classes. Their net wealth therefore reacts in distinct ways to identical changes in valuation of assets. This has a direct effect on the share of overall wealth held by the segment and consequently on general wealth inequality.</p>
 <p>To estimate this response, a panel regression outlined in <a href="#eq-regression" class="quarto-xref">Equation&nbsp;1</a> is estimated:</p>
 <p><span id="eq-regression"><span class="math display">
 \Delta \log (\omega_{i,t}^g) = \beta_0 + \beta_h \Delta \log (p_{i,t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
 \tag{1}</span></span></p>
-<p>The resulting coefficients can be interpreted as elasticities, capturing the percentage change in a group’s wealth share associated with a one percent change in asset prices <span class="citation" data-cites="wooldridgeIntroductoryEconometricsModern2013">(<a href="#ref-wooldridgeIntroductoryEconometricsModern2013" role="doc-biblioref">Wooldridge 2013, p. 44</a>)</span>. This makes the effects directly comparable across groups and asset classes. <span class="math inline">\Delta \log</span> is the first difference of the log, as in <span class="math inline">\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})</span>. <span class="math inline">\omega_{i,t}^g</span> is the wealth share of a wealth group <span class="math inline">g</span> (Bottom 50%, Middle 40%, Top 10%) in country <span class="math inline">i</span> in quarter <span class="math inline">t</span>. <span class="math inline">p^h</span> describes the house price index and <span class="math inline">p^s</span> the stock market index. <span class="math inline">\epsilon_t</span> is an error term.</p>
-<p>Some regressions are extended to include country and time fixed effects. To control for seasonal patterns and macroeconomic shocks, one specification also includes separate fixed effects for each quarter and each year. Quarter fixed effects are defined as categorical indicators for Q1 to Q4, while year fixed effects cover the years 2011 to 2022, capturing annual shocks common across countries.</p>
+<p>The resulting coefficients can be interpreted as elasticities, capturing the percentage change in a group’s wealth share associated with a one percent change in asset prices <span class="citation" data-cites="wooldridgeIntroductoryEconometricsModern2013">(<a href="#ref-wooldridgeIntroductoryEconometricsModern2013" role="doc-biblioref">Wooldridge 2013, p. 44</a>)</span>. This makes the effects directly comparable across groups and asset classes. <span class="math inline">\Delta \log</span> is the first difference of the log, as in <span class="math inline">\Delta \log (x_t) = \log(x_t) - \log(x_{t-1})</span>. <span class="math inline">\omega_{i,t}^g</span> is the wealth share of a wealth group <span class="math inline">g</span> (bottom 50%, middle 40%, top 10%) in country <span class="math inline">i</span> in quarter <span class="math inline">t</span>. <span class="math inline">p^h</span> describes the house price index and <span class="math inline">p^s</span> the stock market index. <span class="math inline">\epsilon_t</span> is an error term.</p>
+<p>Some regressions are extended to include country and time fixed effects. To control for seasonal patterns and macroeconomic shocks, one specification also includes separate fixed effects for each quarter and each year. Quarter fixed effects are defined as categorical indicators for Q1 to Q4, while year fixed effects cover the years 2009 to 2022, capturing annual shocks common across countries.</p>
 <p>A potential concern with this type of panel structure is spatial dependence. As the cross-section of countries is not randomly sampled, they are subject to common unobserved and observed disturbances, which potentially bias the standard errors of the parameter estimations. To adress this issue, the standard errors are computed using the spatial correlation consistent (SCC) method by <span class="citation" data-cites="driscollConsistentCovarianceMatrix1998">Driscoll &amp; Kraay (<a href="#ref-driscollConsistentCovarianceMatrix1998" role="doc-biblioref">1998</a>)</span>. This estimator adjusts the covariance matrix to remain consistent in the presence of cross-sectional and temporal dependence.</p>
-<p>Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, <span class="math inline">\beta_h</span> and <span class="math inline">\beta_s</span> will not have the same slope in all countries and their estimates will not be able to explain the large variation.</p>
+<p>Another problem is the heterogeneity in responses subsumed under the parameter estimates in an Ordinary Least Squares (OLS) Regression. Due to differing portfolio compositions of the same wealth groups across Europe, <span class="math inline">\beta_h</span> and <span class="math inline">\beta_s</span> will not have the same slope in all countries and the aggregate estimates will not be able to explain the large variation.</p>
 <p>To adress this, the estimates are additionally calculated with the mean group estimator (MGE) proposed by <span class="citation" data-cites="pesaranEstimatingLongrunRelationships1995">Pesaran &amp; Smith (<a href="#ref-pesaranEstimatingLongrunRelationships1995" role="doc-biblioref">1995</a>)</span>. This estimator allows for heterogeneity in individual coefficients and error terms by running separate regressions for each unit. Resulting estimates are averaged as <span class="math inline">\hat{\beta}^{MG} = 1/N \sum_{i=1}^N \hat{\beta}_i</span> <span class="citation" data-cites="milloPanelTimeSeries2018">(<a href="#ref-milloPanelTimeSeries2018" role="doc-biblioref">Millo &amp; Croissant 2018, p. 190</a>)</span>.</p>
 <p>The MGE requires that <span class="math inline">T \ge p</span> and <span class="math inline">N</span> and <span class="math inline">T</span> are sufficiently large. Using Monte Carlo simulations, <span class="citation" data-cites="hsiaoBayesEstimationShortrun1999">Hsiao et al. (<a href="#ref-hsiaoBayesEstimationShortrun1999" role="doc-biblioref">1999</a>)</span> find that <span class="math inline">T=5</span> leads to considerable estimation error, while <span class="math inline">T=20</span> yields reliable results. The DWA dataset places well within the recommended range for applying the MGE, with <span class="math inline">N=21</span> and <span class="math inline">T</span> ranging from 17 to 49 across countries</p>
 <p>One specification of the MGE is demeaned cross-sectionally, which reduces the influence of common factors. It is comparable to Time Fixed Effects in an OLS estimate <span class="citation" data-cites="coakleyUnobservedHeterogeneityPanel2006">(<a href="#ref-coakleyUnobservedHeterogeneityPanel2006" role="doc-biblioref">Coakley et al. 2006</a>)</span>. Both the standard as well as the demeaned MGE use the implementation in R by <span class="citation" data-cites="croissantPlmLinearModels2023">Croissant et al. (<a href="#ref-croissantPlmLinearModels2023" role="doc-biblioref">2023</a>)</span>.</p>
@@ -885,9 +904,9 @@ Mean Group Estimator
 </div>
 </figure>
 </div>
-<p><a href="#tbl-panelT10" class="quarto-xref">Table&nbsp;1</a> reports the results of the panel regression for the share of the Top 10%. The first column includes time fixed effects, which absorb the stock price variation since the index is identical across all countries. Column 2 drops the time fixed effects and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column 4 presents estimates using the demeaned MGE, which again absorbs the stock price index, and Column 5 reports the standard MGE. A separate regression combining year and quarter fixed effects with the standard MGE is not reported, as its results are identical to Column 5 due to the nature of the estimator. Including lags of the dependent variable does not materially alter the estimated effects; full results with lags are provided in <a href="#tbl-dynamic" class="quarto-xref">Table&nbsp;6</a> in Appendix E.</p>
-<p>The top 10% wealth share decreases in response to house price increases. Across all specifications the coefficients are negative, with estimates ranging from –0.091 in Column (1) to –0.057 in the preferred Mean Group Estimator (Column 5). The effect is statistically significant in all but one specification, and robust to the inclusion of different fixed effects. The preferred specification is the standard MGE, as it allows for heterogeneous slopes across countries and avoids the bias of imposing a common response. The magnitude is economically meaningful: a 10% increase in house prices reduces the wealth share of the top decile by about half a percentage point, broadly consistent with evidence from <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> for the US.</p>
-<p>Rising stock prices are found to have an effect in the opposite direction. Estimates for the elasticity of the top decile wealth share range from 0.027 in the third specification and 0.014 in the last. An increase in stock prices increase the share of wealth hold by the Top 10%, while an increase in house prices compresses the share.</p>
+<p><a href="#tbl-panelT10" class="quarto-xref">Table&nbsp;1</a> reports the results of the panel regression for the share of the top 10%. The first column includes time fixed effects, which absorb the stock price variation since the index is identical across all countries. Column (2) drops the time fixed effects and includes unit fixed effects, while the third specification adds year and quarter fixed effects to control for seasonality. Column (4) presents estimates using the demeaned MGE, which again absorbs the stock price index, and Column (5) reports the standard MGE. A separate regression combining year and quarter fixed effects with the standard MGE is not reported, as its results are identical to Column (5) due to the nature of the estimator. Including lags of the dependent variable does not materially alter the estimated effects; full results with lags are provided in <a href="#tbl-dynamic" class="quarto-xref">Table&nbsp;6</a> in Appendix C.</p>
+<p>The top 10% wealth share decreases in response to house price increases. Across all specifications the coefficients are negative, with estimates ranging from –0.091 in Column (1) to –0.057 in Column (5). The effect is statistically significant in all but one specification, and robust to the inclusion of different fixed effects. The preferred specification is the standard MGE, as it allows for heterogeneous slopes across countries and avoids the bias of imposing a common response. The magnitude is economically meaningful: a 10% increase in house prices reduces the wealth share of the top decile by about half a percentage point, broadly consistent with evidence from <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> for the US.</p>
+<p>Rising stock prices are found to have an effect in the opposite direction. Estimates for the elasticity of the top decile wealth share range from 0.027 in the third specification and 0.014 in the last. An increase in stock prices increase the share of wealth hold by the top 10%, while an increase in house prices compresses the share.</p>
 <p>The OLS estimates for all segments of the wealth distribution show a low explanatory power, reflecting the heterogeneity across countries. By contrast, the Mean Group Estimator captures this heterogeneity and substantially improves the fit, explaining over 20% of the variance in the standard specification and more than 30% in the demeaned version for all groups.</p>
 <div id="tbl-panelM40" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1471,9 +1490,9 @@ Mean Group Estimator
 </div>
 </figure>
 </div>
-<p>Contrasting effects to those of the top decile are identified for the Middle 40% (<a href="#tbl-panelM40" class="quarto-xref">Table&nbsp;2</a>). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Model (1) to 0.031 in the preferred Model (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.</p>
-<p>The bottom half of the wealth distribution responds similarly to the middle 40%, albeit with a greater magnitude. Estimates for house price elasticity range from 0.189 to 0.481. Conversely, increasing stock prices by 10% decreases the group’s share by 0.28 to 0.51 percentage points.</p>
-<p>This group is notable for its lack of statistical significance for most coefficient values, particularly in specifications that use the mean group estimator. As outlined above, it is the lower half that exhibits the most variation in their wealth portfolio and positions. Therefore, they will display the most variation in their response to price movements of their assets, which cannot be averaged without substantial standard errors.</p>
+<p>Contrasting effects to those of the top decile are identified for the middle 40% (<a href="#tbl-panelM40" class="quarto-xref">Table&nbsp;2</a>). The elasticity of their wealth share with respect to house prices is positive, ranging from 0.058 in Column (1) to 0.031 in the preferred Column (5). An outlier is the estimate for the specification with Year and Quarter Fixed Effects, which is however not statistically significant. Stock prices on the other hand have a statistically significant negative effect on the middle segment of the wealth distribution. A 10% increase in stock prices leads to a decline in the share of net wealth of approximately 0.14 to 0.31 percentage points, depending on the specification.</p>
+<p>The bottom half of the wealth distribution responds similarly to the middle 40%, albeit with a greater magnitude (<a href="#tbl-panelB50" class="quarto-xref">Table&nbsp;3</a>). Estimates for house price elasticity range from 0.189 to 0.481. Conversely, increasing stock prices by 10% decreases the group’s share by 0.28 to 0.51 percentage points.</p>
+<p>This group is notable for its lack of statistical significance for most coefficient values, particularly in specifications that use the mean group estimator. As outlined above, it is the lower half that exhibits the most variation in their wealth portfolio and positions. Therefore, they will display the most variation in their response to price movements of their assets, which cannot be averaged without substantial standard errors in the MGE.</p>
 <div id="tbl-panelB50" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-panelB50-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2059,12 +2078,12 @@ Mean Group Estimator
 </section>
 <section id="sec-indiv" class="level2 page-columns page-full" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="sec-indiv"><span class="header-section-number">7</span> Country-Level Variation</h2>
-<p>To examine these heterogeneous effects across countries, the regression is re-estimated separately for each country following <a href="#eq-indiv" class="quarto-xref">Equation&nbsp;2</a>. As mentioned above, the standard errors are heteroskedasticity and autocorrelation consistent by use of the method of <span class="citation" data-cites="neweyHypothesisTestingEfficient1987">Newey &amp; West (<a href="#ref-neweyHypothesisTestingEfficient1987" role="doc-biblioref">1987</a>)</span>.</p>
+<p>To examine these heterogeneous effects across countries, the regression is estimated separately for each country following <a href="#eq-indiv" class="quarto-xref">Equation&nbsp;2</a>. As mentioned above, the standard errors are heteroskedasticity and autocorrelation consistent by use of the method of <span class="citation" data-cites="neweyHypothesisTestingEfficient1987">Newey &amp; West (<a href="#ref-neweyHypothesisTestingEfficient1987" role="doc-biblioref">1987</a>)</span>.</p>
 <p><span id="eq-indiv"><span class="math display">
 \Delta \log (\omega_{t}^g) = \beta_0 + \beta_h \Delta \log (p_{t}^h) + \beta_s \Delta \log(p^s_{t})+ \epsilon_t
 \tag{2}</span></span></p>
 <p><a href="#fig-coeffplot" class="quarto-xref">Figure&nbsp;5</a> displays the resulting country-level coefficients for house prices for each segment of the wealth distribution<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Estimates are ordered by magnitude and colored by statistical significance, with their standard errors represented by the error bars<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
-<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup>&nbsp;Full regression tables are presented in Appendix D</p></div><div id="fn6"><p><sup>6</sup>&nbsp;A corresponding stock price coefficient plot is available in Appendix F.</p></div></div><p>Visible in the panels is the large heterogeneity in all wealth segments. Estimates for the top decile range from -0.20 for Spain to 0.19 for the Netherlands. The majority of the coefficients with statistical significance are negative, which confirms the results from <a href="#tbl-panelT10" class="quarto-xref">Table&nbsp;1</a>. For the middle 40%, the coefficients fall between -0.11 in the Netherlands and 0.13 in France, with a large share of countries for which the null hypothesis cannot be rejected. Results in the lower half of the wealth distribution exceed those of the other groups. The Netherlands has an estimated elasticity of -2.71, which indicates that a 1% increase in house prices decreases the share of net wealth held by that group by 2.7%. In contrast, they increase their share by 2.18% in Ireland in response to an identical increase in house prices.</p>
+<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup>&nbsp;Full regression tables are presented in Appendix E</p></div><div id="fn6"><p><sup>6</sup>&nbsp;A corresponding stock price coefficient plot is available in Appendix F.</p></div></div><p>Visible in the panels is the large heterogeneity in all wealth segments. Estimates for the top decile range from -0.20 for Spain to 0.19 for the Netherlands. The majority of the coefficients with statistical significance are negative, which confirms the results from <a href="#tbl-panelT10" class="quarto-xref">Table&nbsp;1</a>. For the middle 40%, the coefficients fall between -0.11 in the Netherlands and 0.13 in France, with a large share of countries for which the null hypothesis cannot be rejected. Results in the lower half of the wealth distribution exceed those of the other groups. The Netherlands has an estimated elasticity of -2.71, which indicates that a 1% increase in house prices decreases the share of net wealth held by that group by 2.7%. In contrast, they increase their share by 2.18% in Ireland in response to an identical increase in house prices.</p>
 <p><span class="citation" data-cites="boelhouwerHousingMarketNetherlands2020">Boelhouwer (<a href="#ref-boelhouwerHousingMarketNetherlands2020" role="doc-biblioref">2020</a>)</span> present explanations for the dutch outlier results. The social housing sector in the Netherlands is larger than in other european countries, promising affordable renting for poorer households. Additionally, new stricter mortgage lending requirements were implemented in 2011, reducing the ability of first time buyers to afford buying a house. This could explain the very low share of housing wealth owned by the bottom 50% documented in <a href="#fig-distribution-indiv" class="quarto-xref">Figure&nbsp;9</a> and the negative effect in response to increasing house prices.</p>
 <div id="fig-coeffplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2076,12 +2095,13 @@ Figure&nbsp;5: House Price Coefficient Plots
 </figcaption>
 </figure>
 </div>
-<p>In general, the individual regressions support the panel model results. Accelerating stock prices profits the upper decile of the wealth distribution, at the expense of the rest of the population. House prices have a contrary effect, increasing the share of the bottom 50% and middle 40%. Statistical significance as well as <span class="math inline">R^2</span> varies due to heterogeneity in the responses in european countries.</p>
-<p>To address the outlier effect of the Netherlands, the panel regressions are re-estimated excluding this country. <a href="#tbl-panelNL" class="quarto-xref">Table&nbsp;4</a> compares the results of the preferred specification using the standard mean group estimator with and without the Dutch data.</p>
-<p>Excluding the Netherlands slightly reduces the magnitude of the coefficients for house prices on the Top 10% and Middle 40%, but the signs and significance remain stable. For the Top 10%, the negative effect of house prices weakens from -0.057 to -0.069, while for the Middle 40%, the positive effect increases slightly and becomes more statistically significant.</p>
+<p>In general, the individual regressions support the panel model results. Accelerating stock prices profits the upper decile of the wealth distribution, at the expense of the rest of the population. House prices have a contrary effect, increasing the share of the bottom 50% and middle 40%. Statistical significance as well as <span class="math inline">R^2</span> varies in the individual regressions.</p>
+<p>However, the country-level estimates also reveal important deviations. In every wealth group, there are countries with statistically significant coefficients that go in the opposite direction of the mean group estimator (especially evident in the Netherlands). These opposite signs highlight the extent of cross-country heterogeneity and underline that identical house price shocks can redistribute wealth very differently depending on national institutions and portfolio structures.</p>
+<p>To address the outlier effect of the Netherlands, the panel regressions are re-estimated excluding this country. <a href="#tbl-panelNL" class="quarto-xref">Table&nbsp;4</a> compares the results of the preferred specification using the standard mean group estimator with and without the dutch data.</p>
+<p>Excluding the Netherlands slightly increases the magnitude of the coefficients for house prices in the upper half of the distribution, and the signs and significance remain stable. For the top 10%, the negative effect of house prices increases from -0.057 to -0.069, with standard errors being reduced. The house price coefficient for the middle 40% increases slightly and becomes more statistically significant.</p>
 <p>The most notable change is for the bottom 50%. The coefficient on house prices increases from 0.253 to 0.395 and becomes statistically significant at the 1% level. This suggests that, once the outlier is removed, the effect of house prices on the lower half of the distribution becomes clearer and more robust.</p>
-<p>Stock price effects remain broadly stable across all specifications, with a significant positive effect on the Top 10% and a negative effect on the Middle 40%, consistent with prior estimates. No meaningful change is observed when the Netherlands is excluded.</p>
-<p>Overall, the results strengthen the interpretation that rising house prices tend to benefit the Bottom 50% and Middle 40%, while rising stock prices disproportionately benefit the Top 10%. Having established the sensitivity of wealth segments to asset prices, the next section simulates the evolution of wealth shares under different scenarios.</p>
+<p>Stock price effects remain broadly stable across all specifications, with a significant positive effect on the top 10% and a negative effect on the middle 40%, consistent with prior estimates. No meaningful change is observed when the Netherlands is excluded.</p>
+<p>Overall, the results strengthen the interpretation that rising house prices tend to benefit the bottom 50% and middle 40%, while rising stock prices disproportionately benefit the top 10%. Having established the sensitivity of wealth segments to asset prices, the next section simulates the evolution of wealth shares under different scenarios.</p>
 <div id="tbl-panelNL" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-panelNL-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2696,27 +2716,26 @@ Figure&nbsp;6: Counterfactual Simulations of top decile wealth shares
 </section>
 <section id="sec-discussion" class="level2 page-columns page-full" data-number="9">
 <h2 data-number="9" class="anchored" data-anchor-id="sec-discussion"><span class="header-section-number">9</span> Discussion</h2>
-<p>The empirical results provide a first indication of how asset prices correlate with changes in wealth distribution across Europe. Rising house prices increase the relative wealth of the middle 40% and the bottom 50%, while stock price growth primarily benefits the top decile. This aligns with the results by <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> for the US top decile, and the theoretical simulation by <span class="citation" data-cites="adamDistributionalConsequencesAsset2016">Adam &amp; Tzamourani (<a href="#ref-adamDistributionalConsequencesAsset2016" role="doc-biblioref">2016</a>)</span>.</p>
+<p>The empirical results provide evidence of how asset prices correlate with changes in wealth distribution across Europe. Rising house prices increase the relative wealth of the middle 40% and the bottom 50%, while stock price growth primarily benefits the top decile. This aligns with the results by <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> for the US top decile, and the theoretical simulation by <span class="citation" data-cites="adamDistributionalConsequencesAsset2016">Adam &amp; Tzamourani (<a href="#ref-adamDistributionalConsequencesAsset2016" role="doc-biblioref">2016</a>)</span>.</p>
 <p>A contribution of this thesis is the systematic documentation of cross-country heterogeneity. The estimates show that in some countries the effects run counter to the European average, and that identical price shocks can have very different distributional outcomes. This resonates with earlier work on homeownership and wealth differences in Europe <span class="citation" data-cites="mathaHouseholdWealthEuro2017 kaasWealthInequalityHomeownership2019 biewenShapeWealthDistribution2025">(<a href="#ref-mathaHouseholdWealthEuro2017" role="doc-biblioref">Mathä et al. 2017</a>; <a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">Kaas et al. 2019</a>; <a href="#ref-biewenShapeWealthDistribution2025" role="doc-biblioref">Biewen et al. 2025</a>)</span>, but extends it by directly linking asset price shocks to changes in inequality.</p>
-<p>The counterfactual simulations highlight the real-world consequences of these dynamics. They show that no European country experienced a ratio of housing to stock price growth high enough to prevent further concentration at the top. At 4.46, the estimated ratio to keep the top decile share is remarkably similar to the 3.65<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> implied by <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span>. The implication is that only very strong housing booms or a significant downturn in stock markets could slow the rise of top wealth shares.</p>
+<p>The counterfactual simulations highlight the real-world consequences of these dynamics. They show that no European country experienced a ratio of housing to stock price growth high enough to prevent further concentration at the top. At 4.07, the estimated ratio to keep the top decile share is remarkably similar to the 3.65<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> implied by <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span>. The implication is that only very strong housing booms or a significant downturn in stock markets could slow the rise of top wealth shares.</p>
 <div class="no-row-height column-margin column-container"><div id="fn8"><p><sup>8</sup>&nbsp;Derived from the coefficients reported in Table 5 of <span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020, p. 38</a>)</span>. Using the same formula as before.</p></div></div><section id="limitations" class="level3" data-number="9.1">
 <h3 data-number="9.1" class="anchored" data-anchor-id="limitations"><span class="header-section-number">9.1</span> Limitations</h3>
-<p>One theoretical concern in the regressions is reverse causality: rather than asset prices driving shifts in wealth inequality, it is plausible that changes in the wealth distribution affect asset price dynamics themselves. Higher inequality leads to more disposable wealth accruing at the top, which in turn could lead to more investment in financial assets and real estate, therefore raising prices in a supply-constrained environment. <span class="citation" data-cites="godaAbsoluteIncomeInequality2020">Goda et al. (<a href="#ref-godaAbsoluteIncomeInequality2020" role="doc-biblioref">2020</a>)</span> use cointegration tests to find that absolute income inequality and house prices are positively correlated in OECD countries, suggesting that inequality itself can fuel price growth.</p>
-<p>Given the relatively short time frame of the analysis and its focus on wealth inequality, it is unlikely that long-run structural shifts in inequality have been the main driver of rising house prices. If the argument holds, countries with higher inequality at start would have seen a stronger price increase than the ones with lower inequality. Empirically, this does not seem to be the case, as presented in Figure <a href="#fig-reverse" class="quarto-xref">Figure&nbsp;12</a> in Appendix G. The relationship between initial inequality and subsequent house price growth is weak and inconsistent across periods. In particular, countries with higher Gini coefficients in 2014 or 2019 did not systematically experience higher house price growth over the following five years.</p>
-<p>The literature on drivers of rising property values emphasises the role of other factors <span class="citation" data-cites="ducaWhatDrivesHouse2021">(<a href="#ref-ducaWhatDrivesHouse2021" role="doc-biblioref">Duca et al. 2021</a>)</span>. Especially important are financial constraints, e.g.&nbsp;interest rates and borrowing regulation, as well as feedback loops driving endogenous cycles. The authors also stress the diverse regional trajectories and institutions governing house prices. In sum, while house prices clearly drive shifts in housing wealth and its distribution through the valuation channel, the evidence for a consistent reverse effect from wealth inequality to price growth is limited in this context.</p>
+<p>One theoretical concern in the regressions is reverse causality: rather than asset prices driving shifts in wealth inequality, it is plausible that changes in the wealth distribution affect asset price dynamics themselves. Higher inequality leads to more disposable wealth accruing at the top, which in turn could lead to more investment in financial assets and real estate, therefore raising prices in a supply-constrained environment. <span class="citation" data-cites="godaAbsoluteIncomeInequality2020">Goda et al. (<a href="#ref-godaAbsoluteIncomeInequality2020" role="doc-biblioref">2020</a>)</span> use cointegration tests to find that absolute income inequality and house prices are positively correlated in OECD countries, suggesting that this type of inequality can fuel price growth.</p>
+<p>Given the relatively short time frame of the analysis and its focus on wealth inequality, it is unlikely that long-run structural shifts in inequality have been the main driver of rising house prices. If the argument holds, countries with higher inequality at start would have seen a stronger price increase than the ones with lower inequality. Empirically, this does not seem to be the case, as presented in <a href="#fig-reverse" class="quarto-xref">Figure&nbsp;12</a> in Appendix G. The relationship between initial inequality and subsequent house price growth is weak and inconsistent across periods. In particular, countries with higher Gini coefficients in 2014 or 2019 did not systematically experience higher house price growth over the following five years.</p>
+<p>The literature on drivers of rising property values emphasises the role of other factors <span class="citation" data-cites="ducaWhatDrivesHouse2021">(<a href="#ref-ducaWhatDrivesHouse2021" role="doc-biblioref">Duca et al. 2021</a>)</span>. Especially important are financial constraints, e.g.&nbsp;interest rates and borrowing regulation, as well as feedback loops driving endogenous cycles. The authors also stress the diverse regional trajectories and institutions governing house prices. In sum, while house prices clearly drive shifts in housing wealth and its distribution through the valuation channel, the evidence for a consistent reverse effect from wealth inequality to price growth is limited in the context of this analysis.</p>
 <p>Another potential issue is the use of the Stoxx 50 as a stock price index. As an european average, it cannot capture the individual stock market conditions in european countries, therefore assuming all portfolios move in an identical manner.</p>
 <p>On the other hand, the broadness of the index ensures that over 60% of the european market capitalization is accounted for. Additionally, the local stock markets in the European Union are highly integrated into the european market. As <span class="citation" data-cites="kimDynamicStockMarket2005">Kim et al. (<a href="#ref-kimDynamicStockMarket2005" role="doc-biblioref">2005</a>)</span> describes for 15 member states before 2004 and <span class="citation" data-cites="savvaStockMarketIntegration2010">Savva &amp; Aslanidis (<a href="#ref-savvaStockMarketIntegration2010" role="doc-biblioref">2010</a>)</span> for new member states after 2004, there are significant comovements of local and european stock prices. Using local stock indices therefore would not yield significantly different results and introduce a range of new problems concerning comparability.</p>
 <p>A key limitation of the DWA is that it does not differentiate between the valuation effect and savings effect when measuring changes in wealth. An increase in a given groups net wealth could be driven by changes to the valuation of the existing portfolios as well as increased savings of households. This is especially important if rising earnings inequality leads to more disposable income in the upper part of the wealth distribution, which is invested in assets. In this case, rising income inequality would lead to a larger share of wealth owned by the top decile, independent of changes in asset valuations.</p>
 <p><span class="citation" data-cites="kuhnIncomeWealthInequality2020">Kuhn et al. (<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">2020</a>)</span> document the effects for the US distribution. They find that in the four decades preceding the 2008 financial crisis, the valuation effect played a similar role to savings in the development of the wealth distribution <span class="citation" data-cites="kuhnIncomeWealthInequality2020">(<a href="#ref-kuhnIncomeWealthInequality2020" role="doc-biblioref">ibid. p. 41</a>)</span>. It is especially pronounced for the bottom half, where over 90% of the groups wealth growth is induced by changes in the valuation of assets, especially housing. In the period after the financial crisis, US house prices plummeted while stock prices quickly rebounded. The authors find that this led to a stark decrease in wealth owned by the bottom 90%, while the top 10% wealth grew due to the stock prices. As a result, the US saw the strongest increase in wealth concentration in post-war history, all the while income inequality remained stable.</p>
-<p>In the Eurozone, a similar picture emerges. Wealth inequality increased over the observed period (2011-2022), while income inequality decreased slightly <span class="citation" data-cites="eurostatGiniCoefficientEquivalised2024">(<a href="#ref-eurostatGiniCoefficientEquivalised2024" role="doc-biblioref">Eurostat 2024</a>)</span>. This suggests that valuation effects are primarily responsible for the wealth growth, and savings play a smaller role. Furthermore, given that the time frame of the observation is limited to a short period, it is more plausible to attribute the increase in net wealth to asset prices.</p>
+<p>In the Eurozone, a similar picture emerges. Wealth inequality increased over the observed period (2009-2022), while income inequality decreased slightly <span class="citation" data-cites="eurostatGiniCoefficientEquivalised2024">(<a href="#ref-eurostatGiniCoefficientEquivalised2024" role="doc-biblioref">Eurostat 2024</a>)</span>. This suggests that valuation effects are primarily responsible for the wealth growth, and savings play a smaller role. Furthermore, given that the time frame of the observation is limited to a short period, it is more plausible to attribute the increase in net wealth to asset prices.</p>
 <p>Another limitation concerns the data itself. The Distributional Wealth Accounts are an official but still experimental dataset. They rely on assumptions to correct well-known problems of undersampling and undervaluation of very rich households. This could potentially lead to an understatement of wealth concentration at the very top and bias the estimated effects of asset prices, especially with regard to financial assets predominantly held by the richest households. Nonetheless, validation exercises and robustness checks in the underlying publications <span class="citation" data-cites="engelDevelopingReconciledQuarterly2022">(<a href="#ref-engelDevelopingReconciledQuarterly2022" role="doc-biblioref">Engel et al. 2022</a>)</span> show that the DWA produces results consistent with independent sources. This suggests that the distributional patterns identified in this thesis are reliable, even if the very top tail remains imperfectly captured.</p>
 <p>Ideally, more comprehensive data would be available, particularly from wealth tax registers as used in Denmark or Switzerland. Such sources would improve measurement at the top and allow more precise analysis of the top 1%, whose portfolios differ substantially from the top decile. Integrating these data would reduce concerns about underreporting and sharpen estimates of how asset prices affect the most concentrated parts of the distribution.</p>
 </section>
 <section id="cross-country-heterogeneity" class="level3" data-number="9.2">
 <h3 data-number="9.2" class="anchored" data-anchor-id="cross-country-heterogeneity"><span class="header-section-number">9.2</span> Cross-Country Heterogeneity</h3>
 <p>The individual results raise the question of why portfolios and subsequent reactions to asset price movements differ so strongly across Europe. What institutional and cultural differences explain the large variance?</p>
-<p>The large cross-country differences in the results likely reflect variation in homeownership rates, which the literature identifies as a central driver. <span class="citation" data-cites="mathaHouseholdWealthEuro2017">Mathä et al. (<a href="#ref-mathaHouseholdWealthEuro2017" role="doc-biblioref">2017</a>)</span> find that the home ownership rate in addition to house price dynamics explain more than 50% of the wealth differences in Europe, particularly in the middle part of the distribution. Similarly, <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">Kaas et al. (<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">2019</a>)</span> highlight that home ownership rates are strongly negatively related to wealth inequality in the 9 largest european countries. The authors also stress that the home ownership rate itself is higly endogenous and variations have to be explained by institutional and cultural differences.</p>
-<p>Several institutions influencing home ownership decisions are analysed in the literature <span class="citation" data-cites="bourassaDeterminantsHomeownershipRate2015">(for an overview see <a href="#ref-bourassaDeterminantsHomeownershipRate2015" role="doc-biblioref">Bourassa et al. 2015</a>)</span>. <span class="citation" data-cites="choTaxTreatmentOwner2011">Cho &amp; Francis (<a href="#ref-choTaxTreatmentOwner2011" role="doc-biblioref">2011</a>)</span> focus on preferential tax treatment in the form of mortgage interest rate deductibility and missing taxation of imputed rents. They find that it provides a financial incentive to own instead of rent in the US case and has negative distributional effects.</p>
+<p>As outlined in the literature review, homeownership rates are a central factor. Several institutions influencing home ownership decisions are analysed in the literature <span class="citation" data-cites="bourassaDeterminantsHomeownershipRate2015">(for an overview see <a href="#ref-bourassaDeterminantsHomeownershipRate2015" role="doc-biblioref">Bourassa et al. 2015</a>)</span>. <span class="citation" data-cites="choTaxTreatmentOwner2011">Cho &amp; Francis (<a href="#ref-choTaxTreatmentOwner2011" role="doc-biblioref">2011</a>)</span> focus on preferential tax treatment in the form of mortgage interest rate deductibility and missing taxation of imputed rents. They find that it provides a financial incentive to own instead of rent in the US case and has negative distributional effects.</p>
 <p><span class="citation" data-cites="kaasWealthInequalityHomeownership2019">Kaas et al. (<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">2019</a>)</span> additionally highlight the role of sales tax on homes and average downpayment requirements, which differ across Europe and explain part of the variation in homeownership rates. In a companion paper <span class="citation" data-cites="kaasLowHomeownershipGermany2021">(<a href="#ref-kaasLowHomeownershipGermany2021" role="doc-biblioref">Kaas et al. 2021</a>)</span>, the authors incorporate these factors into a structural model to explain the low german homeownership rate. Running counterfactual experiments, they show that reducing transfer taxes and implementing mortgage interest rate deductions would increase the share of homeowners, while reducing welfare, particularly for new entrants into the property market.</p>
 <p>Therefore, it is important to note that while a higher homeownership rate may lead to a more equitable distribution of wealth, it also introduces consequences regarding market efficiency and distribution. In addition to upper-income classes profiting more if the higher rate is achieved through preferential tax treatment, it also creates an incentive to over consume housing as an asset <span class="citation" data-cites="choTaxTreatmentOwner2011">(<a href="#ref-choTaxTreatmentOwner2011" role="doc-biblioref">Cho &amp; Francis 2011</a>)</span>. This creates a “lock in” effect for owners, decreasing residential mobility with adverse effects on the functioning of the labor market <span class="citation" data-cites="causaHousingWealthAccumulation2019">(<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">Causa et al. 2019</a>)</span>.</p>
 <p>Beyond differences in homeownership rates, variation in household leverage is another key factor shaping how house prices affect wealth inequality. As noted by <span class="citation" data-cites="causaHousingWealthAccumulation2019">Causa et al. (<a href="#ref-causaHousingWealthAccumulation2019" role="doc-biblioref">ibid.</a>)</span>, there is substantial heterogeneity in household leverage, particularly housing debt. In some countries, such as the Netherlands and Ireland, average loan-to-value ratios exceed 50%, with high leverage especially common in the lower part of the wealth distribution. This can amplify gains when house prices increase, but also exposes households to significant risks if prices fall or if interest rates rise, particularly in markets with variable-rate mortgages. In the Dutch case, this helps explain why the individual estimates showed an unusual negative response of the bottom 50% to rising house prices: highly leveraged households with limited ownership of housing assets gained little from appreciation, while stricter mortgage regulations after 2011 further constrained new entrants.</p>
@@ -2727,7 +2746,7 @@ Figure&nbsp;6: Counterfactual Simulations of top decile wealth shares
 <p>In addition to the short-term consequences of asset prices on inequality, it is important to consider the second-order effects. Without a corresponding increase in income, rising house prices reduce the affordability of owning a house, especially for first-time buyers.. This could lead to higher wealth inequality in the long term, as lower income and wealth groups are increasingly excluded from accumulating housing assets and thus miss out on the associated wealth gains.</p>
 <p>Empirical evidence of this phenomenon is presented by <span class="citation" data-cites="bonnetRisingInequalitiesAccess2019">Bonnet, C. et al. (<a href="#ref-bonnetRisingInequalitiesAccess2019" role="doc-biblioref">2019</a>)</span> for France. They find that in the last 40 years, low-income households between 25 and 44 years exhibited a decline in their homeownership rates, with the reverse for high-income households. In 1973, in the former group 34% of households owned their home, while in the latter it was 43%. This gap widened in the following decades, with 66% of the high income group owning their residence, while the percentage of the low income group more than halved with 16%. Notably, the average homeownership rate remained relatively stable during this period. The authors attribute the rise in ownership inequality to increasing house prices, the subsequent growing importance of inheritances, and shifts in family structures.</p>
 <p>Additionally, rising house prices often lead to higher rents, which further erodes affordability. As <span class="citation" data-cites="hickHousingAffordabilityPoverty2024">Hick et al. (<a href="#ref-hickHousingAffordabilityPoverty2024" role="doc-biblioref">2024</a>)</span> document, housing cost burdens across Europe have become increasingly concentrated among renters in the private market. Higher rents reduce tenants’ ability to save and often prevent them from accumulating wealth, while rental income flows to landlords, who are disproportionately in the top wealth deciles. This dynamic especially affects first-time homebuyers, as high rents make it harder to save for down payments, delaying homeownership and deepening the divide between those who have housing wealth and those who don’t.</p>
-<p>The divergence between the “haves” and “have-nots” is illustrated in the figure ratio. The graph illustrates the tenant-to-owner wealth ratio in European countries. In many countries, the ratio has increased sharply, indicating that homeowners have experienced much stronger wealth growth relative to renters. Croatia has the largest ratio, with homeowners owning approximately 20 times as much wealth as tenants, up from 10.23 in the second quarter of 2017.</p>
+<p>The divergence between the “haves” and “have-nots” is illustrated in the <a href="#fig-ratio" class="quarto-xref">Figure&nbsp;7</a>. The graph illustrates the tenant-to-owner wealth ratio in European countries. In many countries, the ratio has increased sharply, indicating that homeowners have experienced much stronger wealth growth relative to renters. Croatia has the largest ratio, with homeowners owning approximately 20 times as much wealth as tenants, up from 10.23 in the second quarter of 2017.</p>
 <div id="fig-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2738,20 +2757,21 @@ Figure&nbsp;7: Owner-Tenant Wealth Ratios
 </figcaption>
 </figure>
 </div>
-<p>This aligns with the argument proposed by <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">Kaas et al. (<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">2019</a>)</span>, who employed a decomposition approach to analyze european wealth Gini coefficients, distinguishing between owner and tenant groups. Their analysis revealed that the between-group component contributed significantly to the overall inequality observed <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">(<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">ibid. p. 34</a>)</span>.</p>
-<p>The importance of asset ownership for inequality also matters in the context of monetary policy. Since monetary interventions strongly influence asset prices, their effects are transmitted differently to owners and non-owners, and across wealth groups more broadly.. Conventional policy tools, such as interest rate cuts, are known to increase equity valuations <span class="citation" data-cites="bernankeWhatExplainsStock2005">(<a href="#ref-bernankeWhatExplainsStock2005" role="doc-biblioref">Bernanke &amp; Kuttner 2005</a>)</span>. Housing markets respond similarly: contractionary shocks have been shown to lower house prices in Europe <span class="citation" data-cites="coenMonetaryShocksHouse2024">(<a href="#ref-coenMonetaryShocksHouse2024" role="doc-biblioref">Coën &amp; Pourcelot 2024</a>)</span>, although the effect is highly heterogeneous across countries <span class="citation" data-cites="battistiniNavigatingHousingChannel2025">(<a href="#ref-battistiniNavigatingHousingChannel2025" role="doc-biblioref">Battistini et al. 2025</a>)</span>.</p>
+<p>This aligns with the argument proposed by <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">Kaas et al. (<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">2019</a>)</span>, who employed a decomposition approach to analyze european wealth Gini coefficients.</p>
+<p>They analyse the groups of renters and tenants and distinguish between sub-group inequality and between-group inequality. Their analysis revealed that the between-group component contributed significantly to the overall inequality observed <span class="citation" data-cites="kaasWealthInequalityHomeownership2019">(<a href="#ref-kaasWealthInequalityHomeownership2019" role="doc-biblioref">ibid. p. 34</a>)</span>.</p>
+<p>The importance of asset ownership for inequality also matters in the context of monetary policy. Since monetary interventions strongly influence asset prices, their effects are transmitted differently to owners and non-owners, and across wealth groups more broadly. Conventional policy tools, such as interest rate cuts, are known to increase equity valuations <span class="citation" data-cites="bernankeWhatExplainsStock2005">(<a href="#ref-bernankeWhatExplainsStock2005" role="doc-biblioref">Bernanke &amp; Kuttner 2005</a>)</span>. Housing markets respond similarly: contractionary shocks have been shown to lower house prices in Europe <span class="citation" data-cites="coenMonetaryShocksHouse2024">(<a href="#ref-coenMonetaryShocksHouse2024" role="doc-biblioref">Coën &amp; Pourcelot 2024</a>)</span>. <span class="citation" data-cites="battistiniNavigatingHousingChannel2025">Battistini et al. (<a href="#ref-battistiniNavigatingHousingChannel2025" role="doc-biblioref">2025</a>)</span> highlight the considerable heterogeneity in the housing channel, due to long-run economic and institutional circumstances.</p>
 <p>The observation period of this thesis (2011–2022) overlaps with a phase of historically low interest rates, the Eurozone sovereign debt crisis, and the ECB’s shift toward unconventional monetary policy. This included large-scale purchases of corporate and government securities, boosting equity prices <span class="citation" data-cites="fratzscherECBUnconventionalMonetary2016">(<a href="#ref-fratzscherECBUnconventionalMonetary2016" role="doc-biblioref">Fratzscher et al. 2016</a>)</span>. House prices on the other hand remained stable until 2015, before rising, albeit much slower than stock prices.</p>
 <p>Thus decisions taken in light of the euro crisis had direct consequences on the wealth distribution in Europe. Higher stock prices, coupled with stable house prices, resulted in an increase in capital gains for the top decile, while the rest of the population did not benefit in a similar fashion. <span class="citation" data-cites="bernothECBAssetPurchases2016">Bernoth et al. (<a href="#ref-bernothECBAssetPurchases2016" role="doc-biblioref">2016</a>)</span> described this theoretical consequence of the ECB purchasing programs, and more detailed empirical research on the heterogenous distributional effects is needed to incorporate it into monetary policy frameworks.</p>
-<p>Taken together, the discussion highlights the importance of asset prices, especially housing and equities, in shaping recent wealth dynamics across Europe. While short-term valuation effects appear to drive much of the observed inequality, their distributional consequences are mediated by national institutions, ownership structures, and policy regimes. The analysis also points to monetary policy as an indirect but powerful driver of wealth inequality, raising questions about the distributive impact of asset purchases and interest rate decisions. Given the data limitations and focus on a relatively short time frame, further research is needed to disentangle long-run structural drivers from price effects, and to assess how policy interventions can be designed to mitigate wealth concentration.</p>
+<p>Taken together, the discussion highlights the importance of asset prices in shaping recent wealth dynamics across Europe. While short-term valuation effects appear to drive much of the observed wealth inequality, their distributional consequences are mediated by national institutions, ownership structures, and policy regimes. The analysis also points to monetary policy as an indirect but powerful driver of wealth inequality, raising questions about the distributive impact of asset purchases and interest rate decisions. Given the data limitations and focus on a relatively short time frame, further research is needed to disentangle long-run structural drivers from price effects, and to assess how policy interventions can be designed to mitigate wealth concentration.</p>
 </section>
 </section>
 <section id="sec-conclusion" class="level2" data-number="10">
 <h2 data-number="10" class="anchored" data-anchor-id="sec-conclusion"><span class="header-section-number">10</span> Conclusion</h2>
-<p>This thesis examined how wealth inequality in Europe responds to changes in asset prices. The analysis reveals clear and distinct patterns: the middle and lower parts of the distribution profit from increases in house prices, while the top decile benefits predominantly from growth in stock prices.</p>
+<p>This thesis examined how wealth inequality in Europe responds to changes in asset prices. The results shows distinct patterns: the middle and lower parts of the distribution profit from increases in house prices, while the top decile benefits predominantly from growth in stock prices. There is considerable heterogeneity across european countries, reflecting differences in portfolio structures and institutional settings.</p>
 <p>The counterfactual simulations illustrate how different price paths would have reshaped the wealth distribution. They show that rising house prices can partly offset stock-driven concentration at the top, but even the strongest booms were insufficient to stop the rise of the top decile.</p>
-<p>The contribution of this thesis lies in combining the ECB’s new Distributional Wealth Accounts with panel methods to capture both short-term valuation effects and heterogeneity across European countries. The results confirm that the valuation effects, particularly with respect to housing, are central drivers of wealth inequality.</p>
+<p>The contribution of this thesis lies in combining the ECB’s new Distributional Wealth Accounts with panel methods to capture both short-term valuation effects and heterogeneity across European countries.</p>
 <p>The findings carry important implications for housing and monetary policy. Housing market regimes determine who can access the property ladder, while monetary policy decisions shape asset valuations and, through them, the distribution of wealth. Recognizing these effects is essential for understanding the broader consequences of policy interventions.</p>
-<p>Finally, the analysis points to several avenues for further research. A deeper decomposition of savings and valuation effects in Europe would clarify their relative roles in driving inequality. The influence of leverage on wealth dynamics remains underexplored and could be investigated with the DWA. More detailed country-level studies are also needed to explain the heterogeneous effects of asset prices across Europe.</p>
+<p>Finally, the analysis points to several avenues for further research. A deeper decomposition of savings and valuation effects on the country level would clarify their relative roles in driving inequality. The influence of leverage on wealth dynamics remains underexplored and could be investigated with the DWA. More detailed country-level studies are also needed to explain the heterogeneous effects of asset prices across Europe.</p>
 <!-- End of Text -->
 <!-- Refs, Appendix etc. -->
 <div style="page-break-after: always;"></div>
@@ -3488,9 +3508,634 @@ Figure&nbsp;10: Portfolio Composition of Deciles
 </figcaption>
 </figure>
 </div>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="appendix-d-individual-regressions-results" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="appendix-d-individual-regressions-results">Appendix D: Individual regressions results</h3>
+<section id="appendix-d-dynamic-panel-regression" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="appendix-d-dynamic-panel-regression">Appendix D: Dynamic Panel Regression</h3>
+<div id="tbl-dynamic" class="quarto-layout-panel anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dynamic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Dynamic Panel Regression
+</figcaption>
+<div aria-describedby="tbl-dynamic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+
+
+
+<meta charset="utf-8">
+<style>body{background-color:white;}</style>
+
+
+
+
+<div id="roinhbqzqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  <style>#roinhbqzqf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#roinhbqzqf thead, #roinhbqzqf tbody, #roinhbqzqf tfoot, #roinhbqzqf tr, #roinhbqzqf td, #roinhbqzqf th {
+  border-style: none;
+}
+
+#roinhbqzqf p {
+  margin: 0;
+  padding: 0;
+}
+
+#roinhbqzqf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#roinhbqzqf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#roinhbqzqf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#roinhbqzqf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#roinhbqzqf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#roinhbqzqf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#roinhbqzqf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#roinhbqzqf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#roinhbqzqf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#roinhbqzqf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#roinhbqzqf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#roinhbqzqf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#roinhbqzqf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#roinhbqzqf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#roinhbqzqf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#roinhbqzqf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#roinhbqzqf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#roinhbqzqf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#roinhbqzqf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#roinhbqzqf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#roinhbqzqf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#roinhbqzqf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#roinhbqzqf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#roinhbqzqf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#roinhbqzqf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#roinhbqzqf .gt_left {
+  text-align: left;
+}
+
+#roinhbqzqf .gt_center {
+  text-align: center;
+}
+
+#roinhbqzqf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#roinhbqzqf .gt_font_normal {
+  font-weight: normal;
+}
+
+#roinhbqzqf .gt_font_bold {
+  font-weight: bold;
+}
+
+#roinhbqzqf .gt_font_italic {
+  font-style: italic;
+}
+
+#roinhbqzqf .gt_super {
+  font-size: 65%;
+}
+
+#roinhbqzqf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#roinhbqzqf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#roinhbqzqf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#roinhbqzqf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#roinhbqzqf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#roinhbqzqf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#roinhbqzqf .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#roinhbqzqf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#roinhbqzqf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+  
+<table class="gt_table caption-top table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="a-" class="gt_col_heading gt_columns_bottom_border gt_left" style="text-align: left;" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="a(1)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(1)</th>
+<th id="a(2)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(2)</th>
+<th id="a(3)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(3)</th>
+<th id="a(4)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(4)</th>
+<th id="a(5)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(5)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">House Prices</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">-0.057***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">-0.071***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">-0.070***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">-0.073***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">-0.070***</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">(0.018)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">(0.017)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.015)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.016)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.016)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">Stock Prices</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">0.014***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.016***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.018***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.019***</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.020***</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">(0.004)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">(0.004)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.004)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.004)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.004)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 1</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.076</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.029</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.016</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.009</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">(0.078)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.073)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.076)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.076)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 2</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.082*</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.058</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.030</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.046)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.046)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.059)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 3</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.024</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">-0.003</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.033)</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.040)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 4</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)"></td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">-0.055</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers=" " style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
+<td class="gt_row gt_center" headers="(1)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
+<td class="gt_row gt_center" headers="(2)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
+<td class="gt_row gt_center" headers="(3)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
+<td class="gt_row gt_center" headers="(4)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
+<td class="gt_row gt_center" headers="(5)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">(0.062)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">N</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">860</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">838</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">816</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">794</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">772</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">R²</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">0.313</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.431</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.463</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.484</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.505</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers=" ">Adj. R²</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(1)">0.269</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.381</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.401</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.408</td>
+<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.416</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="6" class="gt_sourcenote" style="text-align: left;">* p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-dynamic" class="quarto-xref">Table&nbsp;6</a> reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.</p>
+</section>
+<section id="appendix-e-individual-regressions-results" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="appendix-e-individual-regressions-results">Appendix E: Individual regressions results</h3>
 
 
 
@@ -5505,631 +6150,6 @@ Figure&nbsp;10: Portfolio Composition of Deciles
 
 <div style="page-break-after: always;"></div>
 </section>
-<section id="appendix-e-dynamic-panel-regression" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="appendix-e-dynamic-panel-regression">Appendix E: Dynamic Panel Regression</h3>
-<div id="tbl-dynamic" class="quarto-layout-panel anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dynamic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;6: Dynamic Panel Regression
-</figcaption>
-<div aria-describedby="tbl-dynamic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-
-
-
-<meta charset="utf-8">
-<style>body{background-color:white;}</style>
-
-
-
-
-<div id="roinhbqzqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-  <style>#roinhbqzqf table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#roinhbqzqf thead, #roinhbqzqf tbody, #roinhbqzqf tfoot, #roinhbqzqf tr, #roinhbqzqf td, #roinhbqzqf th {
-  border-style: none;
-}
-
-#roinhbqzqf p {
-  margin: 0;
-  padding: 0;
-}
-
-#roinhbqzqf .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#roinhbqzqf .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#roinhbqzqf .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#roinhbqzqf .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#roinhbqzqf .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#roinhbqzqf .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#roinhbqzqf .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#roinhbqzqf .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#roinhbqzqf .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#roinhbqzqf .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#roinhbqzqf .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#roinhbqzqf .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#roinhbqzqf .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#roinhbqzqf .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#roinhbqzqf .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roinhbqzqf .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#roinhbqzqf .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#roinhbqzqf .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#roinhbqzqf .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roinhbqzqf .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#roinhbqzqf .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roinhbqzqf .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#roinhbqzqf .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roinhbqzqf .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#roinhbqzqf .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roinhbqzqf .gt_left {
-  text-align: left;
-}
-
-#roinhbqzqf .gt_center {
-  text-align: center;
-}
-
-#roinhbqzqf .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#roinhbqzqf .gt_font_normal {
-  font-weight: normal;
-}
-
-#roinhbqzqf .gt_font_bold {
-  font-weight: bold;
-}
-
-#roinhbqzqf .gt_font_italic {
-  font-style: italic;
-}
-
-#roinhbqzqf .gt_super {
-  font-size: 65%;
-}
-
-#roinhbqzqf .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#roinhbqzqf .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#roinhbqzqf .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#roinhbqzqf .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#roinhbqzqf .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#roinhbqzqf .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#roinhbqzqf .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#roinhbqzqf .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#roinhbqzqf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-  
-<table class="gt_table caption-top table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_col_headings header">
-<th id="a-" class="gt_col_heading gt_columns_bottom_border gt_left" style="text-align: left;" data-quarto-table-cell-role="th" scope="col"></th>
-<th id="a(1)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(1)</th>
-<th id="a(2)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(2)</th>
-<th id="a(3)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(3)</th>
-<th id="a(4)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(4)</th>
-<th id="a(5)" class="gt_col_heading gt_columns_bottom_border gt_center" style="text-align: left;" data-quarto-table-cell-role="th" scope="col">(5)</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">House Prices</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">-0.057***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">-0.071***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">-0.070***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">-0.073***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">-0.070***</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">(0.018)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">(0.017)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.015)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.016)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.016)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">Stock Prices</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">0.014***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.016***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.018***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.019***</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.020***</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">(0.004)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">(0.004)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.004)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.004)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.004)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 1</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.076</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.029</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.016</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.009</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">(0.078)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.073)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.076)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.076)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 2</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.082*</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.058</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.030</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">(0.046)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.046)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.059)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 3</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.024</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">-0.003</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" style="text-align: left;" headers=" "></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">(0.033)</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">(0.040)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">Lag 4</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)"></td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">-0.055</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers=" " style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
-<td class="gt_row gt_center" headers="(1)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
-<td class="gt_row gt_center" headers="(2)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
-<td class="gt_row gt_center" headers="(3)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
-<td class="gt_row gt_center" headers="(4)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;"></td>
-<td class="gt_row gt_center" headers="(5)" style="text-align: left; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000;">(0.062)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">N</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">860</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">838</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">816</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">794</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">772</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">R²</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">0.313</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.431</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.463</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.484</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.505</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" style="text-align: left;" headers=" ">Adj. R²</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(1)">0.269</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(2)">0.381</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(3)">0.401</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(4)">0.408</td>
-<td class="gt_row gt_center" style="text-align: left;" headers="(5)">0.416</td>
-</tr>
-</tbody><tfoot class="gt_sourcenotes">
-<tr class="odd">
-<td colspan="6" class="gt_sourcenote" style="text-align: left;">* p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01</td>
-</tr>
-</tfoot>
-
-</table>
-
-</div>
-
-
-</div>
-</div>
-</div>
-</figure>
-</div>
-<p><a href="#tbl-dynamic" class="quarto-xref">Table&nbsp;6</a> reports results from dynamic panel regressions of the top 10% wealth share on changes in house and stock prices, including up to four lags of the dependent variable. The coefficients on house prices remain negative and highly significant across all specifications, indicating that rising house prices reduce the top 10% share. Stock prices consistently exhibit a positive and significant effect. Lagged dependent variables are mostly insignificant, suggesting limited persistence in quarterly changes. Model fit improves modestly with additional lags, but the main asset price effects remain stable.</p>
-<div style="page-break-after: always;"></div>
-</section>
 <section id="appendix-f-stock-prices-coefficient-plot" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="appendix-f-stock-prices-coefficient-plot">Appendix F: Stock Prices Coefficient Plot</h3>
 <div id="fig-coeffStock" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -6156,10 +6176,9 @@ Figure&nbsp;12: Inequality and Housing Price Growth
 </figure>
 </div>
 <p><a href="#fig-reverse" class="quarto-xref">Figure&nbsp;12</a> plots the relationship between the Gini coefficient at the beginning of a five-year period and the cumulative growth in real house prices during that period. Two periods are shown: 2014–2019 (red) and 2019–2024 (blue). The year 2014 is used as the starting point because it maximizes country coverage in the ECB DWA dataset. The periods are split to account for potential structural breaks around the COVID-19 pandemic and related policy interventions. Each point represents a country, and linear fits are shown separately for each period. The absence of a clear or consistent slope suggests that higher initial inequality does not robustly predict stronger house price growth.</p>
-<div style="page-break-after: always;"></div>
 </section>
-<section id="appendix-e-data-and-code" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="appendix-e-data-and-code">Appendix E: Data and Code</h3>
+<section id="appendix-h-data-and-code" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="appendix-h-data-and-code">Appendix H: Data and Code</h3>
 <p>Data and code used in this thesis are available online at <a href="https://doi.org/10.5281/zenodo.15856334">https://doi.org/10.5281/zenodo.15856334</a> or as a <a href="https://github.com/skriptum/inequality">GitHub Repository</a>. A</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -6272,6 +6291,12 @@ Hick, R., Pomati, M. &amp; Stephens, M. (2024): "Housing affordability and pover
 <div id="ref-hsiaoBayesEstimationShortrun1999" class="csl-entry" role="listitem">
 Hsiao, C., Pesaran, M. H. &amp; Tahmiscioglu, A. K. (1999): "<a href="https://doi.org/10.1017/CBO9780511493140.013">Bayes estimation of short-run coefficients in dynamic panel data models</a>" In: Hsiao, C., Pesaran, M. H., Lahiri, K., &amp; Lee, L. F. (eds.) <em>Analysis of <span>Panels</span> and <span>Limited Dependent Variable Models</span></em>. Cambridge University Press, pp. 268–296.
 </div>
+<div id="ref-jordaRateReturnEverything2019" class="csl-entry" role="listitem">
+Jordà, Ò., Knoll, K., Kuvshinov, D., Schularick, M. &amp; Taylor, A. M. (2019): "The <span>Rate</span> of <span>Return</span> on <span>Everything</span>, 1870–2015*" <em>The Quarterly Journal of Economics</em>, 134(3), pp. 1225–1298, doi:<a href="https://doi.org/10.1093/qje/qjz012">10.1093/qje/qjz012</a>.
+</div>
+<div id="ref-jordaLeveragedBubbles2015" class="csl-entry" role="listitem">
+Jordà, Ò., Schularick, M. &amp; Taylor, A. M. (2015): "Leveraged bubbles" <em>Journal of Monetary Economics</em>, 76, pp. S1–S20, doi:<a href="https://doi.org/10.1016/j.jmoneco.2015.08.005">10.1016/j.jmoneco.2015.08.005</a>.
+</div>
 <div id="ref-jordaGreatMortgagingHousing2016" class="csl-entry" role="listitem">
 Jordà, Ò., Schularick, M. &amp; Taylor, A. M. (2016): "The great mortgaging: Housing finance, crises and business cycles" <em>Economic Policy</em>, 31(85), pp. 107–152, doi:<a href="https://doi.org/10.1093/epolic/eiv017">10.1093/epolic/eiv017</a>.
 </div>
@@ -6280,6 +6305,9 @@ Kaas, L., Kocharkov, G. &amp; Preugschat, E. (2019): "Wealth <span>Inequality</s
 </div>
 <div id="ref-kaasLowHomeownershipGermany2021" class="csl-entry" role="listitem">
 Kaas, L., Kocharkov, G., Preugschat, E. &amp; Siassi, N. (2021): "Low <span>Homeownership</span> in <span>Germany</span>—a <span>Quantitative Exploration</span>" <em>Journal of the European Economic Association</em>, 19(1), pp. 128–164, doi:<a href="https://doi.org/10.1093/jeea/jvaa004">10.1093/jeea/jvaa004</a>.
+</div>
+<div id="ref-kavoniusDerivingHouseholdIndebtedness2016" class="csl-entry" role="listitem">
+Kavonius, I. K. &amp; Honkkila, J. (2016): "Deriving household indebtedness indicators by linking micro and macro balance sheet data" <em>Statistical Journal of the IAOS</em>, 32(4), pp. 693–708, doi:<a href="https://doi.org/10.3233/SJI-161017">10.3233/SJI-161017</a>.
 </div>
 <div id="ref-kimDynamicStockMarket2005" class="csl-entry" role="listitem">
 Kim, S. J., Moshirian, F. &amp; Wu, E. (2005): "Dynamic stock market integration driven by the <span>European Monetary Union</span>: <span>An</span> empirical analysis" <em>Journal of Banking &amp; Finance</em>, 29(10), pp. 2475–2502, doi:<a href="https://doi.org/10.1016/j.jbankfin.2004.09.002">10.1016/j.jbankfin.2004.09.002</a>.
