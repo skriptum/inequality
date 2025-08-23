@@ -213,11 +213,11 @@
       </if>
       <else>
         <group delimiter=". ">
-          <group delimiter=": ">
+          <group delimiter=" ">
             <text variable="publisher-place"/>
+            <text variable="number" prefix=" No. " suffix="."/>
             <text variable="publisher"/>
           </group>
-          <text macro="report-details"/>
         </group>
       </else>
     </choose>

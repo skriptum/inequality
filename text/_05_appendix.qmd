@@ -177,4 +177,4 @@ Dynamic Panel Regression
 
 ### Appendix H: Data and Code {.unnumbered}
 
-Data and code used in this thesis are available online at [https://doi.org/10.5281/zenodo.15856334](https://doi.org/10.5281/zenodo.15856334) or as a [GitHub Repository](https://github.com/skriptum/inequality). A
+The data and code used in this thesis are available online at [https://doi.org/10.5281/zenodo.15856334](https://doi.org/10.5281/zenodo.15856334) or as a [GitHub Repository](https://github.com/skriptum/inequality). 
