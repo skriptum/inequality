@@ -34,7 +34,6 @@ After presenting the data sources used in the analysis, the next section provide
 
 Wealth inequality reflects not only differences in levels but also in portfolio composition. The following descriptive evidence shows how assets are distributed across groups in the euro area, highlighting the structural differences that shape responses to price shocks.
 
-
 ::: {layout-ncol=2}
 ![Asset distribution among wealth groups](../output/desc/asset_distribution_decile.png){#fig-distribution}
 
@@ -47,7 +46,7 @@ These aggregate patterns mask considerable heterogeneity across countries. The p
 
 [^d1]: The complete breakdown for all european countries is provided in @fig-portfolio-indiv in Appendix C.
 
-shows how different asset classes are distributed across the wealth groups in the Eurozone. Housing wealth is the most evenly distributed, with the top 10% holding 47% of the total. Net wealth as a whole is somewhat more concentrated, with 57% in the top decile. The concentration is much stronger for financial wealth and business wealth, where the top decile controls 72% and 85% respectively. This highlights that while housing provides a broader base of wealth across the population, financial and business assets are largely restricted to the very top of the distribution.
+@fig-distribution shows how different asset classes are distributed across the wealth groups in the Eurozone. Housing wealth is the most evenly distributed, with the top 10% holding 47% of the total. Net wealth as a whole is somewhat more concentrated, with 57% in the top decile. The concentration is much stronger for financial wealth and business wealth, where the top decile controls 72% and 85% respectively. This highlights that while housing provides a broader base of wealth across the population, financial and business assets are largely restricted to the very top of the distribution.
 
 This sequence holds in all european countries, with the absolute numbers differing considerably[^d2]. While almost all financial wealth is owned by the top decile in Croatia and Greece, it is less than half in the Netherlands and Malta. For business wealth, the most significant share held by the top 10% is in Austria and Germany, while Greece and Cyprus feature the most equal distribution. In housing wealth, it is not the share of the top 10% that varies much, but the bottom 50%. In Germany, Austria and the Netherlands they possess below 2% of the asset, while their counterparts in Slovakia and Lithuania own more than 15%.
 

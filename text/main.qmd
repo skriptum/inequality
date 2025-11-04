@@ -50,8 +50,6 @@ format:
       - text: Code (GitHub) 
         href: https://github.com/skriptum/inequality/
     theme: litera
-  typst:
-    keep-typ: true
 
 execute:
   echo: false
